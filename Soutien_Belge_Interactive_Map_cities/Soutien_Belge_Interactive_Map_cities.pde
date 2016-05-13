@@ -102,7 +102,6 @@ void setup() {
   bodyFont = createFont("Helvetica", 20);
   
   
-  
   bel = new Country(loadImage("belgium.png"), false, false, belCities);
   lev = new Country(loadImage("middleeast.png"), false, false, levCities);
   
@@ -129,8 +128,6 @@ void setup() {
   closed = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
   future = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
   collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
-  
-  
   
   ellipseMode(CENTER);
   rectMode(CENTER);
@@ -162,7 +159,7 @@ void backButtonResponsive() {
 
 void backButtonColorResponsive() {
   if (!isMainScene) {
-    backButton();
+    showBackButton();
   }
   
   if (back_mouseOver) {
@@ -281,8 +278,8 @@ void changePageResponsive() {
 
 void cursorImageResponsive() {
   if (
-    (lev.mouseOver)
-    || (bel.mouseOver)
+    (lev.mouseOver())
+    || (bel.mouseOver())
     || (belCities[0].mouseOver)    
     || (levCities[0].mouseOver)    
     || (levCities[1].mouseOver)    
@@ -308,14 +305,13 @@ void cursorImageResponsive() {
 //////// INTERACTIVITY ////////
 ///////////////////////////////
 
-// all clickable parts - i.e. scene changes
 void mouseReleased() {
   if (back_mouseOver) {
-    mainScene();
-  } else if (lev.mouseOver) {
-    lev.scene();
-  } else if (bel.mouseOver) {
-    bel.scene();
+    showMainScene();
+  } else if (lev.mouseOver()) {
+    lev.displayScene();
+  } else if (bel.mouseOver()) {
+    bel.displayScene();
   } else if (belCities[0].mouseOver) {
     belCities[0].menuScene();
   } else if (levCities[0].mouseOver) {
@@ -425,19 +421,28 @@ void mouseReleased() {
 //////////// CLASSES ////////////
 /////////////////////////////////
 
-public class Country {
-  PImage pic;
-  boolean mouseOver, isScene;
-  City[] cities;
+public interface Clickable {
+  public boolean mouseOver();
+}
+
+public class Country implements Clickable {
+  public PImage pic;
+  public boolean mouseOver;
+  public boolean isScene;
+  public City[] cities;
   
-  Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
+  public Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
     pic = tempPic;
     mouseOver = tempmouseOver;
     isScene = tempIsScene;
     cities = tempCities;
   }
+  
+  public boolean mouseOver() {
+    return mouseOver;
+  }
    
-  void scene() {
+  public void displayScene() {
     image(pic, xc, yc);
     for (int i = 0; i < cities.length; i++) {
       cities[i].display();
@@ -634,7 +639,7 @@ void text_box() {
 }
 
 
-void mainScene() {
+void showMainScene() {
   background(mainmap);
   isMainScene = true;
   bel.isScene = false;
@@ -651,15 +656,15 @@ void mainScene() {
 void tintScene() {
   tint(155);
   if (bel.isScene) {
-    bel.scene();
+    bel.displayScene();
   } else if (lev.isScene) {
-    lev.scene();
+    lev.displayScene();
   }    
   noTint();
 }
 
 
-void backButton() {
+void showBackButton() {
   stroke(255);
   fill(buttonColor);
   rect(backX, backY, backW, backH, 7);
