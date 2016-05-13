@@ -87,8 +87,8 @@ Text future; //amman
 Text collect; //brussels & syria
 
 void setup() {
-  //size(1280, 800);
-  fullScreen();
+  size(1280, 800);
+  //fullScreen();
   smooth(8);
   
   mainmap = loadImage("main-map.png");
