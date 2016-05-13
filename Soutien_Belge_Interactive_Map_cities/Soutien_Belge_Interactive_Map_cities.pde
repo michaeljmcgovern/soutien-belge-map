@@ -143,136 +143,6 @@ void setup() {
 
 
 void draw() {
-  cursorResponsive();
-}
-
-
-
-
-///////////////////////////////
-//////// INTERACTIVITY ////////
-///////////////////////////////
-
-// all clickable parts - i.e. scene changes
-void mouseReleased() {
-  if (back_mouseOver) {
-    mainScene();
-  } else if (lev.mouseOver) {
-    lev.scene();
-  } else if (bel.mouseOver) {
-    bel.scene();
-  } else if (belCities[0].mouseOver) {
-    belCities[0].menuScene();
-  } else if (levCities[0].mouseOver) {
-    levCities[0].menuScene();
-  } else if (levCities[1].mouseOver) {
-    levCities[1].menuScene();
-  } else if (levCities[2].mouseOver) {
-    levCities[2].menuScene();
-  } else if (levCities[3].mouseOver) {
-    levCities[3].menuScene();
-  } else if (levCities[4].mouseOver) {
-    levCities[4].menuScene();
-  } else if (levCities[5].mouseOver) {
-    levCities[5].menuScene();
-  } 
-  
-  else if ((bel.isScene) && (youth.mouseOver)) {
-    splp.display();
-  } else if ((bel.isScene) && (child.mouseOver)) {
-    weekend.display();
-  } else if ((levCities[3].isMenu) && (youth.mouseOver)) {
-    bakery.display();
-  } else if ((levCities[4].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
-    closed.display();
-  } else if ((levCities[5].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
-    future.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver)) {
-    //women.scene();
-    womenCentre.display();
-  } else if ((lev.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver)) {
-    //women.scene();
-    youthSchool.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver)) {
-    //women.scene();
-    school.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver)) {
-    //women.scene();
-    psych.display();
-  }     
-  
-  if (isTextScene) {
-    if ((splp.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      splp.display();
-    } else if ((splp.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      splp.display();
-    } else if ((weekend.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      weekend.display();
-    } else if ((weekend.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      weekend.display();
-    } else if ((bakery.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      bakery.display();
-    } else if ((bakery.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      bakery.display();
-    } else if ((closed.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      closed.display();
-    } else if ((closed.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      closed.display();
-    } else if ((future.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      future.display();
-    } else if ((future.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      future.display();
-    } else if ((womenCentre.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      womenCentre.display();
-    } else if ((womenCentre.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      womenCentre.display();
-    } else if ((youthSchool.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      youthSchool.display();
-    } else if ((youthSchool.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      youthSchool.display();
-    } else if ((school.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      school.display();
-    } else if ((school.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      school.display();
-    } else if ((psych.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      psych.display();
-    } else if ((psych.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      psych.display();
-    } else if ((collect.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      collect.display();
-    } else if ((collect.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      collect.display();
-    } 
-  }
-  /*
-  school.pageChanger();
-  womenCentre.pageChanger();
-  */
-}
-
-
-//see bottom for responsiveness functions
-void cursorResponsive() {
   backButtonResponsive();
   backButtonColorResponsive();
   countriesResponsive();
@@ -281,348 +151,6 @@ void cursorResponsive() {
   changePageResponsive();
   cursorImageResponsive();
 }
-
-
-
-////////////////////////////////
-//////// OBJECT CLASSES ////////
-////////////////////////////////
-
-class Country {
-  PImage pic;
-  boolean mouseOver, isScene;
-  City[] cities;
-  
-  Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
-    pic = tempPic;
-    mouseOver = tempmouseOver;
-    isScene = tempIsScene;
-    cities = tempCities;
-  }
-   
-  void scene() {
-    image(pic, xc, yc);
-    for (int i = 0; i < cities.length; i++) {
-      cities[i].display();
-    }
-    isMainScene = false;
-    isScene = true;
-  }
-}
-
-
-
-
-
-
-
-class City {
-  String name;
-  boolean mouseOver, isMenu;
-  int x, y;
-  int numberColors;
-  String blue, green, pink, yellow;
-  
-  City(String tempName, boolean tempMouseOver, boolean tempIsMenu, int tempX, int tempY, int tempNumberColors, String tempBlue, String tempGreen, String tempPink, String tempYellow) {
-    name = tempName;
-    mouseOver = tempMouseOver;
-    isMenu = tempIsMenu;
-    x = tempX;
-    y = tempY;
-    numberColors = tempNumberColors;
-    blue = tempBlue;
-    green = tempGreen;
-    pink = tempPink;
-    yellow = tempYellow;    
-  }
-  
-  void display() {
-    image(logoInner, x, y, d, d);
-    fill(0,0,0);
-    textFont(cityFont);
-    textAlign(LEFT, CENTER);
-    text(name, x + 3*d/4, y);
-  }
-  
-  void menuScene() {
-    isMenuScene = true;
-    isMenu = true;
-    tintScene();
-    image(logo, 900, yc, 400, 400);
-    chooseDrawMenuButtons();
-    
-    isMainScene = false;
-  }
-  
-  void chooseDrawMenuButtons() {
-    if (yellow == "null") {
-      fill(180);
-      women.button();
-      women.exist = false;
-    } else {
-      fill(255);
-      women.button();
-      women.exist = true;
-    } 
-
-    if (green == "null") {
-      fill(180);
-      youth.button();
-      youth.exist = false;
-    } else {
-      fill(255);
-      youth.button();
-      youth.exist = true;
-    } 
-    
-    if (blue == "null") {
-      fill(180);
-      child.button();
-      child.exist = false;
-    } else {
-      fill(255); 
-      child.button();
-      child.exist = true;
-    }
-    
-    if (pink == "null") {
-      fill(180);
-      aid.button();
-      aid.exist = false;
-    } else {
-      fill(255);
-      aid.button();
-      aid.exist = true;
-    }
-  }
-  
-  
-}
-
-
-
-
-class Theme {
-  String name;
-  boolean mouseOver, exist;
-  float y;
-  PImage themeLogo;
-  
-  Theme(String tempName, float tempY, PImage tempThemeLogo, boolean tempMouseOver, boolean tempExist) {
-    name = tempName;
-    y = tempY;
-    themeLogo = tempThemeLogo;
-    mouseOver = tempMouseOver;
-    exist = tempExist;
-  }
-  
-  void button() {
-    //fill(255, 255, 255);
-    rect(themeX, y, themeW, themeH);
-    fill(0, 0, 0);
-    textFont(themeFont);
-    textAlign(CENTER, CENTER);
-    text(name, themeX, y, themeW, themeH);
-  }
-
-  /*
-  void scene() {
-    tintScene();
-    bel.isScene = false;
-    lev.isScene = false;
-    isMenuScene = false;
-    isTextScene = true;
-    noTint();
-  }
-  */
-  
-  void logo() {
-    image(themeLogo, 900, yc, 400, 400);
-  }
-}
-
-
-
-
-
-
-class Text {
-  boolean isText;
-  String title, text, text1, text2, text3, text4;
-  PImage image1, image2, image3, image4;
-  
-  Text(String tempTitle, boolean tempIsText, String tempText1, String tempText2, String tempText3, String tempText4/*, PImage tempImage1, PImage tempImage2, PImage tempImage3, PImage tempImage3*/) {
-    isText = tempIsText;
-    title = tempTitle;
-    text1 = tempText1;
-    text2 = tempText2;
-    text3 = tempText3;
-    text4 = tempText4;
-    
-    /*
-    image1 = tempImage1;
-    image2 = tempImage2;
-    image3 = tempImage3;
-    image4 = tempImage4;
-    */
-  }
-  
-  void display() {
-    isTextScene = true;
-    isText = true;
-    
-    pageChanger();
-    
-    //textbox
-    fill(255,255,255);
-    rect(xc*1.5, yc*1.5, xc, yc);    
-    
-    //title
-    fill(0, 0, 0);
-    textAlign(CENTER, CENTER);
-    textFont(titleFont);
-    text(title, xc*1.5, yc + 50, xc, 100);
-    
-    //body text
-    textFont(bodyFont);
-    if (currentPage == 1) {
-      text(text1, xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
-      //image(image1, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 2) {
-      text(text2, xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
-      prevPageButton();
-      //image(image2, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 3) {
-      text(text3, xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
-      prevPageButton();
-      //image(image3, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 4) {
-      text(text4, xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      prevPageButton();
-      //image(image4, xc/2, yc/2, xc, yc);
-    }
-  }
-  
-  void pageChanger() {
-    if ((isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      display();
-    } else if ((isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      display();
-    }
-  }
-}
-
-
-
-////////////////////////////////
-//////// TEXT BOX STUFF ////////
-////////////////////////////////
-
-void text_box() {
-  fill(255,255,255);
-  rect(xc*1.5, yc*1.5, xc, yc);
-}
-
-
-void mainScene() {
-  background(mainmap);
-  isMainScene = true;
-  bel.isScene = false;
-  lev.isScene = false;
-  isMenuScene = false;
-  for (int i = 0; i < levCities.length; i++) {
-    levCities[i].isMenu = false;
-  }
-  belCities[0].isMenu = false;
-  isTextScene = false;
-  
-}
-
-void tintScene() {
-  tint(155);
-  if (bel.isScene) {
-    bel.scene();
-  } else if (lev.isScene) {
-    lev.scene();
-  }    
-  noTint();
-}
-
-
-void backButton() {
-  stroke(255);
-  fill(buttonColor);
-  rect(backX, backY, backW, backH, 7);
-  fill(255, 255, 255);
-  textFont(backFont);
-  textAlign(CENTER, CENTER);
-  text("Back", backX, backY, backW, backH);
-}
-
-void prevPageButton() {
-  fill(255,0,0);
-  ellipse(ppbX, cpbY, cpbD, cpbD);
-}
-
-void nextPageButton() {
-  fill(255,0,0);
-  ellipse(npbX, cpbY, cpbD, cpbD);
-}
-
-/*
-void selectTheme() {
-  womenButton();
-  youthButton();
-  childButton();
-  aidButton();
-};
-*/
-
-//////////////////////////////
-//////// TEST CIRCLES ////////
-//////////////////////////////
-
-void test_circle() {
-  fill(255, 0, 0);
-  ellipse(25, 25, 50, 50);
-}
-
-void test_circle1() {
-  fill(255, 0, 0);
-  ellipse(width - 25, 25, 50, 50);
-}
-
-void test_circle2() {
-  fill(255, 0, 0);
-  ellipse(width - 25, height - 25, 50, 50);
-}
-
-void test_circle3() {
-  fill(255, 0, 0);
-  ellipse(25, height - 25, 50, 50);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////
-//////// CURSOR RESPONSIVENESS ////////
-///////////////////////////////////////
 
 void backButtonResponsive() {
   if ((!isMainScene) && (mouseX >= backM) && (mouseX <= backM + backW) &&  (mouseY >= height - backH - backM) && (mouseY <= height - backM)) {
@@ -774,4 +302,403 @@ void cursorImageResponsive() {
   
   else  {cursor(ARROW);}
 
+}
+
+///////////////////////////////
+//////// INTERACTIVITY ////////
+///////////////////////////////
+
+// all clickable parts - i.e. scene changes
+void mouseReleased() {
+  if (back_mouseOver) {
+    mainScene();
+  } else if (lev.mouseOver) {
+    lev.scene();
+  } else if (bel.mouseOver) {
+    bel.scene();
+  } else if (belCities[0].mouseOver) {
+    belCities[0].menuScene();
+  } else if (levCities[0].mouseOver) {
+    levCities[0].menuScene();
+  } else if (levCities[1].mouseOver) {
+    levCities[1].menuScene();
+  } else if (levCities[2].mouseOver) {
+    levCities[2].menuScene();
+  } else if (levCities[3].mouseOver) {
+    levCities[3].menuScene();
+  } else if (levCities[4].mouseOver) {
+    levCities[4].menuScene();
+  } else if (levCities[5].mouseOver) {
+    levCities[5].menuScene();
+  } 
+  
+  else if ((bel.isScene) && (youth.mouseOver)) {
+    splp.display();
+  } else if ((bel.isScene) && (child.mouseOver)) {
+    weekend.display();
+  } else if ((levCities[3].isMenu) && (youth.mouseOver)) {
+    bakery.display();
+  } else if ((levCities[4].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
+    closed.display();
+  } else if ((levCities[5].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
+    future.display();
+  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver)) {
+    //women.scene();
+    womenCentre.display();
+  } else if ((lev.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver)) {
+    //women.scene();
+    youthSchool.display();
+  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver)) {
+    //women.scene();
+    school.display();
+  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver)) {
+    //women.scene();
+    psych.display();
+  }     
+  
+  if (isTextScene) {
+    if ((splp.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      splp.display();
+    } else if ((splp.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      splp.display();
+    } else if ((weekend.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      weekend.display();
+    } else if ((weekend.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      weekend.display();
+    } else if ((bakery.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      bakery.display();
+    } else if ((bakery.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      bakery.display();
+    } else if ((closed.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      closed.display();
+    } else if ((closed.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      closed.display();
+    } else if ((future.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      future.display();
+    } else if ((future.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      future.display();
+    } else if ((womenCentre.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      womenCentre.display();
+    } else if ((womenCentre.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      womenCentre.display();
+    } else if ((youthSchool.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      youthSchool.display();
+    } else if ((youthSchool.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      youthSchool.display();
+    } else if ((school.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      school.display();
+    } else if ((school.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      school.display();
+    } else if ((psych.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      psych.display();
+    } else if ((psych.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      psych.display();
+    } else if ((collect.isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      collect.display();
+    } else if ((collect.isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      collect.display();
+    } 
+  }
+}
+
+/////////////////////////////////
+//////////// CLASSES ////////////
+/////////////////////////////////
+
+public class Country {
+  PImage pic;
+  boolean mouseOver, isScene;
+  City[] cities;
+  
+  Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
+    pic = tempPic;
+    mouseOver = tempmouseOver;
+    isScene = tempIsScene;
+    cities = tempCities;
+  }
+   
+  void scene() {
+    image(pic, xc, yc);
+    for (int i = 0; i < cities.length; i++) {
+      cities[i].display();
+    }
+    isMainScene = false;
+    isScene = true;
+  }
+}
+
+public class City {
+  String name;
+  boolean mouseOver, isMenu;
+  int x, y;
+  int numberColors;
+  String blue, green, pink, yellow;
+  
+  City(String tempName, boolean tempMouseOver, boolean tempIsMenu, int tempX, int tempY, int tempNumberColors, String tempBlue, String tempGreen, String tempPink, String tempYellow) {
+    name = tempName;
+    mouseOver = tempMouseOver;
+    isMenu = tempIsMenu;
+    x = tempX;
+    y = tempY;
+    numberColors = tempNumberColors;
+    blue = tempBlue;
+    green = tempGreen;
+    pink = tempPink;
+    yellow = tempYellow;    
+  }
+  
+  void display() {
+    image(logoInner, x, y, d, d);
+    fill(0,0,0);
+    textFont(cityFont);
+    textAlign(LEFT, CENTER);
+    text(name, x + 3*d/4, y);
+  }
+  
+  void menuScene() {
+    isMenuScene = true;
+    isMenu = true;
+    tintScene();
+    image(logo, 900, yc, 400, 400);
+    chooseDrawMenuButtons();
+    
+    isMainScene = false;
+  }
+  
+  void chooseDrawMenuButtons() {
+    if (yellow == "null") {
+      fill(180);
+      women.button();
+      women.exist = false;
+    } else {
+      fill(255);
+      women.button();
+      women.exist = true;
+    } 
+
+    if (green == "null") {
+      fill(180);
+      youth.button();
+      youth.exist = false;
+    } else {
+      fill(255);
+      youth.button();
+      youth.exist = true;
+    } 
+    
+    if (blue == "null") {
+      fill(180);
+      child.button();
+      child.exist = false;
+    } else {
+      fill(255); 
+      child.button();
+      child.exist = true;
+    }
+    
+    if (pink == "null") {
+      fill(180);
+      aid.button();
+      aid.exist = false;
+    } else {
+      fill(255);
+      aid.button();
+      aid.exist = true;
+    }
+  }
+  
+  
+}
+
+public class Theme {
+  String name;
+  boolean mouseOver, exist;
+  float y;
+  PImage themeLogo;
+  
+  Theme(String tempName, float tempY, PImage tempThemeLogo, boolean tempMouseOver, boolean tempExist) {
+    name = tempName;
+    y = tempY;
+    themeLogo = tempThemeLogo;
+    mouseOver = tempMouseOver;
+    exist = tempExist;
+  }
+  
+  void button() {
+    //fill(255, 255, 255);
+    rect(themeX, y, themeW, themeH);
+    fill(0, 0, 0);
+    textFont(themeFont);
+    textAlign(CENTER, CENTER);
+    text(name, themeX, y, themeW, themeH);
+  }
+
+  void logo() {
+    image(themeLogo, 900, yc, 400, 400);
+  }
+}
+
+public class Text {
+  boolean isText;
+  String title, text, text1, text2, text3, text4;
+  PImage image1, image2, image3, image4;
+  
+  Text(String tempTitle, boolean tempIsText, String tempText1, String tempText2, String tempText3, String tempText4/*, PImage tempImage1, PImage tempImage2, PImage tempImage3, PImage tempImage3*/) {
+    isText = tempIsText;
+    title = tempTitle;
+    text1 = tempText1;
+    text2 = tempText2;
+    text3 = tempText3;
+    text4 = tempText4;
+  }
+  
+  void display() {
+    isTextScene = true;
+    isText = true;
+    
+    pageChanger();
+    
+    //textbox
+    fill(255,255,255);
+    rect(xc*1.5, yc*1.5, xc, yc);    
+    
+    //title
+    fill(0, 0, 0);
+    textAlign(CENTER, CENTER);
+    textFont(titleFont);
+    text(title, xc*1.5, yc + 50, xc, 100);
+    
+    //body text
+    textFont(bodyFont);
+    if (currentPage == 1) {
+      text(text1, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      nextPageButton();
+      //image(image1, xc/2, yc/2, xc, yc);
+    } else if (currentPage == 2) {
+      text(text2, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      nextPageButton();
+      prevPageButton();
+      //image(image2, xc/2, yc/2, xc, yc);
+    } else if (currentPage == 3) {
+      text(text3, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      nextPageButton();
+      prevPageButton();
+      //image(image3, xc/2, yc/2, xc, yc);
+    } else if (currentPage == 4) {
+      text(text4, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      prevPageButton();
+      //image(image4, xc/2, yc/2, xc, yc);
+    }
+  }
+  
+  void pageChanger() {
+    if ((isText) && (nextPage_mouseOver)) {
+      currentPage += 1;
+      display();
+    } else if ((isText) && (prevPage_mouseOver)) {
+      currentPage -= 1;
+      display();
+    }
+  }
+}
+
+
+
+////////////////////////////////
+//////// TEXT BOX STUFF ////////
+////////////////////////////////
+
+void text_box() {
+  fill(255,255,255);
+  rect(xc*1.5, yc*1.5, xc, yc);
+}
+
+
+void mainScene() {
+  background(mainmap);
+  isMainScene = true;
+  bel.isScene = false;
+  lev.isScene = false;
+  isMenuScene = false;
+  for (int i = 0; i < levCities.length; i++) {
+    levCities[i].isMenu = false;
+  }
+  belCities[0].isMenu = false;
+  isTextScene = false;
+  
+}
+
+void tintScene() {
+  tint(155);
+  if (bel.isScene) {
+    bel.scene();
+  } else if (lev.isScene) {
+    lev.scene();
+  }    
+  noTint();
+}
+
+
+void backButton() {
+  stroke(255);
+  fill(buttonColor);
+  rect(backX, backY, backW, backH, 7);
+  fill(255, 255, 255);
+  textFont(backFont);
+  textAlign(CENTER, CENTER);
+  text("Back", backX, backY, backW, backH);
+}
+
+void prevPageButton() {
+  fill(255,0,0);
+  ellipse(ppbX, cpbY, cpbD, cpbD);
+}
+
+void nextPageButton() {
+  fill(255,0,0);
+  ellipse(npbX, cpbY, cpbD, cpbD);
+}
+
+//////////////////////////////
+//////// TEST CIRCLES ////////
+//////////////////////////////
+
+void test_circle() {
+  fill(255, 0, 0);
+  ellipse(25, 25, 50, 50);
+}
+
+void test_circle1() {
+  fill(255, 0, 0);
+  ellipse(width - 25, 25, 50, 50);
+}
+
+void test_circle2() {
+  fill(255, 0, 0);
+  ellipse(width - 25, height - 25, 50, 50);
+}
+
+void test_circle3() {
+  fill(255, 0, 0);
+  ellipse(25, height - 25, 50, 50);
 }
