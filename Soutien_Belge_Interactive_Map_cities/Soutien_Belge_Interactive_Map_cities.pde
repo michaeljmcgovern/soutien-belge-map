@@ -58,10 +58,8 @@ float cpbY = height - 20;
 float cpbD = 25;
 boolean isTextScene;
 int currentPage = 1;
-/*boolean isText1;
-boolean isText2;
-boolean isText3;
-*/
+
+Clickable backButton = new BackButton();
 
 Country belgium;
 Country levant;
@@ -353,6 +351,18 @@ void mouseReleased() {
 
 public interface Clickable {
   public boolean mouseOver();
+}
+
+public class BackButton implements Clickable {
+  private boolean mouseOver;
+  
+  public BackButton() {
+    mouseOver = false;
+  }
+  
+  public boolean mouseOver() {
+    return mouseOver;
+  }
 }
 
 public class Country implements Clickable {
