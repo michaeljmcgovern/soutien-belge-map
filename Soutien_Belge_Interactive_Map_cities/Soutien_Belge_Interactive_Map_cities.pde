@@ -224,9 +224,9 @@ void mouseReleased() {
   if (backButton.mouseOver()) {
     backButton.respond();
   } else if (levant.mouseOver()) {
-    levant.displayScene();
+    levant.respond();
   } else if (belgium.mouseOver()) {
-    belgium.displayScene();
+    belgium.respond();
   } else if (cities[0].mouseOver()) {
     cities[0].menuScene();
   } else if (cities[1].mouseOver()) {
@@ -418,6 +418,10 @@ public class Country implements Clickable {
     this.isScene = isScene;
     this.cities = cities;
     this.colors = colors;
+  }
+  
+  public void respond() {
+    displayScene();
   }
  
   public void responsive() {
