@@ -43,6 +43,14 @@ BackButton backButton = new BackButton();
 Country belgium;
 Country levant;
 
+City brussels;
+City beirut;
+City arsal;
+City damascus;
+City aleppo;
+City kilis;
+City amman;
+
 City[] cities = new City[7];
 
 City[] belCities = new City[1];
@@ -84,21 +92,29 @@ void setup() {
   belgium = new Country(loadImage("belgium.png"), false, false, belCities, yel);
   levant = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
   
-  belCities[0] = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
-  levCities[0] = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
-  levCities[1] = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
-  levCities[2] = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
-  levCities[3] = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
-  levCities[4] = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
-  levCities[5] = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
+  brussels = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
+  beirut = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
+  arsal = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
+  damascus = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
+  aleppo = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
+  kilis = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
+  amman = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
   
-  cities[0] = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
-  cities[1] = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
-  cities[2] = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
-  cities[3] = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
-  cities[4] = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
-  cities[5] = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
-  cities[6] = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
+  belCities[0] = brussels;
+  levCities[0] = beirut;
+  levCities[1] = arsal;
+  levCities[2] = damascus;
+  levCities[3] = aleppo;
+  levCities[4] = kilis;
+  levCities[5] = amman;
+  
+  cities[0] = brussels;
+  cities[1] = beirut;
+  cities[2] = arsal;
+  cities[3] = damascus;
+  cities[4] = aleppo;
+  cities[5] = kilis;
+  cities[6] = amman;
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), false, false);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
@@ -231,22 +247,22 @@ void mouseReleased() {
     splp.display();
   } else if ((belgium.isScene) && (child.mouseOver())) {
     weekend.display();
-  } else if ((levCities[3].isMenu) && (youth.mouseOver())) {
+  } else if ((aleppo.isMenu) && (youth.mouseOver())) {
     bakery.display();
-  } else if ((levCities[4].isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
+  } else if ((kilis.isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
     closed.display();
-  } else if ((levCities[5].isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
+  } else if ((amman.isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
     future.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver())) {
+  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (women.mouseOver())) {
     //women.scene();
     womenCentre.display();
-  } else if ((levant.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver())) {
+  } else if ((levant.isScene) && (!aleppo.isMenu) && (!kilis.isMenu) && (!amman.isMenu) && (youth.mouseOver())) {
     //women.scene();
     youthSchool.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver())) {
+  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (child.mouseOver())) {
     //women.scene();
     school.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver())) {
+  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (aid.mouseOver())) {
     //women.scene();
     psych.display();
   }     
