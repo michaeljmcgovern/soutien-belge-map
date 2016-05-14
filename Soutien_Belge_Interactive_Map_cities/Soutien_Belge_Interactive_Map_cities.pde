@@ -452,41 +452,41 @@ public class City implements Clickable {
     if (yellow == "null") {
       fill(180);
       women.button();
-      women.exist = false;
+      women.exists = false;
     } else {
       fill(255);
       women.button();
-      women.exist = true;
+      women.exists = true;
     } 
 
     if (green == "null") {
       fill(180);
       youth.button();
-      youth.exist = false;
+      youth.exists = false;
     } else {
       fill(255);
       youth.button();
-      youth.exist = true;
+      youth.exists = true;
     } 
     
     if (blue == "null") {
       fill(180);
       child.button();
-      child.exist = false;
+      child.exists = false;
     } else {
       fill(255); 
       child.button();
-      child.exist = true;
+      child.exists = true;
     }
     
     if (pink == "null") {
       fill(180);
       aid.button();
-      aid.exist = false;
+      aid.exists = false;
     } else {
       fill(255);
       aid.button();
-      aid.exist = true;
+      aid.exists = true;
     }
   }
   
@@ -496,20 +496,20 @@ public class City implements Clickable {
 public class Theme implements Clickable {
   private final String name;
   private boolean mouseOver;
-  public boolean exist;
+  public boolean exists;
   private float y;
   private final PImage themeLogo;
   
-  public Theme(String name, float y, PImage themeLogo, boolean mouseOver, boolean exist) {
+  public Theme(String name, float y, PImage themeLogo, boolean mouseOver, boolean exists) {
     this.name = name;
     this.y = y;
     this.themeLogo = themeLogo;
     this.mouseOver = mouseOver;
-    this.exist = exist;
+    this.exists = exists;
   }
   
   public void responsive() {
-    if ((isMenuScene) && (exist) && (mouseWithinThemeArea())) {
+    if ((isMenuScene) && (exists) && (mouseWithinThemeArea())) {
       mouseOver = true;
       logo();
       cursor(HAND);
@@ -540,20 +540,19 @@ public class Theme implements Clickable {
 }
 
 public class Text {
-  boolean isText;
-  String title, text, text1, text2, text3, text4;
-  PImage image1, image2, image3, image4;
+  public boolean isText;
+  private final String title, text1, text2, text3, text4;
   
-  Text(String tempTitle, boolean tempIsText, String tempText1, String tempText2, String tempText3, String tempText4/*, PImage tempImage1, PImage tempImage2, PImage tempImage3, PImage tempImage3*/) {
-    isText = tempIsText;
-    title = tempTitle;
-    text1 = tempText1;
-    text2 = tempText2;
-    text3 = tempText3;
-    text4 = tempText4;
+  public Text(String title, boolean isText, String text1, String text2, String text3, String text4) {
+    this.isText = isText;
+    this.title = title;
+    this.text1 = text1;
+    this.text2 = text2;
+    this.text3 = text3;
+    this.text4 = text4;
   }
   
-  void display() {
+  public void display() {
     isTextScene = true;
     isText = true;
     
@@ -592,7 +591,7 @@ public class Text {
     }
   }
   
-  void pageChanger() {
+  public void pageChanger() {
     if ((isText) && (nextPage_mouseOver)) {
       currentPage += 1;
       display();
