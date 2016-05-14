@@ -222,7 +222,7 @@ void cursorImageResponsive() {
 
 void mouseReleased() {
   if (backButton.mouseOver()) {
-    showMainScene();
+    backButton.respond();
   } else if (levant.mouseOver()) {
     levant.displayScene();
   } else if (belgium.mouseOver()) {
@@ -354,6 +354,18 @@ public class BackButton implements Clickable {
   public BackButton() {
     mouseOver = false;
     buttonColor = color(200, 0, 50);
+  }
+  
+  public void respond() {
+    background(mainmap);
+    isMainScene = true;
+    belgium.isScene = false;
+    levant.isScene = false;
+    isMenuScene = false;
+    for (int i = 0; i < cities.length; i++) {
+      cities[i].isMenu = false;
+    }
+    isTextScene = false;
   }
   
   public void display() {
@@ -649,20 +661,6 @@ public class Text {
 void text_box() {
   fill(255,255,255);
   rect(xc*1.5, yc*1.5, xc, yc);
-}
-
-
-void showMainScene() {
-  background(mainmap);
-  isMainScene = true;
-  belgium.isScene = false;
-  levant.isScene = false;
-  isMenuScene = false;
-  for (int i = 0; i < cities.length; i++) {
-    cities[i].isMenu = false;
-  }
-  isTextScene = false;
-  
 }
 
 void tintScene() {
