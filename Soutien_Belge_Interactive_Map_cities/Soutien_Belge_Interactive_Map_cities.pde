@@ -21,9 +21,6 @@ boolean isMenuScene = false;
 boolean prevPage_mouseOver = false;
 boolean nextPage_mouseOver = false;
 
-
-color buttonColor;
-
 int d = 50;
 
 int width = 1280;
@@ -127,7 +124,6 @@ void setup() {
 
 void draw() {
   backButtonResponsive();
-  backButtonColorResponsive();
   countriesResponsive();
   citiesResponsive();
   themeMenuResponsive();
@@ -137,18 +133,6 @@ void draw() {
 
 void backButtonResponsive() {
   backButton.responsive();
-}
-
-void backButtonColorResponsive() {
-  if (!isMainScene) {
-    backButton.display();
-  }
-  
-  if (backButton.mouseOver()) {
-    buttonColor = color(0, 0, 50);
-  } else {
-    buttonColor = color(200, 0, 50);
-  }
 }
 
 void countriesResponsive() {
@@ -340,9 +324,11 @@ public interface Clickable {
 
 public class BackButton implements Clickable {
   private boolean mouseOver;
+  private color buttonColor;
   
   public BackButton() {
     mouseOver = false;
+    buttonColor = color(200, 0, 50);
   }
   
   public void display() {
@@ -356,10 +342,24 @@ public class BackButton implements Clickable {
   }
   
   public void responsive() {
+    if (!isMainScene) {
+      display();
+    }
+    
     if ((!isMainScene) && (mouseX >= backM) && (mouseX <= backM + backW) &&  (mouseY >= height - backH - backM) && (mouseY <= height - backM)) {
         mouseOver = true;
     } else {
         mouseOver = false;
+    }
+    
+    colorResponsive();
+  }
+  
+  private void colorResponsive() {
+    if (backButton.mouseOver()) {
+      buttonColor = color(0, 0, 50);
+    } else {
+      buttonColor = color(200, 0, 50);
     }
   }
   
@@ -649,17 +649,6 @@ void tintScene() {
     levant.displayScene();
   }    
   noTint();
-}
-
-
-void showBackButton() {
-  stroke(255);
-  fill(buttonColor);
-  rect(backX, backY, backW, backH, 7);
-  fill(255, 255, 255);
-  textFont(backFont);
-  textAlign(CENTER, CENTER);
-  text("Back", backX, backY, backW, backH);
 }
 
 void prevPageButton() {
