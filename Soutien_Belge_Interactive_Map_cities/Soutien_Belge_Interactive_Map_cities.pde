@@ -75,13 +75,11 @@ Text aidText = new Text("Psychological Support Centres", false, "psych1", "psych
 
 Text brusselsChildrenText = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
 Text brusselsYouthText = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
-Text aleppoYouthText = new Text("Bakery", false, "bakery1");
-Text kilisText = new Text("Kilis - closed", false, "closed1");
-Text ammanText = new Text("Amman - TBD", false, "future1", "future2");
+Text aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "null");
+Text kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
+Text ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
 
 Text collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
-
-Text nullText = new Text("null", false);
 
 void setup() {
   size(1280, 800);
@@ -102,13 +100,13 @@ void setup() {
   belgium = new Country(loadImage("belgium.png"), false, false, belCities, yel);
   levant = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
   
-  brussels = new City("Brussels", belgium, false, false, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
-  beirut = new City("Beirut", levant, false, false, 285, 453, womenText, nullText, childrenText, aidText);
-  arsal = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, womenText, nullText, childrenText, aidText);
-  damascus = new City("Damascus", levant, false, false, 343, 484, womenText, nullText, childrenText, aidText);
-  aleppo = new City("Aleppo", levant, false, false, 407, 235, womenText, aleppoYouthText, childrenText, aidText);
-  kilis = new City("Kilis", levant, false, false, 406, 190, kilisText, kilisText, kilisText, kilisText);
-  amman = new City("Amman", levant, false, false, 316, 625, ammanText, ammanText, ammanText, ammanText);
+  brussels = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
+  beirut = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
+  arsal = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
+  damascus = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
+  aleppo = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
+  kilis = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
+  amman = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -472,20 +470,20 @@ public class City implements Clickable {
   private boolean mouseOver;
   public boolean isMenu;
   private final int x, y;
-  private final String childrenText, youthText, aidText, womenText;
+  private final String blue, green, pink, yellow;
   private final Country location;
   
-  public City(String name, Country location, boolean mouseOver, boolean isMenu, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
+  public City(String name, Country location, boolean mouseOver, boolean isMenu, int x, int y, String blue, String green, String pink, String yellow) {
     this.name = name;
     this.location = location;
     this.mouseOver = mouseOver;
     this.isMenu = isMenu;
     this.x = x;
     this.y = y;
-    this.womenText = womenText.title; 
-    this.youthText = youthText.title; 
-    this.childrenText = childrenText.title;
-    this.aidText = aidText.title;  
+    this.blue = blue;
+    this.green = green;
+    this.pink = pink;
+    this.yellow = yellow;    
   }
   
   public void respond() {
@@ -519,7 +517,7 @@ public class City implements Clickable {
   }
   
   public void chooseDrawMenuButtons() {
-    if (womenText == "null") {
+    if (yellow == "null") {
       fill(180);
       women.button();
       women.exists = false;
@@ -529,7 +527,7 @@ public class City implements Clickable {
       women.exists = true;
     } 
 
-    if (youthText == "null") {
+    if (green == "null") {
       fill(180);
       youth.button();
       youth.exists = false;
@@ -539,7 +537,7 @@ public class City implements Clickable {
       youth.exists = true;
     } 
     
-    if (childrenText == "null") {
+    if (blue == "null") {
       fill(180);
       children.button();
       children.exists = false;
@@ -549,7 +547,7 @@ public class City implements Clickable {
       children.exists = true;
     }
     
-    if (aidText == "null") {
+    if (pink == "null") {
       fill(180);
       aid.button();
       aid.exists = false;
