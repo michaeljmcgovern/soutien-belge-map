@@ -31,12 +31,6 @@ float themeX = 200;
 float themeW = 200;
 float themeH = 100;
 
-int backW = 90;
-int backH = 50;
-int backM = 15;
-int backX = backW/2 + backM;
-int backY = height - backH/2 - backM;
-
 float ppbX = xc*1.5 - 20;
 float npbX = xc*1.5 + 20;
 float cpbY = height - 20;
@@ -326,6 +320,12 @@ public class BackButton implements Clickable {
   private boolean mouseOver;
   private color buttonColor;
   
+  private final int w = 90;
+  private final int h = 50;
+  private final int m = 15;
+  private final int x = w/2 + m;
+  private final int y = height - h/2 - m;
+  
   public BackButton() {
     mouseOver = false;
     buttonColor = color(200, 0, 50);
@@ -334,11 +334,11 @@ public class BackButton implements Clickable {
   public void display() {
     stroke(255);
     fill(buttonColor);
-    rect(backX, backY, backW, backH, 7);
+    rect(x, y, w, h, 7);
     fill(255, 255, 255);
     textFont(backFont);
     textAlign(CENTER, CENTER);
-    text("Back", backX, backY, backW, backH);
+    text("Back", x, y, w, h);
   }
   
   public void responsive() {
@@ -346,7 +346,7 @@ public class BackButton implements Clickable {
       display();
     }
     
-    if ((!isMainScene) && (mouseX >= backM) && (mouseX <= backM + backW) &&  (mouseY >= height - backH - backM) && (mouseY <= height - backM)) {
+    if ((!isMainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m)) {
         mouseOver = true;
     } else {
         mouseOver = false;
