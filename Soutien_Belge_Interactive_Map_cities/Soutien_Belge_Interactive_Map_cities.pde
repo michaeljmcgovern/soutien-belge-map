@@ -202,15 +202,18 @@ void changePageResponsive() {
 }
 
 void cursorImageResponsive() {
-  for (Clickable clickable : clickables) {
-    if (clickable.mouseOver()) {
-      cursor(HAND);
-      return;
-    }
-  }
-    
   if (
-    ((women.mouseOver())
+    (levant.mouseOver())
+    || (belgium.mouseOver())
+    || (cities[0].mouseOver())    
+    || (cities[1].mouseOver())    
+    || (cities[2].mouseOver())    
+    || (cities[3].mouseOver())    
+    || (cities[4].mouseOver())    
+    || (cities[5].mouseOver())    
+    || (cities[6].mouseOver())    
+    || (backButton.mouseOver())
+    || (women.mouseOver())
     || (youth.mouseOver())
     || (children.mouseOver())
     || (aid.mouseOver()) 
