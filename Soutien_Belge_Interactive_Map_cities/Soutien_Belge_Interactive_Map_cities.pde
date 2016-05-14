@@ -63,8 +63,8 @@ boolean isText2;
 boolean isText3;
 */
 
-Country bel;
-Country lev;
+Country belgium;
+Country levant;
 
 City[] belCities = new City[1];
 City[] levCities = new City[6];
@@ -102,16 +102,16 @@ void setup() {
   bodyFont = createFont("Helvetica", 20);
   
   
-  bel = new Country(loadImage("belgium.png"), false, false, belCities, yel);
-  lev = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
+  belgium = new Country(loadImage("belgium.png"), false, false, belCities, yel);
+  levant = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
   
-  belCities[0] = new City("Brussels", false, false, 610, 295, "weekend", "splp", "null", "null");
-  levCities[0] = new City("Beirut", false, false, 285, 453, "school", "null", "psych", "women");
-  levCities[1] = new City("Arsal, Bekaa Valley", false, false, 358, 424, "school", "null", "psych", "women");
-  levCities[2] = new City("Damascus", false, false, 343, 484, "school", "null", "psych", "women");
-  levCities[3] = new City("Aleppo", false, false, 407, 235, "school", "bakery", "collect", "women");
-  levCities[4] = new City("Kilis", false, false, 406, 190, "closed", "null", "null", "null");
-  levCities[5] = new City("Amman", false, false, 316, 625, "future", "null", "null", "null");
+  belCities[0] = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
+  levCities[0] = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
+  levCities[1] = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
+  levCities[2] = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
+  levCities[3] = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
+  levCities[4] = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
+  levCities[5] = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), false, false);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
@@ -170,51 +170,14 @@ void backButtonColorResponsive() {
 }
 
 void countriesResponsive() {
-  lev.responsive();
-  bel.responsive();
+  levant.responsive();
+  belgium.responsive();
 }
 
 void citiesResponsive() {
-  if ((bel.isScene) && ((mouseX-belCities[0].x)*(mouseX-belCities[0].x) + (mouseY-belCities[0].y)*(mouseY-belCities[0].y) < d*d/4)) {
-      belCities[0].mouseOver = true;
-  } else {
-      belCities[0].mouseOver = false;
-  }
-  
-  if ((lev.isScene) && ((mouseX-levCities[0].x)*(mouseX-levCities[0].x) + (mouseY-levCities[0].y)*(mouseY-levCities[0].y) < d*d/4)) {
-      levCities[0].mouseOver = true;
-  } else {
-      levCities[0].mouseOver = false;
-  } 
-  
-  if ((lev.isScene) && ((mouseX-levCities[1].x)*(mouseX-levCities[1].x) + (mouseY-levCities[1].y)*(mouseY-levCities[1].y) < d*d/4)) {
-      levCities[1].mouseOver = true;
-  } else {
-      levCities[1].mouseOver = false;
-  }
-  
-  if ((lev.isScene) && ((mouseX-levCities[2].x)*(mouseX-levCities[2].x) + (mouseY-levCities[2].y)*(mouseY-levCities[2].y) < d*d/4)) {
-      levCities[2].mouseOver = true;
-  } else {
-      levCities[2].mouseOver = false;
-  }
-  
-  if ((lev.isScene) && ((mouseX-levCities[3].x)*(mouseX-levCities[3].x) + (mouseY-levCities[3].y)*(mouseY-levCities[3].y) < d*d/4)) {
-      levCities[3].mouseOver = true;
-  } else {
-      levCities[3].mouseOver = false;
-  }
-  
-  if ((lev.isScene) && ((mouseX-levCities[4].x)*(mouseX-levCities[4].x) + (mouseY-levCities[4].y)*(mouseY-levCities[4].y) < d*d/4)) {
-      levCities[4].mouseOver = true;
-  } else {
-      levCities[4].mouseOver = false;
-  }
-  
-  if ((lev.isScene) && ((mouseX-levCities[5].x)*(mouseX-levCities[5].x) + (mouseY-levCities[5].y)*(mouseY-levCities[5].y) < d*d/4)) {
-      levCities[5].mouseOver = true;
-  } else {
-      levCities[5].mouseOver = false;
+  belCities[0].responsive();
+  for (City city : levCities) {
+    city.responsive();
   }
 }
 
@@ -269,15 +232,15 @@ void changePageResponsive() {
 
 void cursorImageResponsive() {
   if (
-    (lev.mouseOver())
-    || (bel.mouseOver())
-    || (belCities[0].mouseOver)    
-    || (levCities[0].mouseOver)    
-    || (levCities[1].mouseOver)    
-    || (levCities[2].mouseOver)    
-    || (levCities[3].mouseOver)    
-    || (levCities[4].mouseOver)    
-    || (levCities[5].mouseOver)    
+    (levant.mouseOver())
+    || (belgium.mouseOver())
+    || (belCities[0].mouseOver())    
+    || (levCities[0].mouseOver())    
+    || (levCities[1].mouseOver())    
+    || (levCities[2].mouseOver())    
+    || (levCities[3].mouseOver())    
+    || (levCities[4].mouseOver())    
+    || (levCities[5].mouseOver())    
     || (back_mouseOver)
     || (women.mouseOver)
     || (youth.mouseOver)
@@ -299,29 +262,29 @@ void cursorImageResponsive() {
 void mouseReleased() {
   if (back_mouseOver) {
     showMainScene();
-  } else if (lev.mouseOver()) {
-    lev.displayScene();
-  } else if (bel.mouseOver()) {
-    bel.displayScene();
-  } else if (belCities[0].mouseOver) {
+  } else if (levant.mouseOver()) {
+    levant.displayScene();
+  } else if (belgium.mouseOver()) {
+    belgium.displayScene();
+  } else if (belCities[0].mouseOver()) {
     belCities[0].menuScene();
-  } else if (levCities[0].mouseOver) {
+  } else if (levCities[0].mouseOver()) {
     levCities[0].menuScene();
-  } else if (levCities[1].mouseOver) {
+  } else if (levCities[1].mouseOver()) {
     levCities[1].menuScene();
-  } else if (levCities[2].mouseOver) {
+  } else if (levCities[2].mouseOver()) {
     levCities[2].menuScene();
-  } else if (levCities[3].mouseOver) {
+  } else if (levCities[3].mouseOver()) {
     levCities[3].menuScene();
-  } else if (levCities[4].mouseOver) {
+  } else if (levCities[4].mouseOver()) {
     levCities[4].menuScene();
-  } else if (levCities[5].mouseOver) {
+  } else if (levCities[5].mouseOver()) {
     levCities[5].menuScene();
   } 
   
-  else if ((bel.isScene) && (youth.mouseOver)) {
+  else if ((belgium.isScene) && (youth.mouseOver)) {
     splp.display();
-  } else if ((bel.isScene) && (child.mouseOver)) {
+  } else if ((belgium.isScene) && (child.mouseOver)) {
     weekend.display();
   } else if ((levCities[3].isMenu) && (youth.mouseOver)) {
     bakery.display();
@@ -329,16 +292,16 @@ void mouseReleased() {
     closed.display();
   } else if ((levCities[5].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
     future.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver)) {
     //women.scene();
     womenCentre.display();
-  } else if ((lev.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver)) {
     //women.scene();
     youthSchool.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver)) {
     //women.scene();
     school.display();
-  } else if ((lev.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver)) {
     //women.scene();
     psych.display();
   }     
@@ -460,12 +423,15 @@ public class Country implements Clickable {
 
 public class City implements Clickable {
   private final String name;
-  public boolean mouseOver, isMenu;
+  private boolean mouseOver;
+  public boolean isMenu;
   public final int x, y;
   private final String blue, green, pink, yellow;
+  private final Country location;
   
-  public City(String name, boolean mouseOver, boolean isMenu, int x, int y, String blue, String green, String pink, String yellow) {
+  public City(String name, Country location, boolean mouseOver, boolean isMenu, int x, int y, String blue, String green, String pink, String yellow) {
     this.name = name;
+    this.location = location;
     this.mouseOver = mouseOver;
     this.isMenu = isMenu;
     this.x = x;
@@ -474,6 +440,14 @@ public class City implements Clickable {
     this.green = green;
     this.pink = pink;
     this.yellow = yellow;    
+  }
+  
+  public void responsive() {
+    if ((location.isScene) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4)) {
+      mouseOver = true;
+    } else {
+      mouseOver = false;
+    }
   }
   
   public boolean mouseOver() {
@@ -650,8 +624,8 @@ void text_box() {
 void showMainScene() {
   background(mainmap);
   isMainScene = true;
-  bel.isScene = false;
-  lev.isScene = false;
+  belgium.isScene = false;
+  levant.isScene = false;
   isMenuScene = false;
   for (int i = 0; i < levCities.length; i++) {
     levCities[i].isMenu = false;
@@ -663,10 +637,10 @@ void showMainScene() {
 
 void tintScene() {
   tint(155);
-  if (bel.isScene) {
-    bel.displayScene();
-  } else if (lev.isScene) {
-    lev.displayScene();
+  if (belgium.isScene) {
+    belgium.displayScene();
+  } else if (levant.isScene) {
+    levant.displayScene();
   }    
   noTint();
 }
