@@ -105,13 +105,13 @@ void setup() {
   bel = new Country(loadImage("belgium.png"), false, false, belCities, yel);
   lev = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
   
-  belCities[0] = new City("Brussels", false, false, 610, 295, 2, "weekend", "splp", "null", "null");
-  levCities[0] = new City("Beirut", false, false, 285, 453, 3, "school", "null", "psych", "women");
-  levCities[1] = new City("Arsal, Bekaa Valley", false, false, 358, 424, 3, "school", "null", "psych", "women");
-  levCities[2] = new City("Damascus", false, false, 343, 484, 4, "school", "null", "psych", "women");
-  levCities[3] = new City("Aleppo", false, false, 407, 235, 4, "school", "bakery", "collect", "women");
-  levCities[4] = new City("Kilis", false, false, 406, 190, 1, "closed", "null", "null", "null");
-  levCities[5] = new City("Amman", false, false, 316, 625, 1, "future", "null", "null", "null");
+  belCities[0] = new City("Brussels", false, false, 610, 295, "weekend", "splp", "null", "null");
+  levCities[0] = new City("Beirut", false, false, 285, 453, "school", "null", "psych", "women");
+  levCities[1] = new City("Arsal, Bekaa Valley", false, false, 358, 424, "school", "null", "psych", "women");
+  levCities[2] = new City("Damascus", false, false, 343, 484, "school", "null", "psych", "women");
+  levCities[3] = new City("Aleppo", false, false, 407, 235, "school", "bakery", "collect", "women");
+  levCities[4] = new City("Kilis", false, false, 406, 190, "closed", "null", "null", "null");
+  levCities[5] = new City("Amman", false, false, 316, 625, "future", "null", "null", "null");
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), false, false);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
@@ -458,27 +458,29 @@ public class Country implements Clickable {
   }
 }
 
-public class City {
-  String name;
-  boolean mouseOver, isMenu;
-  int x, y;
-  int numberColors;
-  String blue, green, pink, yellow;
+public class City implements Clickable {
+  private final String name;
+  public boolean mouseOver, isMenu;
+  public final int x, y;
+  private final String blue, green, pink, yellow;
   
-  City(String tempName, boolean tempMouseOver, boolean tempIsMenu, int tempX, int tempY, int tempNumberColors, String tempBlue, String tempGreen, String tempPink, String tempYellow) {
-    name = tempName;
-    mouseOver = tempMouseOver;
-    isMenu = tempIsMenu;
-    x = tempX;
-    y = tempY;
-    numberColors = tempNumberColors;
-    blue = tempBlue;
-    green = tempGreen;
-    pink = tempPink;
-    yellow = tempYellow;    
+  public City(String name, boolean mouseOver, boolean isMenu, int x, int y, String blue, String green, String pink, String yellow) {
+    this.name = name;
+    this.mouseOver = mouseOver;
+    this.isMenu = isMenu;
+    this.x = x;
+    this.y = y;
+    this.blue = blue;
+    this.green = green;
+    this.pink = pink;
+    this.yellow = yellow;    
   }
   
-  void display() {
+  public boolean mouseOver() {
+    return mouseOver;
+  }
+  
+  public void display() {
     image(logoInner, x, y, d, d);
     fill(0,0,0);
     textFont(cityFont);
@@ -486,7 +488,7 @@ public class City {
     text(name, x + 3*d/4, y);
   }
   
-  void menuScene() {
+  public void menuScene() {
     isMenuScene = true;
     isMenu = true;
     tintScene();
@@ -496,7 +498,7 @@ public class City {
     isMainScene = false;
   }
   
-  void chooseDrawMenuButtons() {
+  public void chooseDrawMenuButtons() {
     if (yellow == "null") {
       fill(180);
       women.button();
