@@ -102,8 +102,8 @@ void setup() {
   bodyFont = createFont("Helvetica", 20);
   
   
-  bel = new Country(loadImage("belgium.png"), false, false, belCities);
-  lev = new Country(loadImage("middleeast.png"), false, false, levCities);
+  bel = new Country(loadImage("belgium.png"), false, false, belCities, yel);
+  lev = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
   
   belCities[0] = new City("Brussels", false, false, 610, 295, 2, "weekend", "splp", "null", "null");
   levCities[0] = new City("Beirut", false, false, 285, 453, 3, "school", "null", "psych", "women");
@@ -170,13 +170,13 @@ void backButtonColorResponsive() {
 }
 
 void countriesResponsive() {
-  if ((isMainScene) && ((get(mouseX, mouseY) == gre) || (get(mouseX, mouseY) == blu) || (get(mouseX, mouseY) == pin) || (get(mouseX, mouseY) == cya))) {
+  if (lev.responsive()) {
       lev.mouseOver = true;
   } else {
       lev.mouseOver = false;
   }
   
-  if ((isMainScene) && (get(mouseX, mouseY) == yel)) {
+  if (bel.responsive()) {
       bel.mouseOver = true;
   } else {
       bel.mouseOver = false;
@@ -430,14 +430,31 @@ public class Country implements Clickable {
   public boolean mouseOver;
   public boolean isScene;
   public City[] cities;
-  
+  private color[] colors;
+   
+  public Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities, color...colors) {
+    pic = tempPic;
+    mouseOver = tempmouseOver;
+    isScene = tempIsScene;
+    cities = tempCities;
+    this.colors = colors;
+  }
+ 
   public Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
     pic = tempPic;
     mouseOver = tempmouseOver;
     isScene = tempIsScene;
     cities = tempCities;
   }
-  
+ 
+  public boolean responsive() {
+    if (! isMainScene) return false;
+    for (color col : colors) {
+      if (get(mouseX,mouseY) == col) return true;
+    }
+    return false;
+  }
+ 
   public boolean mouseOver() {
     return mouseOver;
   }
