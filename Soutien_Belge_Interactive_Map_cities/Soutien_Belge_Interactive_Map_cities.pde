@@ -213,11 +213,17 @@ void cursorImageResponsive() {
     }
   }
     
-  if ((prevPage_mouseOver) || (nextPage_mouseOver)) {
-    cursor(HAND);
-  } else {
-    cursor(ARROW);
-  }
+  if (
+    (women.mouseOver())
+    || (youth.mouseOver())
+    || (children.mouseOver())
+    || (aid.mouseOver()) 
+    || (prevPage_mouseOver) 
+    || (nextPage_mouseOver)) 
+        
+      {cursor(HAND);}
+  
+  else  {cursor(ARROW);}
 
 }
 
@@ -350,30 +356,6 @@ public interface Clickable {
   public boolean mouseOver();
   public void responsive();
   public void respond();
-}
-
-public class NextPageButton implements Clickable {
-  public boolean mouseOver() {
-    return false;
-  }
-  public void responsive() {
-    
-  }
-  public void respond() {
-    
-  }
-}
-
-public class PrevPageButton implements Clickable {
-  public boolean mouseOver() {
-    return false;
-  }
-  public void responsive() {
-    
-  }
-  public void respond() {
-    
-  }
 }
 
 public class BackButton implements Clickable {
