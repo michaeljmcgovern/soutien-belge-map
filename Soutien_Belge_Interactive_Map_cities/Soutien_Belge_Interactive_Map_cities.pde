@@ -170,17 +170,8 @@ void backButtonColorResponsive() {
 }
 
 void countriesResponsive() {
-  if (lev.responsive()) {
-      lev.mouseOver = true;
-  } else {
-      lev.mouseOver = false;
-  }
-  
-  if (bel.responsive()) {
-      bel.mouseOver = true;
-  } else {
-      bel.mouseOver = false;
-  }
+  lev.responsive();
+  bel.responsive();
 }
 
 void citiesResponsive() {
@@ -426,28 +417,26 @@ public interface Clickable {
 }
 
 public class Country implements Clickable {
-  public PImage pic;
-  public boolean mouseOver;
+  private final PImage pic;
+  private boolean mouseOver;
   public boolean isScene;
-  public City[] cities;
-  private color[] colors;
+  private final City[] cities;
+  private final color[] colors;
    
-  public Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities, color...colors) {
-    pic = tempPic;
-    mouseOver = tempmouseOver;
-    isScene = tempIsScene;
-    cities = tempCities;
+  public Country(PImage pic, boolean mouseOver, boolean isScene, City[] cities, color...colors) {
+    this.pic = pic;
+    this.mouseOver = mouseOver;
+    this.isScene = isScene;
+    this.cities = cities;
     this.colors = colors;
   }
  
-  public Country(PImage tempPic, boolean tempmouseOver, boolean tempIsScene, City[] tempCities) {
-    pic = tempPic;
-    mouseOver = tempmouseOver;
-    isScene = tempIsScene;
-    cities = tempCities;
+  public void responsive() {
+    if (isResponsive()) mouseOver = true;
+    else mouseOver = false;
   }
  
-  public boolean responsive() {
+  private boolean isResponsive() {
     if (! isMainScene) return false;
     for (color col : colors) {
       if (get(mouseX,mouseY) == col) return true;
