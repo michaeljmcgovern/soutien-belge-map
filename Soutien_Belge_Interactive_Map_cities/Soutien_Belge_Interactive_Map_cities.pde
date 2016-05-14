@@ -182,36 +182,12 @@ void citiesResponsive() {
 }
 
 void themeMenuResponsive() {
-  if ((isMenuScene) && (women.exist) && ((mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > women.y - themeH/2) && (mouseY < women.y + themeH/2))) {
-      women.mouseOver = true;
-      women.logo();
-      cursor(HAND);
-  } else {
-      women.mouseOver = false;
-  }
+  women.responsive();
+  youth.responsive();
+  child.responsive();
+  aid.responsive();
   
-  if ((isMenuScene) && (youth.exist) && ((mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > youth.y - themeH/2) && (mouseY < youth.y + themeH/2))) {
-      youth.mouseOver = true;
-      youth.logo();
-  } else {
-      youth.mouseOver = false;
-  }
-  
-  if ((isMenuScene) && (child.exist) && ((mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > child.y - themeH/2) && (mouseY < child.y + themeH/2))) {
-      child.mouseOver = true;
-      child.logo();
-  } else {
-      child.mouseOver = false;
-  }
-  
-  if ((isMenuScene) && (aid.exist) && ((mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > aid.y - themeH/2) && (mouseY < aid.y + themeH/2))) {
-      aid.mouseOver = true;
-      aid.logo();
-  } else {
-      aid.mouseOver = false;
-  }
-  
-  if ((isMenuScene) && (!women.mouseOver) && (!youth.mouseOver) && (!child.mouseOver) && (!aid.mouseOver)) {
+  if ((isMenuScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!child.mouseOver()) && (!aid.mouseOver())) {
       image(logo, 900, yc, 400, 400);
   }
 }
@@ -242,10 +218,10 @@ void cursorImageResponsive() {
     || (levCities[4].mouseOver())    
     || (levCities[5].mouseOver())    
     || (back_mouseOver)
-    || (women.mouseOver)
-    || (youth.mouseOver)
-    || (child.mouseOver)
-    || (aid.mouseOver) 
+    || (women.mouseOver())
+    || (youth.mouseOver())
+    || (child.mouseOver())
+    || (aid.mouseOver()) 
     || (prevPage_mouseOver) 
     || (nextPage_mouseOver)) 
         
@@ -282,26 +258,26 @@ void mouseReleased() {
     levCities[5].menuScene();
   } 
   
-  else if ((belgium.isScene) && (youth.mouseOver)) {
+  else if ((belgium.isScene) && (youth.mouseOver())) {
     splp.display();
-  } else if ((belgium.isScene) && (child.mouseOver)) {
+  } else if ((belgium.isScene) && (child.mouseOver())) {
     weekend.display();
-  } else if ((levCities[3].isMenu) && (youth.mouseOver)) {
+  } else if ((levCities[3].isMenu) && (youth.mouseOver())) {
     bakery.display();
-  } else if ((levCities[4].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
+  } else if ((levCities[4].isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
     closed.display();
-  } else if ((levCities[5].isMenu) && ((women.mouseOver) || (youth.mouseOver) || (child.mouseOver) || (aid.mouseOver))) {
+  } else if ((levCities[5].isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
     future.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (women.mouseOver())) {
     //women.scene();
     womenCentre.display();
-  } else if ((levant.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[3].isMenu) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (youth.mouseOver())) {
     //women.scene();
     youthSchool.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (child.mouseOver())) {
     //women.scene();
     school.display();
-  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver)) {
+  } else if ((levant.isScene) && (!levCities[4].isMenu) && (!levCities[5].isMenu) && (aid.mouseOver())) {
     //women.scene();
     psych.display();
   }     
@@ -519,8 +495,9 @@ public class City implements Clickable {
 
 public class Theme implements Clickable {
   private final String name;
-  public boolean mouseOver, exist;
-  public float y;
+  private boolean mouseOver;
+  public boolean exist;
+  private float y;
   private final PImage themeLogo;
   
   public Theme(String name, float y, PImage themeLogo, boolean mouseOver, boolean exist) {
@@ -529,6 +506,20 @@ public class Theme implements Clickable {
     this.themeLogo = themeLogo;
     this.mouseOver = mouseOver;
     this.exist = exist;
+  }
+  
+  public void responsive() {
+    if ((isMenuScene) && (exist) && (mouseWithinThemeArea())) {
+      mouseOver = true;
+      logo();
+      cursor(HAND);
+    } else {
+      mouseOver = false;
+    }
+  }
+  
+  private boolean mouseWithinThemeArea() {
+    return (mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > y - themeH/2) && (mouseY < y + themeH/2);
   }
   
   public boolean mouseOver() {
