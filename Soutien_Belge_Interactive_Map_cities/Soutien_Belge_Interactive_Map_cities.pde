@@ -63,15 +63,16 @@ Theme youth;
 Theme children;
 Theme aid;
 
-Text weekend; //brussels
-Text splp; //brussels
-Text school;
-Text womenCentre;
-Text youthSchool;
-Text psych;
-Text bakery; //aleppo
-Text closed; //kilis
-Text future; //amman
+Text womenText;
+Text youthText;
+Text childrenText;
+Text aidText;
+
+Text brusselsChildrenText;
+Text brusselsYouthText;
+Text aleppoYouthText;
+Text kilisText;
+Text ammanText;
 
 Text collect; //brussels & syria
 
@@ -123,15 +124,15 @@ void setup() {
   children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
   aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
   
-  weekend = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
-  splp = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
-  school = new Text("Schools", false, "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
-  womenCentre = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
-  youthSchool = new Text("Youth Education", false, "youthed1", "youthed2", "youthed3", "youthed4");
-  psych = new Text("Psychological Support Centres", false, "psych1", "psych2", "psych3", "psych4");
-  bakery = new Text("Bakery", false, "bakery1", "null", "null", "null");
-  closed = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
-  future = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
+  brusselsChildrenText = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
+  brusselsYouthText = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
+  childrenText = new Text("Schools", false, "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
+  womenText = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
+  youthText = new Text("Youth Education", false, "youthed1", "youthed2", "youthed3", "youthed4");
+  aidText = new Text("Psychological Support Centres", false, "psych1", "psych2", "psych3", "psych4");
+  aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "null");
+  kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
+  ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
   collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
   
   clickables.add(backButton);
@@ -241,105 +242,105 @@ void mouseReleased() {
     }
   }
   
-  if (belgium.isScene) {
+  if (brussels.isMenu) {
     if (youth.mouseOver()) {
-      splp.display();
+      brusselsYouthText.display();
     }
     else if (children.mouseOver()) {
-      weekend.display();
+      brusselsChildrenText.display();
     }
   }
   
   else if (aleppo.isMenu) {
     if (women.mouseOver()) {
-      womenCentre.display();
+      womenText.display();
     } else if (youth.mouseOver()) {
-      bakery.display();
+      aleppoYouthText.display();
     } else if (children.mouseOver()) {
-      school.display();
+      childrenText.display();
     } else if (aid.mouseOver()) {
-      psych.display();
+      aidText.display();
     }
   }
   
   else if (kilis.isMenu) {
     if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
-      closed.display();
+      kilisText.display();
     }
   }
   
   else if (amman.isMenu) {
     if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
-      future.display();
+      ammanText.display();
     }
   }
   
   else if (women.mouseOver()) {
-    womenCentre.display();
+    womenText.display();
   } else if (youth.mouseOver()) {
-    youthSchool.display();
+    youthText.display();
   } else if (children.mouseOver()) {
-    school.display();
+    childrenText.display();
   } else if (aid.mouseOver()) {
-    psych.display();
+    aidText.display();
   }
   
   
   if (isTextScene) {
-    if ((splp.isText) && (nextPage_mouseOver)) {
+    if ((brusselsYouthText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      splp.display();
-    } else if ((splp.isText) && (prevPage_mouseOver)) {
+      brusselsYouthText.display();
+    } else if ((brusselsYouthText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      splp.display();
-    } else if ((weekend.isText) && (nextPage_mouseOver)) {
+      brusselsYouthText.display();
+    } else if ((brusselsChildrenText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      weekend.display();
-    } else if ((weekend.isText) && (prevPage_mouseOver)) {
+      brusselsChildrenText.display();
+    } else if ((brusselsChildrenText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      weekend.display();
-    } else if ((bakery.isText) && (nextPage_mouseOver)) {
+      brusselsChildrenText.display();
+    } else if ((aleppoYouthText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      bakery.display();
-    } else if ((bakery.isText) && (prevPage_mouseOver)) {
+      aleppoYouthText.display();
+    } else if ((aleppoYouthText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      bakery.display();
-    } else if ((closed.isText) && (nextPage_mouseOver)) {
+      aleppoYouthText.display();
+    } else if ((kilisText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      closed.display();
-    } else if ((closed.isText) && (prevPage_mouseOver)) {
+      kilisText.display();
+    } else if ((kilisText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      closed.display();
-    } else if ((future.isText) && (nextPage_mouseOver)) {
+      kilisText.display();
+    } else if ((ammanText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      future.display();
-    } else if ((future.isText) && (prevPage_mouseOver)) {
+      ammanText.display();
+    } else if ((ammanText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      future.display();
-    } else if ((womenCentre.isText) && (nextPage_mouseOver)) {
+      ammanText.display();
+    } else if ((womenText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      womenCentre.display();
-    } else if ((womenCentre.isText) && (prevPage_mouseOver)) {
+      womenText.display();
+    } else if ((womenText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      womenCentre.display();
-    } else if ((youthSchool.isText) && (nextPage_mouseOver)) {
+      womenText.display();
+    } else if ((youthText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      youthSchool.display();
-    } else if ((youthSchool.isText) && (prevPage_mouseOver)) {
+      youthText.display();
+    } else if ((youthText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      youthSchool.display();
-    } else if ((school.isText) && (nextPage_mouseOver)) {
+      youthText.display();
+    } else if ((childrenText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      school.display();
-    } else if ((school.isText) && (prevPage_mouseOver)) {
+      childrenText.display();
+    } else if ((childrenText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      school.display();
-    } else if ((psych.isText) && (nextPage_mouseOver)) {
+      childrenText.display();
+    } else if ((aidText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      psych.display();
-    } else if ((psych.isText) && (prevPage_mouseOver)) {
+      aidText.display();
+    } else if ((aidText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      psych.display();
+      aidText.display();
     } else if ((collect.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
       collect.display();
