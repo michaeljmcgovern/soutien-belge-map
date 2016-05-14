@@ -18,7 +18,6 @@ PFont bodyFont;
 
 boolean isMainScene = true;
 boolean isMenuScene = false;
-boolean back_mouseOver = false;
 boolean prevPage_mouseOver = false;
 boolean nextPage_mouseOver = false;
 
@@ -48,7 +47,7 @@ float cpbD = 25;
 boolean isTextScene;
 int currentPage = 1;
 
-Clickable backButton = new BackButton();
+BackButton backButton = new BackButton();
 
 Country belgium;
 Country levant;
@@ -142,7 +141,7 @@ void backButtonResponsive() {
 
 void backButtonColorResponsive() {
   if (!isMainScene) {
-    showBackButton();
+    backButton.display();
   }
   
   if (backButton.mouseOver()) {
@@ -344,6 +343,16 @@ public class BackButton implements Clickable {
   
   public BackButton() {
     mouseOver = false;
+  }
+  
+  public void display() {
+    stroke(255);
+    fill(buttonColor);
+    rect(backX, backY, backW, backH, 7);
+    fill(255, 255, 255);
+    textFont(backFont);
+    textAlign(CENTER, CENTER);
+    text("Back", backX, backY, backW, backH);
   }
   
   public void responsive() {
