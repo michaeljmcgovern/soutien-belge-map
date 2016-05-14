@@ -227,20 +227,20 @@ void mouseReleased() {
     levant.respond();
   } else if (belgium.mouseOver()) {
     belgium.respond();
-  } else if (cities[0].mouseOver()) {
-    cities[0].menuScene();
-  } else if (cities[1].mouseOver()) {
-    cities[1].menuScene();
-  } else if (cities[2].mouseOver()) {
-    cities[2].menuScene();
-  } else if (cities[3].mouseOver()) {
-    cities[3].menuScene();
-  } else if (cities[4].mouseOver()) {
-    cities[4].menuScene();
-  } else if (cities[5].mouseOver()) {
-    cities[5].menuScene();
-  } else if (cities[6].mouseOver()) {
-    cities[6].menuScene();
+  } else if (brussels.mouseOver()) {
+    brussels.respond();
+  } else if (beirut.mouseOver()) {
+    beirut.respond();
+  } else if (arsal.mouseOver()) {
+    arsal.respond();
+  } else if (damascus.mouseOver()) {
+    damascus.respond();
+  } else if (aleppo.mouseOver()) {
+    aleppo.respond();
+  } else if (kilis.mouseOver()) {
+    kilis.respond();
+  } else if (amman.mouseOver()) {
+    amman.respond();
   } 
   
   else if ((belgium.isScene) && (youth.mouseOver())) {
@@ -472,6 +472,16 @@ public class City implements Clickable {
     this.yellow = yellow;    
   }
   
+  public void respond() {
+    isMenuScene = true;
+    isMenu = true;
+    tintScene();
+    image(logo, 900, yc, 400, 400);
+    chooseDrawMenuButtons();
+    
+    isMainScene = false;
+  }
+  
   public void responsive() {
     if ((location.isScene) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4)) {
       mouseOver = true;
@@ -490,16 +500,6 @@ public class City implements Clickable {
     textFont(cityFont);
     textAlign(LEFT, CENTER);
     text(name, x + 3*d/4, y);
-  }
-  
-  public void menuScene() {
-    isMenuScene = true;
-    isMenu = true;
-    tintScene();
-    image(logo, 900, yc, 400, 400);
-    chooseDrawMenuButtons();
-    
-    isMainScene = false;
   }
   
   public void chooseDrawMenuButtons() {
