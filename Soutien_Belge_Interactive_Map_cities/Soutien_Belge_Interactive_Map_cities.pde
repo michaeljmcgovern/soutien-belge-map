@@ -425,7 +425,7 @@ public class City implements Clickable {
   private final String name;
   private boolean mouseOver;
   public boolean isMenu;
-  public final int x, y;
+  private final int x, y;
   private final String blue, green, pink, yellow;
   private final Country location;
   
@@ -517,22 +517,25 @@ public class City implements Clickable {
   
 }
 
-public class Theme {
-  String name;
-  boolean mouseOver, exist;
-  float y;
-  PImage themeLogo;
+public class Theme implements Clickable {
+  private final String name;
+  public boolean mouseOver, exist;
+  public float y;
+  private final PImage themeLogo;
   
-  Theme(String tempName, float tempY, PImage tempThemeLogo, boolean tempMouseOver, boolean tempExist) {
-    name = tempName;
-    y = tempY;
-    themeLogo = tempThemeLogo;
-    mouseOver = tempMouseOver;
-    exist = tempExist;
+  public Theme(String name, float y, PImage themeLogo, boolean mouseOver, boolean exist) {
+    this.name = name;
+    this.y = y;
+    this.themeLogo = themeLogo;
+    this.mouseOver = mouseOver;
+    this.exist = exist;
   }
   
-  void button() {
-    //fill(255, 255, 255);
+  public boolean mouseOver() {
+    return mouseOver;
+  }
+  
+  public void button() {
     rect(themeX, y, themeW, themeH);
     fill(0, 0, 0);
     textFont(themeFont);
@@ -540,7 +543,7 @@ public class Theme {
     text(name, themeX, y, themeW, themeH);
   }
 
-  void logo() {
+  public void logo() {
     image(themeLogo, 900, yc, 400, 400);
   }
 }
