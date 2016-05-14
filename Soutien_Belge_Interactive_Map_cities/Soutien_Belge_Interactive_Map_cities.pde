@@ -339,6 +339,7 @@ void mouseReleased() {
 public interface Clickable {
   public boolean mouseOver();
   public void responsive();
+  public void respond();
 }
 
 public class BackButton implements Clickable {
@@ -560,6 +561,10 @@ public class Theme implements Clickable {
     this.themeLogo = themeLogo;
     this.mouseOver = mouseOver;
     this.exists = exists;
+  }
+  
+  public void respond() {
+    // TODO
   }
   
   public void responsive() {
