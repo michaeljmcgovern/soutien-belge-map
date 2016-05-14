@@ -63,18 +63,23 @@ Theme youth;
 Theme children;
 Theme aid;
 
-Text womenText;
-Text youthText;
-Text childrenText;
-Text aidText;
+Text womenText = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
+  "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
+Text youthText = new Text("Youth Education", false, "youthed1", "youthed2", "youthed3", "youthed4");
+Text childrenText = new Text("Schools", false, 
+  "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", 
+  "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", 
+  "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", 
+  "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
+Text aidText = new Text("Psychological Support Centres", false, "psych1", "psych2", "psych3", "psych4");
 
-Text brusselsChildrenText;
-Text brusselsYouthText;
-Text aleppoYouthText;
-Text kilisText;
-Text ammanText;
+Text brusselsChildrenText = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
+Text brusselsYouthText = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
+Text aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "null");
+Text kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
+Text ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
 
-Text collect; //brussels & syria
+Text collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
 
 void setup() {
   size(1280, 800);
@@ -123,17 +128,6 @@ void setup() {
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
   children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
   aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
-  
-  brusselsChildrenText = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
-  brusselsYouthText = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
-  childrenText = new Text("Schools", false, "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
-  womenText = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
-  youthText = new Text("Youth Education", false, "youthed1", "youthed2", "youthed3", "youthed4");
-  aidText = new Text("Psychological Support Centres", false, "psych1", "psych2", "psych3", "psych4");
-  aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "null");
-  kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
-  ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
-  collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
   
   clickables.add(backButton);
   clickables.add(belgium);
