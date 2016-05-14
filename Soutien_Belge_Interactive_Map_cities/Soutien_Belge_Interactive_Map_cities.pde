@@ -38,6 +38,8 @@ float cpbD = 25;
 boolean isTextScene;
 int currentPage = 1;
 
+ArrayList<Clickable> clickables = new ArrayList<Clickable>();
+
 BackButton backButton = new BackButton();
 
 Country belgium;
@@ -132,6 +134,17 @@ void setup() {
   future = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
   collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
   
+  clickables.add(backButton);
+  clickables.add(belgium);
+  clickables.add(levant);
+  clickables.add(brussels);
+  clickables.add(beirut);
+  clickables.add(arsal);
+  clickables.add(damascus);
+  clickables.add(aleppo);
+  clickables.add(kilis);
+  clickables.add(amman);
+  
   ellipseMode(CENTER);
   rectMode(CENTER);
   imageMode(CENTER);
@@ -221,29 +234,14 @@ void cursorImageResponsive() {
 ///////////////////////////////
 
 void mouseReleased() {
-  if (backButton.mouseOver()) {
-    backButton.respond();
-  } else if (levant.mouseOver()) {
-    levant.respond();
-  } else if (belgium.mouseOver()) {
-    belgium.respond();
-  } else if (brussels.mouseOver()) {
-    brussels.respond();
-  } else if (beirut.mouseOver()) {
-    beirut.respond();
-  } else if (arsal.mouseOver()) {
-    arsal.respond();
-  } else if (damascus.mouseOver()) {
-    damascus.respond();
-  } else if (aleppo.mouseOver()) {
-    aleppo.respond();
-  } else if (kilis.mouseOver()) {
-    kilis.respond();
-  } else if (amman.mouseOver()) {
-    amman.respond();
-  } 
+  for (Clickable clickable : clickables) {
+    if (clickable.mouseOver()) {
+      clickable.respond();
+      return;
+    }
+  }
   
-  else if ((belgium.isScene) && (youth.mouseOver())) {
+  if ((belgium.isScene) && (youth.mouseOver())) {
     splp.display();
   } else if ((belgium.isScene) && (child.mouseOver())) {
     weekend.display();
