@@ -613,15 +613,13 @@ public class Theme implements Clickable {
 
 public class Text {
   public boolean isText;
-  private final String title, text1, text2, text3, text4;
+  private final String title;
+  private final String[] text;
   
-  public Text(String title, boolean isText, String text1, String text2, String text3, String text4) {
-    this.isText = isText;
+  public Text(String title, boolean isText, String...text) {
     this.title = title;
-    this.text1 = text1;
-    this.text2 = text2;
-    this.text3 = text3;
-    this.text4 = text4;
+    this.isText = isText;
+    this.text = text;
   }
   
   public void display() {
@@ -643,21 +641,21 @@ public class Text {
     //body text
     textFont(bodyFont);
     if (currentPage == 1) {
-      text(text1, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      text(text[0], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       nextPageButton();
       //image(image1, xc/2, yc/2, xc, yc);
     } else if (currentPage == 2) {
-      text(text2, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      text(text[1], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       nextPageButton();
       prevPageButton();
       //image(image2, xc/2, yc/2, xc, yc);
     } else if (currentPage == 3) {
-      text(text3, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      text(text[2], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       nextPageButton();
       prevPageButton();
       //image(image3, xc/2, yc/2, xc, yc);
     } else if (currentPage == 4) {
-      text(text4, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+      text(text[3], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       prevPageButton();
       //image(image4, xc/2, yc/2, xc, yc);
     }
