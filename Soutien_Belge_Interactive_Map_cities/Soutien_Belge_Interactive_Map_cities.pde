@@ -60,7 +60,7 @@ City[] levCities = new City[6];
 
 Theme women;
 Theme youth;
-Theme child;
+Theme children;
 Theme aid;
 
 Text weekend; //brussels
@@ -120,7 +120,7 @@ void setup() {
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), false, false);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
-  child = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
+  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
   aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
   
   weekend = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
@@ -182,10 +182,10 @@ void citiesResponsive() {
 void themeMenuResponsive() {
   women.responsive();
   youth.responsive();
-  child.responsive();
+  children.responsive();
   aid.responsive();
   
-  if ((isMenuScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!child.mouseOver()) && (!aid.mouseOver())) {
+  if ((isMenuScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!children.mouseOver()) && (!aid.mouseOver())) {
       image(logo, 900, yc, 400, 400);
   }
 }
@@ -218,7 +218,7 @@ void cursorImageResponsive() {
     || (backButton.mouseOver())
     || (women.mouseOver())
     || (youth.mouseOver())
-    || (child.mouseOver())
+    || (children.mouseOver())
     || (aid.mouseOver()) 
     || (prevPage_mouseOver) 
     || (nextPage_mouseOver)) 
@@ -241,29 +241,49 @@ void mouseReleased() {
     }
   }
   
-  if ((belgium.isScene) && (youth.mouseOver())) {
-    splp.display();
-  } else if ((belgium.isScene) && (child.mouseOver())) {
-    weekend.display();
-  } else if ((aleppo.isMenu) && (youth.mouseOver())) {
-    bakery.display();
-  } else if ((kilis.isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
-    closed.display();
-  } else if ((amman.isMenu) && ((women.mouseOver()) || (youth.mouseOver()) || (child.mouseOver()) || (aid.mouseOver()))) {
-    future.display();
-  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (women.mouseOver())) {
-    //women.scene();
+  if (belgium.isScene) {
+    if (youth.mouseOver()) {
+      splp.display();
+    }
+    else if (children.mouseOver()) {
+      weekend.display();
+    }
+  }
+  
+  else if (aleppo.isMenu) {
+    if (women.mouseOver()) {
+      womenCentre.display();
+    } else if (youth.mouseOver()) {
+      bakery.display();
+    } else if (children.mouseOver()) {
+      school.display();
+    } else if (aid.mouseOver()) {
+      psych.display();
+    }
+  }
+  
+  else if (kilis.isMenu) {
+    if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
+      closed.display();
+    }
+  }
+  
+  else if (amman.isMenu) {
+    if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
+      future.display();
+    }
+  }
+  
+  else if (women.mouseOver()) {
     womenCentre.display();
-  } else if ((levant.isScene) && (!aleppo.isMenu) && (!kilis.isMenu) && (!amman.isMenu) && (youth.mouseOver())) {
-    //women.scene();
+  } else if (youth.mouseOver()) {
     youthSchool.display();
-  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (child.mouseOver())) {
-    //women.scene();
+  } else if (children.mouseOver()) {
     school.display();
-  } else if ((levant.isScene) && (!kilis.isMenu) && (!amman.isMenu) && (aid.mouseOver())) {
-    //women.scene();
+  } else if (aid.mouseOver()) {
     psych.display();
-  }     
+  }
+  
   
   if (isTextScene) {
     if ((splp.isText) && (nextPage_mouseOver)) {
@@ -524,12 +544,12 @@ public class City implements Clickable {
     
     if (blue == "null") {
       fill(180);
-      child.button();
-      child.exists = false;
+      children.button();
+      children.exists = false;
     } else {
       fill(255); 
-      child.button();
-      child.exists = true;
+      children.button();
+      children.exists = true;
     }
     
     if (pink == "null") {
