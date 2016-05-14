@@ -1,14 +1,3 @@
-/* @pjs preload="main-map.png"; */
-/* @pjs preload="middleeast.png"; */
-/* @pjs preload="belgium.png"; */
-/* @pjs preload="sblogo-400.png"; */
-/* @pjs preload="sblogo-inner.png"; */
-/* @pjs preload="sblogo-blue.png"; */
-/* @pjs preload="sblogo-green.png"; */
-/* @pjs preload="sblogo-pink.png"; */
-/* @pjs preload="sblogo-yellow.png"; */
-
-
 color yel  = color(222, 194, 64);
 color pin = color(195, 64, 145);
 color blu = color(65, 109, 174);
@@ -148,11 +137,7 @@ void draw() {
 }
 
 void backButtonResponsive() {
-  if ((!isMainScene) && (mouseX >= backM) && (mouseX <= backM + backW) &&  (mouseY >= height - backH - backM) && (mouseY <= height - backM)) {
-      back_mouseOver = true;
-  } else {
-      back_mouseOver = false;
-  }
+  backButton.responsive();
 }
 
 void backButtonColorResponsive() {
@@ -160,7 +145,7 @@ void backButtonColorResponsive() {
     showBackButton();
   }
   
-  if (back_mouseOver) {
+  if (backButton.mouseOver()) {
     buttonColor = color(0, 0, 50);
   } else {
     buttonColor = color(200, 0, 50);
@@ -215,7 +200,7 @@ void cursorImageResponsive() {
     || (levCities[3].mouseOver())    
     || (levCities[4].mouseOver())    
     || (levCities[5].mouseOver())    
-    || (back_mouseOver)
+    || (backButton.mouseOver())
     || (women.mouseOver())
     || (youth.mouseOver())
     || (child.mouseOver())
@@ -234,7 +219,7 @@ void cursorImageResponsive() {
 ///////////////////////////////
 
 void mouseReleased() {
-  if (back_mouseOver) {
+  if (backButton.mouseOver()) {
     showMainScene();
   } else if (levant.mouseOver()) {
     levant.displayScene();
@@ -351,6 +336,7 @@ void mouseReleased() {
 
 public interface Clickable {
   public boolean mouseOver();
+  public void responsive();
 }
 
 public class BackButton implements Clickable {
@@ -358,6 +344,14 @@ public class BackButton implements Clickable {
   
   public BackButton() {
     mouseOver = false;
+  }
+  
+  public void responsive() {
+    if ((!isMainScene) && (mouseX >= backM) && (mouseX <= backM + backW) &&  (mouseY >= height - backH - backM) && (mouseY <= height - backM)) {
+        mouseOver = true;
+    } else {
+        mouseOver = false;
+    }
   }
   
   public boolean mouseOver() {
