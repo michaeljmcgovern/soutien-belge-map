@@ -141,6 +141,10 @@ void setup() {
   clickables.add(aleppo);
   clickables.add(kilis);
   clickables.add(amman);
+  clickables.add(women);
+  clickables.add(youth);
+  clickables.add(children);
+  clickables.add(aid);
   
   ellipseMode(CENTER);
   rectMode(CENTER);
@@ -210,7 +214,7 @@ void cursorImageResponsive() {
   }
     
   if (
-    ((women.mouseOver())
+    (women.mouseOver())
     || (youth.mouseOver())
     || (children.mouseOver())
     || (aid.mouseOver()) 
