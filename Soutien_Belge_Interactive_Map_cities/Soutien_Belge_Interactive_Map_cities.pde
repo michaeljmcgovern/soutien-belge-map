@@ -56,25 +56,25 @@ Theme aid;
 
 Theme[] themes = new Theme[4];
 
-Text womenText = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
+Text womenText = new Text("Women's Centres", "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
   "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
-Text youthText = new Text("Youth Education", false, "youthed1", "youthed2", "youthed3", "youthed4");
-Text childrenText = new Text("Schools", false, 
+Text youthText = new Text("Youth Education", "youthed1", "youthed2", "youthed3", "youthed4");
+Text childrenText = new Text("Schools",  
   "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", 
   "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", 
   "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", 
   "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
-Text aidText = new Text("Psychological Support Centres", false, "psych1", "psych2", "psych3", "psych4");
+Text aidText = new Text("Psychological Support Centres", "psych1", "psych2", "psych3", "psych4");
 
-Text brusselsChildrenText = new Text("SB Weekend", false, "weekend1", "weekend2", "weekend3", "weekend4");
-Text brusselsYouthText = new Text("S'engager Pour La Paix", false, "splp1", "splp2", "splp3", "splp4");
-Text aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "null");
-Text kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
-Text ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
+Text brusselsChildrenText = new Text("SB Weekend", "weekend1", "weekend2", "weekend3", "weekend4");
+Text brusselsYouthText = new Text("S'engager Pour La Paix", "splp1", "splp2", "splp3", "splp4");
+Text aleppoYouthText = new Text("Bakery", "bakery1", "null", "null", "null");
+Text kilisText = new Text("Kilis - closed", "closed1", "null", "null", "null");
+Text ammanText = new Text("Amman - TBD", "future1", "future2", "null");
 
-Text collectText = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
+Text collectText = new Text("Collection Campaign", "collect1", "collect2", "collect3", "collect4");
 
-Text nullText = new Text("null", false);
+Text nullText = new Text("null");
 
 Text[] texts = new Text[10];
 
@@ -485,10 +485,10 @@ public class Text {
   private final String title;
   private final String[] text;
   
-  public Text(String title, boolean isText, String...text) {
+  public Text(String title, String...text) {
     this.title = title;
-    this.isText = isText;
     this.text = text;
+    isText = false;
   }
   
   public void display() {
