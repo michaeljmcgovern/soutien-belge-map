@@ -100,8 +100,8 @@ void setup() {
   arsal = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
   damascus = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
   aleppo = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
-  kilis = new City("Kilis", levant, false, false, 406, 190, "closed", "null", "null", "null");
-  amman = new City("Amman", levant, false, false, 316, 625, "future", "null", "null", "null");
+  kilis = new City("Kilis", levant, false, false, 406, 190, "closed", "closed", "closed", "null");
+  amman = new City("Amman", levant, false, false, 316, 625, "future", "future", "future", "null");
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -234,7 +234,7 @@ void mouseReleased() {
       return;
     }
   }
-  
+
   if (brussels.isMenu) {
     if (youth.mouseOver()) {
       currentPage = 1;
@@ -289,6 +289,7 @@ void mouseReleased() {
     currentPage = 1;
     aidText.display();
   }
+
 }
 
 /////////////////////////////////
@@ -508,6 +509,10 @@ public class City implements Clickable {
   }
   
   public void respond() {
+    for (City city : cities) {
+      city.isMenu = false;
+    }
+    
     isMenuScene = true;
     isMenu = true;
     tintScene();
@@ -515,6 +520,8 @@ public class City implements Clickable {
     chooseDrawMenuButtons();
     
     isMainScene = false;
+    belgium.isScene = false;
+    levant.isScene = false;
   }
   
   public void responsive() {
@@ -598,11 +605,7 @@ public class Theme implements Clickable {
     this.mouseOver = mouseOver;
     this.exists = exists;
   }
-  
-  public void respond() {
-    // TODO
-  }
-  
+
   public void responsive() {
     if ((isMenuScene) && (exists) && (mouseWithinThemeArea())) {
       mouseOver = true;
@@ -611,6 +614,48 @@ public class Theme implements Clickable {
     } else {
       mouseOver = false;
     }
+  }
+  
+  public void respond() {
+      // TODO
+      test_circle();
+      currentPage = 1;
+      /*
+      if (kilis.isMenu) {
+          test_circle();
+          kilisText.display();
+      } 
+      
+      else if (amman.isMenu) {
+          ammanText.display();
+      } 
+      
+      else if (this.name == "Youth") {
+          if (brussels.isMenu) {
+              brusselsYouthText.display();
+          } else if (aleppo.isMenu) {
+              aleppoYouthText.display();
+          } else {
+              youthText.display();
+          }
+      }
+      
+      else if (this.name == "Children") {
+          if (brussels.isMenu) {
+              brusselsChildrenText.display();
+          } else {
+              childrenText.display();
+          }
+      }
+      
+      else if (this.name == "Women") {
+          womenText.display();
+      }
+      
+      else if (this.name == "Aid") {
+          aidText.display();
+      }
+      */
   }
   
   private boolean mouseWithinThemeArea() {
@@ -635,6 +680,11 @@ public class Theme implements Clickable {
     }
   }
 }
+
+
+
+
+
 
 public class Text {
   public boolean isText;
