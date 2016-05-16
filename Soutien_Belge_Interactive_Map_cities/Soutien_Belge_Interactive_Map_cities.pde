@@ -637,6 +637,10 @@ public class Text {
   
   public void display() {
     isTextScene = true;
+    
+    for (Text text : texts) {
+      text.isText = false;
+    }
     isText = true;
         
     //textbox
