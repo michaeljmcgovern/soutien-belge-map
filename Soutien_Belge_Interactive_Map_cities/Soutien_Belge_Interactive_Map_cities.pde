@@ -154,6 +154,11 @@ void setup() {
   clickables.add(aleppo);
   clickables.add(kilis);
   clickables.add(amman);
+  clickables.add(women);
+  clickables.add(youth);
+  clickables.add(children);
+  clickables.add(aid);
+  
   
   ellipseMode(CENTER);
   rectMode(CENTER);
@@ -192,17 +197,7 @@ void cursorImageResponsive() {
       return;
     }
   }
-  
-  if (
-    (women.mouseOver())
-    || (youth.mouseOver())
-    || (children.mouseOver())
-    || (aid.mouseOver()))
-        
-      {cursor(HAND);}
-  
-  else  {cursor(ARROW);}
-
+  cursor(ARROW);
 }
 
 ///////////////////////////////
@@ -216,62 +211,6 @@ void mouseReleased() {
       return;
     }
   }
-
-  if (brussels.isMenu) {
-    if (youth.mouseOver()) {
-      currentPage = 1;
-      brusselsYouthText.display();
-    }
-    else if (children.mouseOver()) {
-      currentPage = 1;
-      brusselsChildrenText.display();
-    }
-  }
-  
-  else if (aleppo.isMenu) {
-    if (women.mouseOver()) {
-      currentPage = 1;
-      womenText.display();
-    } else if (youth.mouseOver()) {
-      currentPage = 1;
-      aleppoYouthText.display();
-    } else if (children.mouseOver()) {
-      currentPage = 1;
-      childrenText.display();
-    } else if (aid.mouseOver()) {
-      currentPage = 1;
-      aidText.display();
-    }
-  }
-  
-  else if (kilis.isMenu) {
-    if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
-      currentPage = 1;
-      kilisText.display();
-    }
-  }
-  
-  else if (amman.isMenu) {
-    if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
-      currentPage = 1;
-      ammanText.display();
-    }
-  }
-  
-  else if (women.mouseOver()) {
-    currentPage = 1;
-    womenText.display();
-  } else if (youth.mouseOver()) {
-    currentPage = 1;
-    youthText.display();
-  } else if (children.mouseOver()) {
-    currentPage = 1;
-    childrenText.display();
-  } else if (aid.mouseOver()) {
-    currentPage = 1;
-    aidText.display();
-  }
-
 }
 
 /////////////////////////////////
@@ -282,8 +221,6 @@ public interface Clickable {
   public boolean mouseOver();
   public void respond();
 }
-
-
 
 
 public class BackButton implements Clickable {
@@ -343,10 +280,6 @@ public class BackButton implements Clickable {
 }
 
 
-
-
-
-
 public class ChangePageButton implements Clickable {
   private float x;
   private int notDisplay;
@@ -390,10 +323,7 @@ public class ChangePageButton implements Clickable {
   public boolean mouseOver() {
     return (isTextScene) && (currentPage != notDisplay) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4);
   }
-} 
-
-
-
+}
 
 
 public class Country implements Clickable {
@@ -430,11 +360,6 @@ public class Country implements Clickable {
     isScene = true;
   }
 }
-
-
-
-
-
 
 
 public class City implements Clickable {
@@ -527,7 +452,6 @@ public class Theme implements Clickable {
   }
   
   public void respond() {
-      // TODO
       currentPage = 1;
       text.display();
   }
