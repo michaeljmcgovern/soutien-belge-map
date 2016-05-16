@@ -367,7 +367,6 @@ public class BackButton implements Clickable {
 
 
 public class ChangePageButton implements Clickable {
-  private boolean mouseOver;
   private float x;
   private int notDisplay;
 
@@ -375,7 +374,6 @@ public class ChangePageButton implements Clickable {
   private final float d = 40;
   
   public ChangePageButton(float x, int notDisplay) {
-    mouseOver = false;
     this.x = x;
     this.notDisplay = notDisplay;
   }
@@ -395,20 +393,16 @@ public class ChangePageButton implements Clickable {
   }
   
   public void responsive() {
-    if ((isTextScene) && (currentPage != notDisplay) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4)) {
-      mouseOver = true;
-    } else {
-      mouseOver = false;
-    }
+
   }
   
   public void respond() {
     if (isTextScene) {
       for (Text text : texts) {
-        if ((text.isText) && (prevPB.mouseOver)) {
+        if ((text.isText) && (prevPB.mouseOver())) {
           currentPage -= 1;
           text.display();
-        } else if ((text.isText) && (nextPB.mouseOver)) {
+        } else if ((text.isText) && (nextPB.mouseOver())) {
           currentPage += 1;
           text.display();
         }
@@ -417,7 +411,7 @@ public class ChangePageButton implements Clickable {
   }
 
   public boolean mouseOver() {
-    return mouseOver;
+    return (isTextScene) && (currentPage != notDisplay) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4);
   }
 } 
 
@@ -653,10 +647,6 @@ public class Theme implements Clickable {
     }
   }
 }
-
-
-
-
 
 
 public class Text {
