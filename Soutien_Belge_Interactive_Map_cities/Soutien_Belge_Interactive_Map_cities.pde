@@ -74,6 +74,8 @@ Text ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "n
 
 Text collectText = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
 
+Text nullText = new Text("null", false);
+
 Text[] texts = new Text[10];
 
 void setup() {
@@ -95,13 +97,13 @@ void setup() {
   belgium = new Country(loadImage("belgium.png"), belCities, yel);
   levant = new Country(loadImage("middleeast.png"), levCities, gre, blu, pin, cya);
   
-  brussels = new City("Brussels", belgium, 610, 295, "weekend", "splp", "null", "null");
-  beirut = new City("Beirut", levant, 285, 453, "school", "null", "psych", "women");
-  arsal = new City("Arsal, Bekaa Valley", levant, 358, 424, "school", "null", "psych", "women");
-  damascus = new City("Damascus", levant, 343, 484, "school", "null", "psych", "women");
-  aleppo = new City("Aleppo", levant, 407, 235, "school", "bakery", "collect", "women");
-  kilis = new City("Kilis", levant, 406, 190, "closed", "closed", "closed", "null");
-  amman = new City("Amman", levant, 316, 625, "future", "future", "future", "null");
+  brussels = new City("Brussels", belgium, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
+  beirut = new City("Beirut", levant, 285, 453, womenText, youthText, childrenText, aidText);
+  arsal = new City("Arsal, Bekaa Valley", levant, 358, 424, womenText, youthText, childrenText, aidText);
+  damascus = new City("Damascus", levant, 343, 484, womenText, youthText, childrenText, aidText);
+  aleppo = new City("Aleppo", levant, 407, 235, womenText, aleppoYouthText, childrenText, aidText);
+  kilis = new City("Kilis", levant, 406, 190, kilisText, kilisText, kilisText, kilisText);
+  amman = new City("Amman", levant, 316, 625, ammanText, ammanText, ammanText, ammanText);
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -441,7 +443,20 @@ public class City implements Clickable {
   private final int x, y;
   private final int d = 50;
   private final String blue, green, pink, yellow;
+  // private final Text womenText, youthText, childrenText, aidText;
   private final Country location;
+    
+  public City(String name, Country location, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
+    this.name = name;
+    this.location = location;
+    this.x = x;
+    this.y = y;
+    blue = childrenText.title;
+    green = youthText.title;
+    pink = aidText.title;
+    yellow = womenText.title;
+    isMenu = false;  
+  }
   
   public City(String name, Country location, int x, int y, String blue, String green, String pink, String yellow) {
     this.name = name;
