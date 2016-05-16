@@ -78,11 +78,13 @@ Text aleppoYouthText = new Text("Bakery", false, "bakery1", "null", "null", "nul
 Text kilisText = new Text("Kilis - closed", false, "closed1", "null", "null", "null");
 Text ammanText = new Text("Amman - TBD", false, "future1", "future2", "null", "null");
 
-Text collect = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
+Text collectText = new Text("Collection Campaign", false, "collect1", "collect2", "collect3", "collect4");
+
+Text[] texts = new Text[10];
 
 void setup() {
-  size(1280, 800);
-  //fullScreen();
+  //size(1280, 800);
+  fullScreen();
   smooth(8);
   
   mainmap = loadImage("main-map.png");
@@ -127,6 +129,17 @@ void setup() {
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
   children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
   aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
+  
+  texts[0] = womenText;
+  texts[1] = youthText;
+  texts[2] = childrenText;
+  texts[3] = aidText;
+  texts[4] = brusselsChildrenText;
+  texts[5] = brusselsYouthText;
+  texts[6] = aleppoYouthText;
+  texts[7] = kilisText;
+  texts[8] = ammanText;
+  texts[9] = collectText;
   
   clickables.add(backButton);
   clickables.add(belgium);
@@ -277,7 +290,17 @@ void mouseReleased() {
   
   
   if (isTextScene) {
-    if ((brusselsYouthText.isText) && (nextPage_mouseOver)) {
+    for (Text text : texts) {
+      if ((text.isText) && (nextPage_mouseOver)) {
+        currentPage += 1;
+        text.display();
+      } else if ((text.isText) && (prevPage_mouseOver)) {
+        currentPage -= 1;
+        text.display();
+      }
+    }
+    
+/*    if ((brusselsYouthText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
       brusselsYouthText.display();
     } else if ((brusselsYouthText.isText) && (prevPage_mouseOver)) {
@@ -331,13 +354,14 @@ void mouseReleased() {
     } else if ((aidText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
       aidText.display();
-    } else if ((collect.isText) && (nextPage_mouseOver)) {
+    } else if ((collectText.isText) && (nextPage_mouseOver)) {
       currentPage += 1;
-      collect.display();
-    } else if ((collect.isText) && (prevPage_mouseOver)) {
+      collectText.display();
+    } else if ((collectText.isText) && (prevPage_mouseOver)) {
       currentPage -= 1;
-      collect.display();
-    } 
+      collectText.display();
+    } */
+    
   }
 }
 
@@ -624,7 +648,7 @@ public class Text {
     isTextScene = true;
     isText = true;
     
-    pageChanger();
+    //pageChanger();
     
     //textbox
     fill(255,255,255);
@@ -659,6 +683,7 @@ public class Text {
     }
   }
   
+  /*
   public void pageChanger() {
     if ((isText) && (nextPage_mouseOver)) {
       currentPage += 1;
@@ -668,6 +693,8 @@ public class Text {
       display();
     }
   }
+  */
+  
 }
 
 
