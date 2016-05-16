@@ -165,32 +165,12 @@ void setup() {
 
 void draw() {
   backButtonResponsive();
-  changePageButtonsResponsive();
-  countriesResponsive();
-  citiesResponsive();
   themeMenuResponsive();
   cursorImageResponsive();
 }
 
 void backButtonResponsive() {
   backButton.responsive();
-}
-
-void changePageButtonsResponsive() {
-  prevPB.responsive();
-  nextPB.responsive();
-}
-
-
-void countriesResponsive() {
-  levant.responsive();
-  belgium.responsive();
-}
-
-void citiesResponsive() {
-  for (City city : cities) {
-    city.responsive();
-  }
 }
 
 void themeMenuResponsive() {
@@ -298,7 +278,6 @@ void mouseReleased() {
 
 public interface Clickable {
   public boolean mouseOver();
-  public void responsive();
   public void respond();
 }
 
@@ -391,11 +370,7 @@ public class ChangePageButton implements Clickable {
       line(x+d/5, y, x-d/10, y-3*d/10);
     }
   }
-  
-  public void responsive() {
 
-  }
-  
   public void respond() {
     if (isTextScene) {
       for (Text text : texts) {
@@ -436,10 +411,6 @@ public class Country implements Clickable {
     displayScene();
   }
  
-  public void responsive() {
-    
-  }
-
   public boolean mouseOver() {
     if (! isMainScene) return false;
     for (color col : colors) {
@@ -498,10 +469,6 @@ public class City implements Clickable {
     isMainScene = false;
     belgium.isScene = false;
     levant.isScene = false;
-  }
-  
-  public void responsive() {
-
   }
   
   public boolean mouseOver() {
