@@ -121,10 +121,10 @@ void setup() {
   cities[5] = kilis;
   cities[6] = amman;
   
-  women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"));
-  youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"));
-  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"));
-  aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"));
+  women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), womenText);
+  youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), youthText);
+  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), childrenText);
+  aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), aidText);
   
   themes[0] = women;
   themes[1] = youth;
@@ -442,7 +442,6 @@ public class City implements Clickable {
   public boolean isMenu;
   private final int x, y;
   private final int d = 50;
-  private final String blue, green, pink, yellow;
   private final Text womenText, youthText, childrenText, aidText;
   private final Country location;
     
@@ -451,10 +450,6 @@ public class City implements Clickable {
     this.location = location;
     this.x = x;
     this.y = y;
-    blue = childrenText.title;
-    green = youthText.title;
-    pink = aidText.title;
-    yellow = womenText.title;
     this.womenText = womenText;
     this.youthText = youthText;
     this.childrenText = childrenText;
@@ -534,20 +529,30 @@ public class City implements Clickable {
 }
 
 
-
-
-
 public class Theme implements Clickable {
   private final String name;
   public boolean exists;
   private float y;
   private final PImage themeLogo;
+  private Text text;
   
+  public Theme(String name, float y, PImage themeLogo, Text text) {
+    this.name = name;
+    this.y = y;
+    this.themeLogo = themeLogo;
+    this.text = text;
+    exists = false;
+  }
+
   public Theme(String name, float y, PImage themeLogo) {
     this.name = name;
     this.y = y;
     this.themeLogo = themeLogo;
     exists = false;
+  }
+  
+  public void setText(Text text) {
+    this.text = text;
   }
 
   public void responsive() {
@@ -559,44 +564,8 @@ public class Theme implements Clickable {
   
   public void respond() {
       // TODO
-      test_circle();
       currentPage = 1;
-      /*
-      if (kilis.isMenu) {
-          test_circle();
-          kilisText.display();
-      } 
-      
-      else if (amman.isMenu) {
-          ammanText.display();
-      } 
-      
-      else if (this.name == "Youth") {
-          if (brussels.isMenu) {
-              brusselsYouthText.display();
-          } else if (aleppo.isMenu) {
-              aleppoYouthText.display();
-          } else {
-              youthText.display();
-          }
-      }
-      
-      else if (this.name == "Children") {
-          if (brussels.isMenu) {
-              brusselsChildrenText.display();
-          } else {
-              childrenText.display();
-          }
-      }
-      
-      else if (this.name == "Women") {
-          womenText.display();
-      }
-      
-      else if (this.name == "Aid") {
-          aidText.display();
-      }
-      */
+      text.display();
   }
   
   public boolean mouseOver() {
