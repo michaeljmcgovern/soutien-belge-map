@@ -443,7 +443,7 @@ public class City implements Clickable {
   private final int x, y;
   private final int d = 50;
   private final String blue, green, pink, yellow;
-  // private final Text womenText, youthText, childrenText, aidText;
+  private final Text womenText, youthText, childrenText, aidText;
   private final Country location;
     
   public City(String name, Country location, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
@@ -455,18 +455,10 @@ public class City implements Clickable {
     green = youthText.title;
     pink = aidText.title;
     yellow = womenText.title;
-    isMenu = false;  
-  }
-  
-  public City(String name, Country location, int x, int y, String blue, String green, String pink, String yellow) {
-    this.name = name;
-    this.location = location;
-    this.x = x;
-    this.y = y;
-    this.blue = blue;
-    this.green = green;
-    this.pink = pink;
-    this.yellow = yellow;
+    this.womenText = womenText;
+    this.youthText = youthText;
+    this.childrenText = childrenText;
+    this.aidText = aidText;
     isMenu = false;  
   }
   
@@ -499,7 +491,7 @@ public class City implements Clickable {
   }
   
   public void chooseDrawMenuButtons() {
-    if (yellow == "null") {
+    if (womenText.title == "null") {
       fill(180);
       women.button();
       women.exists = false;
@@ -509,7 +501,7 @@ public class City implements Clickable {
       women.exists = true;
     } 
 
-    if (green == "null") {
+    if (youthText.title == "null") {
       fill(180);
       youth.button();
       youth.exists = false;
@@ -519,7 +511,7 @@ public class City implements Clickable {
       youth.exists = true;
     } 
     
-    if (blue == "null") {
+    if (childrenText.title == "null") {
       fill(180);
       children.button();
       children.exists = false;
@@ -529,7 +521,7 @@ public class City implements Clickable {
       children.exists = true;
     }
     
-    if (pink == "null") {
+    if (aidText.title == "null") {
       fill(180);
       aid.button();
       aid.exists = false;
