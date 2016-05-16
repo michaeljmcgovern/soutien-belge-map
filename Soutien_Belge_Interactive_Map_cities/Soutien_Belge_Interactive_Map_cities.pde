@@ -472,7 +472,6 @@ public class Country implements Clickable {
 
 public class City implements Clickable {
   private final String name;
-  private boolean mouseOver;
   public boolean isMenu;
   private final int x, y;
   private final int d = 50;
@@ -488,7 +487,6 @@ public class City implements Clickable {
     this.green = green;
     this.pink = pink;
     this.yellow = yellow;
-    mouseOver = false;
     isMenu = false;  
   }
   
@@ -509,15 +507,11 @@ public class City implements Clickable {
   }
   
   public void responsive() {
-    if ((location.isScene) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4)) {
-      mouseOver = true;
-    } else {
-      mouseOver = false;
-    }
+
   }
   
   public boolean mouseOver() {
-    return mouseOver;
+    return (location.isScene) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
   }
   
   public void display() {
