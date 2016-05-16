@@ -237,44 +237,56 @@ void mouseReleased() {
   
   if (brussels.isMenu) {
     if (youth.mouseOver()) {
+      currentPage = 1;
       brusselsYouthText.display();
     }
     else if (children.mouseOver()) {
+      currentPage = 1;
       brusselsChildrenText.display();
     }
   }
   
   else if (aleppo.isMenu) {
     if (women.mouseOver()) {
+      currentPage = 1;
       womenText.display();
     } else if (youth.mouseOver()) {
+      currentPage = 1;
       aleppoYouthText.display();
     } else if (children.mouseOver()) {
+      currentPage = 1;
       childrenText.display();
     } else if (aid.mouseOver()) {
+      currentPage = 1;
       aidText.display();
     }
   }
   
   else if (kilis.isMenu) {
     if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
+      currentPage = 1;
       kilisText.display();
     }
   }
   
   else if (amman.isMenu) {
     if ((women.mouseOver()) || (youth.mouseOver()) || (children.mouseOver()) || (aid.mouseOver())) {
+      currentPage = 1;
       ammanText.display();
     }
   }
   
   else if (women.mouseOver()) {
+    currentPage = 1;
     womenText.display();
   } else if (youth.mouseOver()) {
+    currentPage = 1;
     youthText.display();
   } else if (children.mouseOver()) {
+    currentPage = 1;
     childrenText.display();
   } else if (aid.mouseOver()) {
+    currentPage = 1;
     aidText.display();
   }
 }
