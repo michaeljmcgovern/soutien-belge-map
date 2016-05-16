@@ -30,8 +30,8 @@ float themeH = 100;
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
 BackButton backButton = new BackButton();
-ChangePageButton prevPB = new ChangePageButton(xc*1.5 - 20, 1);
-ChangePageButton nextPB = new ChangePageButton(xc*1.5 + 20, 4);
+ChangePageButton prevPB = new ChangePageButton(xc*1.5 - 20, -1);
+ChangePageButton nextPB = new ChangePageButton(xc*1.5 + 20, 1);
 
 Country belgium;
 Country levant;
@@ -70,7 +70,7 @@ Text brusselsChildrenText = new Text("SB Weekend", "weekend1", "weekend2", "week
 Text brusselsYouthText = new Text("S'engager Pour La Paix", "splp1", "splp2", "splp3", "splp4");
 Text aleppoYouthText = new Text("Bakery", "bakery1", "null", "null", "null");
 Text kilisText = new Text("Kilis - closed", "closed1", "null", "null", "null");
-Text ammanText = new Text("Amman - TBD", "future1", "future2", "null");
+Text ammanText = new Text("Amman - TBD", "future1", "future2", "null", "null");
 
 Text collectText = new Text("Collection Campaign", "collect1", "collect2", "collect3", "collect4");
 
@@ -281,39 +281,37 @@ public class BackButton implements Clickable {
 
 
 public class ChangePageButton implements Clickable {
-  private float x;
-  private int notDisplay;
-
+  private final float x;
   private final float y = height - 20;
   private final float d = 40;
-  
-  public ChangePageButton(float x, int notDisplay) {
+  private final int notDisplayed;
+  private final int changeValue;
+
+  public ChangePageButton(float x, int changeValue) {
     this.x = x;
-    this.notDisplay = notDisplay;
+    this.changeValue = changeValue;
+    if (changeValue < 0) {
+      notDisplayed = 1;
+    } else {
+      notDisplayed = 4;
+    }
   }
-  
+
   public void display() {
     fill(255,0,0);
     ellipse(x, y, d, d);
     strokeWeight(3);
     fill(0,0,0);
-    if (notDisplay == 1) {
-      line(x-d/5, y, x+d/10, y+3*d/10);
-      line(x-d/5, y, x+d/10, y-3*d/10);
-    } else if (notDisplay == 4) {
-      line(x+d/5, y, x-d/10, y+3*d/10);
-      line(x+d/5, y, x-d/10, y-3*d/10);
-    }
+    
+    line(x+changeValue*d/5, y, x-changeValue*d/10, y+3*d/10);
+    line(x+changeValue*d/5, y, x-changeValue*d/10, y-3*d/10);
   }
 
   public void respond() {
     if (isTextScene) {
       for (Text text : texts) {
-        if ((text.isText) && (prevPB.mouseOver())) {
-          currentPage -= 1;
-          text.display();
-        } else if ((text.isText) && (nextPB.mouseOver())) {
-          currentPage += 1;
+        if (text.isText) {
+          currentPage += changeValue;
           text.display();
         }
       }
@@ -321,7 +319,7 @@ public class ChangePageButton implements Clickable {
   }
 
   public boolean mouseOver() {
-    return (isTextScene) && (currentPage != notDisplay) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4);
+    return (isTextScene) && (currentPage != notDisplayed) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4);
   }
 }
 
