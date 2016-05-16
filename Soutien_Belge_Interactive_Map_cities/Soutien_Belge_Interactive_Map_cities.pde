@@ -77,8 +77,8 @@ Text collectText = new Text("Collection Campaign", false, "collect1", "collect2"
 Text[] texts = new Text[10];
 
 void setup() {
-  //size(1280, 800);
-  fullScreen();
+  size(1280, 800);
+  //fullScreen();
   smooth(8);
   
   mainmap = loadImage("main-map.png");
@@ -92,16 +92,16 @@ void setup() {
   bodyFont = createFont("Helvetica", 20);
   
   
-  belgium = new Country(loadImage("belgium.png"), false, false, belCities, yel);
-  levant = new Country(loadImage("middleeast.png"), false, false, levCities, gre, blu, pin, cya);
+  belgium = new Country(loadImage("belgium.png"), belCities, yel);
+  levant = new Country(loadImage("middleeast.png"), levCities, gre, blu, pin, cya);
   
-  brussels = new City("Brussels", belgium, false, false, 610, 295, "weekend", "splp", "null", "null");
-  beirut = new City("Beirut", levant, false, false, 285, 453, "school", "null", "psych", "women");
-  arsal = new City("Arsal, Bekaa Valley", levant, false, false, 358, 424, "school", "null", "psych", "women");
-  damascus = new City("Damascus", levant, false, false, 343, 484, "school", "null", "psych", "women");
-  aleppo = new City("Aleppo", levant, false, false, 407, 235, "school", "bakery", "collect", "women");
-  kilis = new City("Kilis", levant, false, false, 406, 190, "closed", "closed", "closed", "null");
-  amman = new City("Amman", levant, false, false, 316, 625, "future", "future", "future", "null");
+  brussels = new City("Brussels", belgium, 610, 295, "weekend", "splp", "null", "null");
+  beirut = new City("Beirut", levant, 285, 453, "school", "null", "psych", "women");
+  arsal = new City("Arsal, Bekaa Valley", levant, 358, 424, "school", "null", "psych", "women");
+  damascus = new City("Damascus", levant, 343, 484, "school", "null", "psych", "women");
+  aleppo = new City("Aleppo", levant, 407, 235, "school", "bakery", "collect", "women");
+  kilis = new City("Kilis", levant, 406, 190, "closed", "closed", "closed", "null");
+  amman = new City("Amman", levant, 316, 625, "future", "future", "future", "null");
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -441,12 +441,12 @@ public class Country implements Clickable {
   private final City[] cities;
   private final color[] colors;
    
-  public Country(PImage pic, boolean mouseOver, boolean isScene, City[] cities, color...colors) {
+  public Country(PImage pic, City[] cities, color...colors) {
     this.pic = pic;
-    this.mouseOver = mouseOver;
-    this.isScene = isScene;
     this.cities = cities;
     this.colors = colors;
+    mouseOver = false;
+    isScene = false;
   }
   
   public void respond() {
@@ -495,17 +495,17 @@ public class City implements Clickable {
   private final String blue, green, pink, yellow;
   private final Country location;
   
-  public City(String name, Country location, boolean mouseOver, boolean isMenu, int x, int y, String blue, String green, String pink, String yellow) {
+  public City(String name, Country location, int x, int y, String blue, String green, String pink, String yellow) {
     this.name = name;
     this.location = location;
-    this.mouseOver = mouseOver;
-    this.isMenu = isMenu;
     this.x = x;
     this.y = y;
     this.blue = blue;
     this.green = green;
     this.pink = pink;
-    this.yellow = yellow;    
+    this.yellow = yellow;
+    mouseOver = false;
+    isMenu = false;  
   }
   
   public void respond() {
