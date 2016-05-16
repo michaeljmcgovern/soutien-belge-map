@@ -306,7 +306,6 @@ public interface Clickable {
 
 
 public class BackButton implements Clickable {
-  private boolean mouseOver;
   private color buttonColor;
   
   private final int w = 90;
@@ -316,7 +315,6 @@ public class BackButton implements Clickable {
   private final int y = height - h/2 - m;
   
   public BackButton() {
-    mouseOver = false;
     buttonColor = color(200, 0, 50);
   }
   
@@ -347,13 +345,6 @@ public class BackButton implements Clickable {
     if (!isMainScene) {
       display();
     }
-    
-    if ((!isMainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m)) {
-        mouseOver = true;
-    } else {
-        mouseOver = false;
-    }
-    
     colorResponsive();
   }
   
@@ -366,7 +357,7 @@ public class BackButton implements Clickable {
   }
   
   public boolean mouseOver() {
-    return mouseOver;
+    return (!isMainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
   }
 }
 
