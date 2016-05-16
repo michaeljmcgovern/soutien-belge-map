@@ -4,7 +4,6 @@ color blu = color(65, 109, 174);
 color gre = color(158, 195, 77);
 color cya = color(77, 181, 195);
 
-
 PImage mainmap;
 PImage logo;
 PImage logoInner;
@@ -180,8 +179,8 @@ void themeMenuResponsive() {
   children.responsive();
   aid.responsive();
   
-  if ((isMenuScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!children.mouseOver()) && (!aid.mouseOver())) {
-      image(logo, 900, yc, 400, 400);
+  if ((isMenuScene) && (!isTextScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!children.mouseOver()) && (!aid.mouseOver())) {
+    image(logo, 900, yc, 400, 400);
   }
 }
 
@@ -604,7 +603,9 @@ public class Theme implements Clickable {
   }
 
   public void logo() {
-    image(themeLogo, 900, yc, 400, 400);
+    if (!isTextScene) {
+      image(themeLogo, 900, yc, 400, 400);
+    }
   }
 }
 
