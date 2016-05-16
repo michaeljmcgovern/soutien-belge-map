@@ -17,8 +17,10 @@ PFont bodyFont;
 
 boolean isMainScene = true;
 boolean isMenuScene = false;
+/*
 boolean prevPage_mouseOver = false;
 boolean nextPage_mouseOver = false;
+*/
 
 int d = 50;
 
@@ -30,16 +32,14 @@ float themeX = 200;
 float themeW = 200;
 float themeH = 100;
 
-float ppbX = xc*1.5 - 20;
-float npbX = xc*1.5 + 20;
-float cpbY = height - 20;
-float cpbD = 25;
 boolean isTextScene;
 int currentPage = 1;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
 BackButton backButton = new BackButton();
+ChangePageButton prevPB = new ChangePageButton(xc*1.5 - 20, 1);
+ChangePageButton nextPB = new ChangePageButton(xc*1.5 + 20, 4);
 
 Country belgium;
 Country levant;
@@ -61,6 +61,8 @@ Theme women;
 Theme youth;
 Theme children;
 Theme aid;
+
+Theme[] themes = new Theme[4];
 
 Text womenText = new Text("Women's Centres", false, "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
   "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
@@ -130,6 +132,11 @@ void setup() {
   children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
   aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
   
+  themes[0] = women;
+  themes[1] = youth;
+  themes[2] = children;
+  themes[3] = aid;
+  
   texts[0] = womenText;
   texts[1] = youthText;
   texts[2] = childrenText;
@@ -142,6 +149,8 @@ void setup() {
   texts[9] = collectText;
   
   clickables.add(backButton);
+  clickables.add(prevPB);
+  clickables.add(nextPB);
   clickables.add(belgium);
   clickables.add(levant);
   clickables.add(brussels);
@@ -164,16 +173,22 @@ void setup() {
 
 void draw() {
   backButtonResponsive();
+  changePageButtonsResponsive();
   countriesResponsive();
   citiesResponsive();
   themeMenuResponsive();
-  changePageResponsive();
   cursorImageResponsive();
 }
 
 void backButtonResponsive() {
   backButton.responsive();
 }
+
+void changePageButtonsResponsive() {
+  prevPB.responsive();
+  nextPB.responsive();
+}
+
 
 void countriesResponsive() {
   levant.responsive();
@@ -187,27 +202,12 @@ void citiesResponsive() {
 }
 
 void themeMenuResponsive() {
-  women.responsive();
-  youth.responsive();
-  children.responsive();
-  aid.responsive();
+  for (Theme theme : themes) {
+    theme.responsive();
+  }
   
   if ((isMenuScene) && (!isTextScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!children.mouseOver()) && (!aid.mouseOver())) {
     image(logo, 900, yc, 400, 400);
-  }
-}
-
-void changePageResponsive() {
-  if ((isTextScene) && (currentPage > 1) && ((mouseX - ppbX)*(mouseX - ppbX) + (mouseY - cpbY)*(mouseY - cpbY) < cpbD*cpbD/4)) {
-    prevPage_mouseOver = true;
-  } else {
-    prevPage_mouseOver = false;
-  }
-
-  if ((isTextScene) && (currentPage < 4) && ((mouseX - npbX)*(mouseX - npbX) + (mouseY - cpbY)*(mouseY - cpbY) < cpbD*cpbD/4)) {
-    nextPage_mouseOver = true;
-  } else {
-    nextPage_mouseOver = false;
   }
 }
 
@@ -223,9 +223,7 @@ void cursorImageResponsive() {
     (women.mouseOver())
     || (youth.mouseOver())
     || (children.mouseOver())
-    || (aid.mouseOver()) 
-    || (prevPage_mouseOver) 
-    || (nextPage_mouseOver)) 
+    || (aid.mouseOver()))
         
       {cursor(HAND);}
   
@@ -287,82 +285,6 @@ void mouseReleased() {
   } else if (aid.mouseOver()) {
     aidText.display();
   }
-  
-  
-  if (isTextScene) {
-    for (Text text : texts) {
-      if ((text.isText) && (nextPage_mouseOver)) {
-        currentPage += 1;
-        text.display();
-      } else if ((text.isText) && (prevPage_mouseOver)) {
-        currentPage -= 1;
-        text.display();
-      }
-    }
-    
-/*    if ((brusselsYouthText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      brusselsYouthText.display();
-    } else if ((brusselsYouthText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      brusselsYouthText.display();
-    } else if ((brusselsChildrenText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      brusselsChildrenText.display();
-    } else if ((brusselsChildrenText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      brusselsChildrenText.display();
-    } else if ((aleppoYouthText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      aleppoYouthText.display();
-    } else if ((aleppoYouthText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      aleppoYouthText.display();
-    } else if ((kilisText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      kilisText.display();
-    } else if ((kilisText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      kilisText.display();
-    } else if ((ammanText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      ammanText.display();
-    } else if ((ammanText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      ammanText.display();
-    } else if ((womenText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      womenText.display();
-    } else if ((womenText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      womenText.display();
-    } else if ((youthText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      youthText.display();
-    } else if ((youthText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      youthText.display();
-    } else if ((childrenText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      childrenText.display();
-    } else if ((childrenText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      childrenText.display();
-    } else if ((aidText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      aidText.display();
-    } else if ((aidText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      aidText.display();
-    } else if ((collectText.isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      collectText.display();
-    } else if ((collectText.isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      collectText.display();
-    } */
-    
-  }
 }
 
 /////////////////////////////////
@@ -374,6 +296,9 @@ public interface Clickable {
   public void responsive();
   public void respond();
 }
+
+
+
 
 public class BackButton implements Clickable {
   private boolean mouseOver;
@@ -404,6 +329,7 @@ public class BackButton implements Clickable {
   
   public void display() {
     stroke(255);
+    strokeWeight(3);
     fill(buttonColor);
     rect(x, y, w, h, 7);
     fill(255, 255, 255);
@@ -427,7 +353,7 @@ public class BackButton implements Clickable {
   }
   
   private void colorResponsive() {
-    if (backButton.mouseOver()) {
+    if (mouseOver()) {
       buttonColor = color(0, 0, 50);
     } else {
       buttonColor = color(200, 0, 50);
@@ -438,6 +364,71 @@ public class BackButton implements Clickable {
     return mouseOver;
   }
 }
+
+
+
+
+
+
+public class ChangePageButton implements Clickable {
+  private boolean mouseOver;
+  private float x;
+  private int notDisplay;
+
+  private final float y = height - 20;
+  private final float d = 40;
+  
+  public ChangePageButton(float x, int notDisplay) {
+    mouseOver = false;
+    this.x = x;
+    this.notDisplay = notDisplay;
+  }
+  
+  public void display() {
+    fill(255,0,0);
+    ellipse(x, y, d, d);
+    strokeWeight(3);
+    fill(0,0,0);
+    //line(x-d/5, y, x+d/5, y);
+    if (notDisplay == 1) {
+      line(x-d/5, y, x+d/10, y+3*d/10);
+      line(x-d/5, y, x+d/10, y-3*d/10);
+    } else if (notDisplay == 4) {
+      line(x+d/5, y, x-d/10, y+3*d/10);
+      line(x+d/5, y, x-d/10, y-3*d/10);
+    }
+  }
+  
+  public void responsive() {
+    if ((isTextScene) && (currentPage != notDisplay) && ((mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) < d*d/4)) {
+      mouseOver = true;
+    } else {
+      mouseOver = false;
+    }
+  }
+  
+  public void respond() {
+    if (isTextScene) {
+      for (Text text : texts) {
+        if ((text.isText) && (prevPB.mouseOver)) {
+          currentPage -= 1;
+          text.display();
+        } else if ((text.isText) && (nextPB.mouseOver)) {
+          currentPage += 1;
+          text.display();
+        }
+      }
+    }
+  }
+
+  public boolean mouseOver() {
+    return mouseOver;
+  }
+} 
+
+
+
+
 
 public class Country implements Clickable {
   private final PImage pic;
@@ -664,37 +655,30 @@ public class Text {
     textFont(bodyFont);
     if (currentPage == 1) {
       text(text[0], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
+      nextPB.display();
+      //nextPageButton();
       //image(image1, xc/2, yc/2, xc, yc);
     } else if (currentPage == 2) {
       text(text[1], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
-      prevPageButton();
+      prevPB.display();
+      nextPB.display();
+      //nextPageButton();
+      //prevPageButton();
       //image(image2, xc/2, yc/2, xc, yc);
     } else if (currentPage == 3) {
       text(text[2], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPageButton();
-      prevPageButton();
+      prevPB.display();
+      nextPB.display();
+      //nextPageButton();
+      //prevPageButton();
       //image(image3, xc/2, yc/2, xc, yc);
     } else if (currentPage == 4) {
       text(text[3], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      prevPageButton();
+      prevPB.display();
+      //prevPageButton();
       //image(image4, xc/2, yc/2, xc, yc);
     }
   }
-  
-  /*
-  public void pageChanger() {
-    if ((isText) && (nextPage_mouseOver)) {
-      currentPage += 1;
-      display();
-    } else if ((isText) && (prevPage_mouseOver)) {
-      currentPage -= 1;
-      display();
-    }
-  }
-  */
-  
 }
 
 
@@ -718,6 +702,7 @@ void tintScene() {
   noTint();
 }
 
+/*
 void prevPageButton() {
   fill(255,0,0);
   ellipse(ppbX, cpbY, cpbD, cpbD);
@@ -727,6 +712,7 @@ void nextPageButton() {
   fill(255,0,0);
   ellipse(npbX, cpbY, cpbD, cpbD);
 }
+*/
 
 //////////////////////////////
 //////// TEST CIRCLES ////////
