@@ -466,11 +466,15 @@ public class City implements Clickable {
     isMenu = true;
     tintScene();
     image(logo, 900, yc, 400, 400);
-    chooseDrawMenuButtons();
     
     isMainScene = false;
     belgium.isScene = false;
     levant.isScene = false;
+    
+    women.setText(womenText);
+    youth.setText(youthText);
+    children.setText(childrenText);
+    aid.setText(aidText);
   }
   
   public boolean mouseOver() {
@@ -483,48 +487,6 @@ public class City implements Clickable {
     textFont(cityFont);
     textAlign(LEFT, CENTER);
     text(name, x + 3*d/4, y);
-  }
-  
-  public void chooseDrawMenuButtons() {
-    if (womenText.title == "null") {
-      fill(180);
-      women.button();
-      women.exists = false;
-    } else {
-      fill(255);
-      women.button();
-      women.exists = true;
-    } 
-
-    if (youthText.title == "null") {
-      fill(180);
-      youth.button();
-      youth.exists = false;
-    } else {
-      fill(255);
-      youth.button();
-      youth.exists = true;
-    } 
-    
-    if (childrenText.title == "null") {
-      fill(180);
-      children.button();
-      children.exists = false;
-    } else {
-      fill(255); 
-      children.button();
-      children.exists = true;
-    }
-    
-    if (aidText.title == "null") {
-      fill(180);
-      aid.button();
-      aid.exists = false;
-    } else {
-      fill(255);
-      aid.button();
-      aid.exists = true;
-    }
   }
 }
 
@@ -544,15 +506,17 @@ public class Theme implements Clickable {
     exists = false;
   }
 
-  public Theme(String name, float y, PImage themeLogo) {
-    this.name = name;
-    this.y = y;
-    this.themeLogo = themeLogo;
-    exists = false;
-  }
-  
   public void setText(Text text) {
     this.text = text;
+    if (text.title == "null") {
+      fill(180);
+      button();
+      exists = false;
+    } else {
+      fill(255);
+      button();
+      exists = true;
+    } 
   }
 
   public void responsive() {
