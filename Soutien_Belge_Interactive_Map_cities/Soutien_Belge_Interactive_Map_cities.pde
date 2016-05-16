@@ -427,7 +427,6 @@ public class ChangePageButton implements Clickable {
 
 public class Country implements Clickable {
   private final PImage pic;
-  private boolean mouseOver;
   public boolean isScene;
   private final City[] cities;
   private final color[] colors;
@@ -436,7 +435,6 @@ public class Country implements Clickable {
     this.pic = pic;
     this.cities = cities;
     this.colors = colors;
-    mouseOver = false;
     isScene = false;
   }
   
@@ -445,20 +443,15 @@ public class Country implements Clickable {
   }
  
   public void responsive() {
-    if (isResponsive()) mouseOver = true;
-    else mouseOver = false;
+    
   }
- 
-  private boolean isResponsive() {
+
+  public boolean mouseOver() {
     if (! isMainScene) return false;
     for (color col : colors) {
       if (get(mouseX,mouseY) == col) return true;
     }
     return false;
-  }
- 
-  public boolean mouseOver() {
-    return mouseOver;
   }
    
   public void displayScene() {
