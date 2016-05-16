@@ -14,13 +14,10 @@ PFont themeFont;
 PFont titleFont;
 PFont bodyFont;
 
-
 boolean isMainScene = true;
 boolean isMenuScene = false;
-/*
-boolean prevPage_mouseOver = false;
-boolean nextPage_mouseOver = false;
-*/
+boolean isTextScene = false;
+int currentPage = 1;
 
 int d = 50;
 
@@ -31,9 +28,6 @@ float yc = height/2;
 float themeX = 200;
 float themeW = 200;
 float themeH = 100;
-
-boolean isTextScene;
-int currentPage = 1;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -389,7 +383,6 @@ public class ChangePageButton implements Clickable {
     ellipse(x, y, d, d);
     strokeWeight(3);
     fill(0,0,0);
-    //line(x-d/5, y, x+d/5, y);
     if (notDisplay == 1) {
       line(x-d/5, y, x+d/10, y+3*d/10);
       line(x-d/5, y, x+d/10, y-3*d/10);
@@ -475,6 +468,12 @@ public class Country implements Clickable {
     isScene = true;
   }
 }
+
+
+
+
+
+
 
 public class City implements Clickable {
   private final String name;
@@ -568,9 +567,11 @@ public class City implements Clickable {
       aid.exists = true;
     }
   }
-  
-  
 }
+
+
+
+
 
 public class Theme implements Clickable {
   private final String name;
@@ -638,9 +639,7 @@ public class Text {
   public void display() {
     isTextScene = true;
     isText = true;
-    
-    //pageChanger();
-    
+        
     //textbox
     fill(255,255,255);
     rect(xc*1.5, yc*1.5, xc, yc);    
@@ -656,26 +655,20 @@ public class Text {
     if (currentPage == 1) {
       text(text[0], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       nextPB.display();
-      //nextPageButton();
       //image(image1, xc/2, yc/2, xc, yc);
     } else if (currentPage == 2) {
       text(text[1], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       prevPB.display();
       nextPB.display();
-      //nextPageButton();
-      //prevPageButton();
       //image(image2, xc/2, yc/2, xc, yc);
     } else if (currentPage == 3) {
       text(text[2], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       prevPB.display();
       nextPB.display();
-      //nextPageButton();
-      //prevPageButton();
       //image(image3, xc/2, yc/2, xc, yc);
     } else if (currentPage == 4) {
       text(text[3], xc*1.5, yc*1.5 + 5, xc, yc - 20);
       prevPB.display();
-      //prevPageButton();
       //image(image4, xc/2, yc/2, xc, yc);
     }
   }
@@ -701,18 +694,6 @@ void tintScene() {
   }    
   noTint();
 }
-
-/*
-void prevPageButton() {
-  fill(255,0,0);
-  ellipse(ppbX, cpbY, cpbD, cpbD);
-}
-
-void nextPageButton() {
-  fill(255,0,0);
-  ellipse(npbX, cpbY, cpbD, cpbD);
-}
-*/
 
 //////////////////////////////
 //////// TEST CIRCLES ////////
