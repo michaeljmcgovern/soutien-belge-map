@@ -19,8 +19,6 @@ boolean isMenuScene = false;
 boolean isTextScene = false;
 int currentPage = 1;
 
-int d = 50;
-
 int width = 1280;
 int height = 800;
 float xc = width/2;
@@ -480,6 +478,7 @@ public class City implements Clickable {
   private boolean mouseOver;
   public boolean isMenu;
   private final int x, y;
+  private final int d = 50;
   private final String blue, green, pink, yellow;
   private final Country location;
   
