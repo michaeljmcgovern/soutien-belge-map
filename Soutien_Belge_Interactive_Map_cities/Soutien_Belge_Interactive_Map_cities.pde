@@ -119,10 +119,10 @@ void setup() {
   cities[5] = kilis;
   cities[6] = amman;
   
-  women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), false, false);
-  youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), false, false);
-  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), false, false);
-  aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), false, false);
+  women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"));
+  youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"));
+  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"));
+  aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"));
   
   themes[0] = women;
   themes[1] = youth;
@@ -571,26 +571,21 @@ public class City implements Clickable {
 
 public class Theme implements Clickable {
   private final String name;
-  private boolean mouseOver;
   public boolean exists;
   private float y;
   private final PImage themeLogo;
   
-  public Theme(String name, float y, PImage themeLogo, boolean mouseOver, boolean exists) {
+  public Theme(String name, float y, PImage themeLogo) {
     this.name = name;
     this.y = y;
     this.themeLogo = themeLogo;
-    this.mouseOver = mouseOver;
-    this.exists = exists;
+    exists = false;
   }
 
   public void responsive() {
-    if ((isMenuScene) && (exists) && (mouseWithinThemeArea())) {
-      mouseOver = true;
+    if (mouseOver()) {
       logo();
       cursor(HAND);
-    } else {
-      mouseOver = false;
     }
   }
   
@@ -636,12 +631,12 @@ public class Theme implements Clickable {
       */
   }
   
-  private boolean mouseWithinThemeArea() {
-    return (mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > y - themeH/2) && (mouseY < y + themeH/2);
+  public boolean mouseOver() {
+    return (isMenuScene) && (exists) && (mouseWithinThemeArea());
   }
   
-  public boolean mouseOver() {
-    return mouseOver;
+  private boolean mouseWithinThemeArea() {
+    return (mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > y - themeH/2) && (mouseY < y + themeH/2);
   }
   
   public void button() {
