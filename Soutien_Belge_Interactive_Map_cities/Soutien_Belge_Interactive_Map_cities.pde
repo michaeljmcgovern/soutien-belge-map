@@ -418,7 +418,7 @@ public class City implements Clickable {
 
 public class Theme implements Clickable {
   private final String name;
-  public boolean exists;
+  private boolean exists;
   private float y;
   private final PImage themeLogo;
   private Text text;
