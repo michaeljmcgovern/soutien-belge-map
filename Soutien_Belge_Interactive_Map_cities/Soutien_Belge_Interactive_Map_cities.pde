@@ -102,13 +102,13 @@ void setup() {
   belgium = new Country(belCities, belgiumScene, yel);
   levant = new Country(levCities, levantScene, gre, blu, pin, cya);
   
-  brussels = new City("Brussels", belgium, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
-  beirut = new City("Beirut", levant, 285, 453, womenText, youthText, childrenText, aidText);
-  arsal = new City("Arsal, Bekaa Valley", levant, 358, 424, womenText, youthText, childrenText, aidText);
-  damascus = new City("Damascus", levant, 343, 484, womenText, youthText, childrenText, aidText);
-  aleppo = new City("Aleppo", levant, 407, 235, womenText, aleppoYouthText, childrenText, aidText);
-  kilis = new City("Kilis", levant, 406, 190, kilisText, kilisText, kilisText, kilisText);
-  amman = new City("Amman", levant, 316, 625, ammanText, ammanText, ammanText, ammanText);
+  brussels = new City("Brussels", belgiumScene, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
+  beirut = new City("Beirut", levantScene, 285, 453, womenText, youthText, childrenText, aidText);
+  arsal = new City("Arsal, Bekaa Valley", levantScene, 358, 424, womenText, youthText, childrenText, aidText);
+  damascus = new City("Damascus", levantScene, 343, 484, womenText, youthText, childrenText, aidText);
+  aleppo = new City("Aleppo", levantScene, 407, 235, womenText, aleppoYouthText, childrenText, aidText);
+  kilis = new City("Kilis", levantScene, 406, 190, kilisText, kilisText, kilisText, kilisText);
+  amman = new City("Amman", levantScene, 316, 625, ammanText, ammanText, ammanText, ammanText);
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -256,8 +256,6 @@ public class BackButton implements Clickable {
   public void respond() {
     currentScene = mainScene;
     currentScene.display();
-    belgium.isScene = false;
-    levant.isScene = false;
     isMenuScene = false;
     for (int i = 0; i < cities.length; i++) {
       cities[i].isMenu = false;
@@ -343,15 +341,13 @@ public class ChangePageButton implements Clickable {
 
 public class Country implements Clickable {
   private final City[] cities;
+  private final Scene scene;
   private final color[] colors;
-  private Scene scene;
-  public boolean isScene;
    
   public Country(City[] cities, Scene scene, color...colors) {
     this.cities = cities;
     this.scene = scene;
     this.colors = colors;
-    isScene = false;
   }
   
   public void respond() {
@@ -372,7 +368,6 @@ public class Country implements Clickable {
     for (int i = 0; i < cities.length; i++) {
       cities[i].display();
     }
-    isScene = true;
   }
 }
 
@@ -383,9 +378,9 @@ public class City implements Clickable {
   private final int x, y;
   private final int d = 50;
   private final Text womenText, youthText, childrenText, aidText;
-  private final Country location;
-    
-  public City(String name, Country location, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
+  private final Scene location;
+  
+  public City(String name, Scene location, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
     this.name = name;
     this.location = location;
     this.x = x;
@@ -408,8 +403,6 @@ public class City implements Clickable {
     image(logo, 900, yc, 400, 400);
     
     currentScene = null;
-    belgium.isScene = false;
-    levant.isScene = false;
     
     women.setText(womenText);
     youth.setText(youthText);
@@ -418,7 +411,7 @@ public class City implements Clickable {
   }
   
   public boolean mouseOver() {
-    return (location.isScene) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
+    return (currentScene == location) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
   }
   
   public void display() {
@@ -561,9 +554,9 @@ void text_box() {
 
 void tintScene() {
   tint(155);
-  if (belgium.isScene) {
+  if (currentScene == belgiumScene) {
     belgium.displayScene();
-  } else if (levant.isScene) {
+  } else if (currentScene == levantScene) {
     levant.displayScene();
   }    
   noTint();
