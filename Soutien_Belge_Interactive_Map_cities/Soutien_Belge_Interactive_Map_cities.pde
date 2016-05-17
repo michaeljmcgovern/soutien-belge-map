@@ -1,10 +1,9 @@
-color yel  = color(222, 194, 64);
-color pin = color(195, 64, 145);
-color blu = color(65, 109, 174);
-color gre = color(158, 195, 77);
-color cya = color(77, 181, 195);
+final color yellow  = color(222, 194, 64);
+final color pink = color(195, 64, 145);
+final color blue = color(65, 109, 174);
+final color green = color(158, 195, 77);
+final color cyan = color(77, 181, 195);
 
-PImage mainMap;
 PImage logo;
 PImage logoInner;
 
@@ -85,7 +84,6 @@ void setup() {
   //fullScreen();
   smooth(8);
   
-  mainMap = loadImage("main-map.png");
   logo = loadImage("sblogo-400.png");
   logoInner = loadImage("sblogo-inner.png");
 
@@ -95,12 +93,12 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
-  mainScene = new Scene(mainMap);
+  mainScene = new Scene(loadImage("main-map.png"));
   belgiumScene = new Scene(loadImage("belgium.png"));
   levantScene = new Scene(loadImage("middleeast.png"));
   
-  belgium = new Country(belCities, belgiumScene, yel);
-  levant = new Country(levCities, levantScene, gre, blu, pin, cya);
+  belgium = new Country(belCities, belgiumScene, yellow);
+  levant = new Country(levCities, levantScene, green, blue, pink, cyan);
   
   brussels = new City("Brussels", belgiumScene, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
   beirut = new City("Beirut", levantScene, 285, 453, womenText, youthText, childrenText, aidText);
@@ -462,6 +460,7 @@ public class Theme implements Clickable {
   
   public void respond() {
       currentPage = 1;
+      text.setFirstPage();
       text.display();
   }
   
@@ -504,6 +503,14 @@ public class Text {
     isText = false;
   }
   
+  public void setFirstPage() {
+    page = 0;
+  }
+  
+  public int currentPage() {
+    return page;
+  }
+  
   public void changePage(int value) {
     page += value;
   }
@@ -528,12 +535,12 @@ public class Text {
     
     //body text
     textFont(bodyFont);
-    display(text[currentPage-1]);
+    display(text[page]);
     nextPB.setLimit(numPages);
-    if (currentPage > 1) {
+    if (page > 0) {
       prevPB.display();
     }
-    if (currentPage < numPages) {
+    if (page < numPages-1) {
       nextPB.display();
     }
   }
