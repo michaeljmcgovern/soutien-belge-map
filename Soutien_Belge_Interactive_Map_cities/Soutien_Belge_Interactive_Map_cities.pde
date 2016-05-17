@@ -4,7 +4,7 @@ color blu = color(65, 109, 174);
 color gre = color(158, 195, 77);
 color cya = color(77, 181, 195);
 
-PImage mainmap;
+PImage mainMap;
 PImage logo;
 PImage logoInner;
 
@@ -26,6 +26,8 @@ float yc = height/2;
 float themeX = 200;
 float themeW = 200;
 float themeH = 100;
+
+Scene mainScene, belgiumScene, levantScene;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -83,7 +85,7 @@ void setup() {
   //fullScreen();
   smooth(8);
   
-  mainmap = loadImage("main-map.png");
+  mainMap = loadImage("main-map.png");
   logo = loadImage("sblogo-400.png");
   logoInner = loadImage("sblogo-inner.png");
 
@@ -93,6 +95,9 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
+  mainScene = new Scene(mainMap);
+  belgiumScene = new Scene(loadImage("belgium.png"));
+  levantScene = new Scene(loadImage("middleeast.png"));
   
   belgium = new Country(loadImage("belgium.png"), belCities, yel);
   levant = new Country(loadImage("middleeast.png"), levCities, gre, blu, pin, cya);
@@ -165,7 +170,7 @@ void setup() {
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
 
-  background(mainmap);
+  background(mainMap);
 };
 
 
@@ -216,6 +221,14 @@ void mouseReleased() {
 //////////// CLASSES ////////////
 /////////////////////////////////
 
+public class Scene {
+  private PImage image;
+  
+  public Scene(PImage image) {
+    this.image = image;
+  }
+}
+
 public interface Clickable {
   public boolean mouseOver();
   public void respond();
@@ -236,7 +249,7 @@ public class BackButton implements Clickable {
   }
   
   public void respond() {
-    background(mainmap);
+    background(mainMap);
     isMainScene = true;
     belgium.isScene = false;
     levant.isScene = false;
