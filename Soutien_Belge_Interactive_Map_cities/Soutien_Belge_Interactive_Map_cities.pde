@@ -4,7 +4,7 @@ final color blue = color(65, 109, 174);
 final color green = color(158, 195, 77);
 final color cyan = color(77, 181, 195);
 
-PImage logo;
+Image logo;
 PImage logoInner;
 
 PFont backFont;
@@ -70,7 +70,7 @@ void setup() {
   //fullScreen();
   smooth(8);
   
-  logo = loadImage("sblogo-400.png");
+  logo = new Image(loadImage("sblogo-400.png"));
   logoInner = loadImage("sblogo-inner.png");
 
   backFont = createFont("Helvetica-Bold", 20);
@@ -151,7 +151,7 @@ void draw() {
 
 void themeMenuResponsive() {
   if (isMenuScene && !isTextScene) {
-    image(logo, 900, yc, 400, 400);
+    logo.display();
   }
   for (Theme theme : themes) {
     theme.responsive();
@@ -240,7 +240,6 @@ public class Scene {
     }
   }
 }
-
 
 public class BackButton implements Clickable, Feature {
   private color buttonColor;
@@ -383,7 +382,7 @@ public class City implements Clickable, Feature {
   
   public void respond() {
     isMenuScene = true;
-    image(logo, 900, yc, 400, 400);
+    logo.display();
     
     women.setText(womenText);
     youth.setText(youthText);
@@ -416,6 +415,21 @@ public class City implements Clickable, Feature {
     textAlign(LEFT, CENTER);
     text(name, x + 3*d/4, y);
   }
+}
+
+public class Image implements Feature {
+  
+  private final PImage image;
+  
+  public Image(PImage image) {
+    this.image = image;
+  }
+  
+  public void display() {
+    image(image, 900, yc, 400, 400);
+  }
+  
+  public void responsive() {}
 }
 
 
