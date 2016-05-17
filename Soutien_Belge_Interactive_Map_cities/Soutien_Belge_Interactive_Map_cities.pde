@@ -100,8 +100,8 @@ void setup() {
   belgiumScene = new Scene(loadImage("belgium.png"));
   levantScene = new Scene(loadImage("middleeast.png"));
   
-  belgium = new Country(loadImage("belgium.png"), belCities, yel);
-  levant = new Country(loadImage("middleeast.png"), levCities, gre, blu, pin, cya);
+  belgium = new Country(belCities, belgiumScene, yel);
+  levant = new Country(levCities, levantScene, gre, blu, pin, cya);
   
   brussels = new City("Brussels", belgium, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
   beirut = new City("Beirut", levant, 285, 453, womenText, youthText, childrenText, aidText);
@@ -344,14 +344,14 @@ public class ChangePageButton implements Clickable {
 
 
 public class Country implements Clickable {
-  private final PImage pic;
-  public boolean isScene;
   private final City[] cities;
   private final color[] colors;
+  private Scene scene;
+  public boolean isScene;
    
-  public Country(PImage pic, City[] cities, color...colors) {
-    this.pic = pic;
+  public Country(City[] cities, Scene scene, color...colors) {
     this.cities = cities;
+    this.scene = scene;
     this.colors = colors;
     isScene = false;
   }
@@ -369,7 +369,8 @@ public class Country implements Clickable {
   }
    
   public void displayScene() {
-    image(pic, xc, yc);
+    currentScene = scene;
+    currentScene.display();
     for (int i = 0; i < cities.length; i++) {
       cities[i].display();
     }
