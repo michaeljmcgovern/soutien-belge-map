@@ -144,7 +144,7 @@ void setup() {
 
 
 void draw() {
-  backButton.responsive();
+  currentScene.responsive();
   themeMenuResponsive();
   cursorImageResponsive();
 }
@@ -188,6 +188,7 @@ void setScene(Scene scene) {
 
 public interface Feature {
   public void display();
+  public void responsive();
 }
 
 public interface Clickable {
@@ -212,6 +213,12 @@ public class Scene {
   public Scene(String name, PImage image) {
     this.name = name;
     this.image = image;
+  }
+  
+  public void responsive() {
+    for (Feature feature : features) {
+      feature.responsive();
+    }
   }
   
   public boolean contains(Feature feature) {
@@ -262,18 +269,12 @@ public class BackButton implements Clickable, Feature {
   }
   
   public void responsive() {
-    if (!currentScene.is(mainScene)) {
-      display();
-    }
-    colorResponsive();
-  }
-  
-  private void colorResponsive() {
     if (mouseOver()) {
       buttonColor = color(0, 0, 50);
     } else {
       buttonColor = color(200, 0, 50);
     }
+    display();
   }
   
   public boolean mouseOver() {
@@ -373,6 +374,8 @@ public class City implements Clickable, Feature {
     this.childrenText = childrenText;
     this.aidText = aidText;
   }
+  
+  public void responsive() {}
   
   public void respond() {
     isMenuScene = true;
