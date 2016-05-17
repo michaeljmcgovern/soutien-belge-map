@@ -70,9 +70,9 @@ Text aidText = new Text("Psychological Support Centres", "psych1", "psych2", "ps
 
 Text brusselsChildrenText = new Text("SB Weekend", "weekend1", "weekend2", "weekend3", "weekend4");
 Text brusselsYouthText = new Text("S'engager Pour La Paix", "splp1", "splp2", "splp3", "splp4");
-Text aleppoYouthText = new Text("Bakery", "bakery1", "null", "null", "null");
-Text kilisText = new Text("Kilis - closed", "closed1", "null", "null", "null");
-Text ammanText = new Text("Amman - TBD", "future1", "future2", "null", "null");
+Text aleppoYouthText = new Text("Bakery", "bakery1");
+Text kilisText = new Text("Kilis - closed", "closed1");
+Text ammanText = new Text("Amman - TBD", "future1", "future2");
 
 Text collectText = new Text("Collection Campaign", "collect1", "collect2", "collect3", "collect4");
 
@@ -295,7 +295,7 @@ public class ChangePageButton implements Clickable {
   private final float x;
   private final float y = height - 20;
   private final float d = 40;
-  private final int notDisplayed;
+  private int notDisplayed;
   private final int changeValue;
 
   public ChangePageButton(float x, int changeValue) {
@@ -306,6 +306,10 @@ public class ChangePageButton implements Clickable {
     } else {
       notDisplayed = 4;
     }
+  }
+  
+  public void setLimit(int pageNumber) {
+    notDisplayed = pageNumber;
   }
 
   public void display() {
@@ -518,6 +522,7 @@ public class Text {
     //body text
     textFont(bodyFont);
     display(text[currentPage-1]);
+    nextPB.setLimit(numPages);
     if (currentPage > 1) {
       prevPB.display();
     }
