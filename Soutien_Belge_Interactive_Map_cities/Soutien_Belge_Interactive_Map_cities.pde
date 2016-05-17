@@ -181,12 +181,11 @@ void backButtonResponsive() {
 }
 
 void themeMenuResponsive() {
+  if (isMenuScene && !isTextScene) {
+    image(logo, 900, yc, 400, 400);
+  }
   for (Theme theme : themes) {
     theme.responsive();
-  }
-  
-  if ((isMenuScene) && (!isTextScene) && (!women.mouseOver()) && (!youth.mouseOver()) && (!children.mouseOver()) && (!aid.mouseOver())) {
-    image(logo, 900, yc, 400, 400);
   }
 }
 
