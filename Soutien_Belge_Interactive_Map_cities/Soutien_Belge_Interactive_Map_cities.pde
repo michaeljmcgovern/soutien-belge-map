@@ -170,8 +170,7 @@ void setup() {
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
 
-  currentScene = mainScene;
-  currentScene.display();
+  setScene(mainScene);
 };
 
 
@@ -214,6 +213,11 @@ void mouseReleased() {
   }
 }
 
+void setScene(Scene scene) {
+  currentScene = scene;
+  currentScene.display();
+}
+
 /////////////////////////////////
 //////////// CLASSES ////////////
 /////////////////////////////////
@@ -250,8 +254,7 @@ public class BackButton implements Clickable {
   }
   
   public void respond() {
-    currentScene = mainScene;
-    currentScene.display();
+    setScene(mainScene);
     isMenuScene = false;
     for (int i = 0; i < cities.length; i++) {
       cities[i].isMenu = false;
@@ -359,8 +362,7 @@ public class Country implements Clickable {
   }
    
   public void displayScene() {
-    currentScene = scene;
-    currentScene.display();
+    setScene(scene);
     for (int i = 0; i < cities.length; i++) {
       cities[i].display();
     }
