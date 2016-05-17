@@ -17,16 +17,15 @@ boolean isMenuScene = false;
 boolean isTextScene = false;
 int currentPage = 1;
 
-int width = 1280;
-int height = 800;
+final int width = 1280;
+final int height = 800;
 float xc = width/2;
 float yc = height/2;
 float themeX = 200;
 float themeW = 200;
 float themeH = 100;
 
-Scene mainScene, belgiumScene, levantScene;
-Scene currentScene;
+Scene mainScene, belgiumScene, levantScene, currentScene;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -44,8 +43,6 @@ City damascus;
 City aleppo;
 City kilis;
 City amman;
-
-City[] cities = new City[7];
 
 City[] belCities = new City[1];
 City[] levCities = new City[6];
@@ -116,14 +113,6 @@ void setup() {
   levCities[4] = kilis;
   levCities[5] = amman;
   
-  cities[0] = brussels;
-  cities[1] = beirut;
-  cities[2] = arsal;
-  cities[3] = damascus;
-  cities[4] = aleppo;
-  cities[5] = kilis;
-  cities[6] = amman;
-  
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), womenText);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), youthText);
   children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), childrenText);
@@ -174,13 +163,9 @@ void setup() {
 
 
 void draw() {
-  backButtonResponsive();
+  backButton.responsive();
   themeMenuResponsive();
   cursorImageResponsive();
-}
-
-void backButtonResponsive() {
-  backButton.responsive();
 }
 
 void themeMenuResponsive() {
@@ -460,7 +445,7 @@ public class Theme implements Clickable {
   
   public void respond() {
       currentPage = 1;
-      text.setFirstPage();
+      text.setToFirstPage();
       text.display();
   }
   
@@ -491,19 +476,19 @@ public class Theme implements Clickable {
 public class Text {
   public boolean isText;
   private final String title;
-  private final String[] text;
+  private final String[] pages;
   private final int numPages;
   private int page;
   
-  public Text(String title, String...text) {
+  public Text(String title, String...pages) {
     this.title = title;
-    this.text = text;
-    numPages = text.length;
+    this.pages = pages;
+    numPages = pages.length;
     page = 0;
     isText = false;
   }
   
-  public void setFirstPage() {
+  public void setToFirstPage() {
     page = 0;
   }
   
@@ -535,7 +520,7 @@ public class Text {
     
     //body text
     textFont(bodyFont);
-    display(text[page]);
+    display(pages[page]);
     nextPB.setLimit(numPages);
     if (page > 0) {
       prevPB.display();
