@@ -396,6 +396,16 @@ public class City implements Clickable {
     aid.setText(aidText);
   }
   
+  private void tintScene() {
+    tint(155);
+    if (currentScene == belgiumScene) {
+      belgium.displayScene();
+    } else if (currentScene == levantScene) {
+      levant.displayScene();
+    }    
+    noTint();
+  }
+  
   public boolean mouseOver() {
     return (currentScene == location) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
   }
@@ -525,49 +535,4 @@ public class Text {
       //image(image4, xc/2, yc/2, xc, yc);
     }
   }
-}
-
-
-
-////////////////////////////////
-//////// TEXT BOX STUFF ////////
-////////////////////////////////
-
-void text_box() {
-  fill(255,255,255);
-  rect(xc*1.5, yc*1.5, xc, yc);
-}
-
-void tintScene() {
-  tint(155);
-  if (currentScene == belgiumScene) {
-    belgium.displayScene();
-  } else if (currentScene == levantScene) {
-    levant.displayScene();
-  }    
-  noTint();
-}
-
-//////////////////////////////
-//////// TEST CIRCLES ////////
-//////////////////////////////
-
-void test_circle() {
-  fill(255, 0, 0);
-  ellipse(25, 25, 50, 50);
-}
-
-void test_circle1() {
-  fill(255, 0, 0);
-  ellipse(width - 25, 25, 50, 50);
-}
-
-void test_circle2() {
-  fill(255, 0, 0);
-  ellipse(width - 25, height - 25, 50, 50);
-}
-
-void test_circle3() {
-  fill(255, 0, 0);
-  ellipse(25, height - 25, 50, 50);
 }
