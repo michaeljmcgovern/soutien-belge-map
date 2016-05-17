@@ -88,8 +88,8 @@ void setup() {
   City amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
   
   mainScene = new Scene("main", loadImage("main-map.png"));
-  belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels);
-  levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman);
+  belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels, backButton);
+  levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
   
   belgium = new Country(belgiumScene, yellow);
   levant = new Country(levantScene, green, blue, pink, cyan);
@@ -190,6 +190,12 @@ public interface Feature {
   public void display();
 }
 
+public interface Clickable {
+  public boolean mouseOver();
+  public void respond();
+}
+
+
 public class Scene {
   private final String name;
   private final PImage image;
@@ -224,13 +230,8 @@ public class Scene {
   }
 }
 
-public interface Clickable {
-  public boolean mouseOver();
-  public void respond();
-}
 
-
-public class BackButton implements Clickable {
+public class BackButton implements Clickable, Feature {
   private color buttonColor;
   
   private final int w = 90;
