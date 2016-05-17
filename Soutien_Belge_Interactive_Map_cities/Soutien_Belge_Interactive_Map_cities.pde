@@ -326,6 +326,7 @@ public class ChangePageButton implements Clickable {
     if (isTextScene) {
       for (Text text : texts) {
         if (text.isText) {
+          text.changePage(changeValue);
           currentPage += changeValue;
           text.display();
         }
@@ -493,12 +494,18 @@ public class Text {
   private final String title;
   private final String[] text;
   private final int numPages;
+  private int page;
   
   public Text(String title, String...text) {
     this.title = title;
     this.text = text;
     numPages = text.length;
+    page = 0;
     isText = false;
+  }
+  
+  public void changePage(int value) {
+    page += value;
   }
   
   public void display() {
