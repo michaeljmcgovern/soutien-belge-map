@@ -205,10 +205,6 @@ void cursorImageResponsive() {
   cursor(ARROW);
 }
 
-///////////////////////////////
-//////// INTERACTIVITY ////////
-///////////////////////////////
-
 void mouseReleased() {
   for (Clickable clickable : clickables) {
     if (clickable.mouseOver()) {
@@ -401,8 +397,6 @@ public class City implements Clickable {
     isMenu = true;
     tintScene();
     image(logo, 900, yc, 400, 400);
-    
-    currentScene = null;
     
     women.setText(womenText);
     youth.setText(youthText);
