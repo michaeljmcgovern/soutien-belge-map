@@ -90,20 +90,13 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
-  mainScene = new Scene("main", loadImage("main-map.png"));
-  belgiumScene = new Scene("belgium", loadImage("belgium.png"));
-  levantScene = new Scene("levant", loadImage("middleeast.png"));
-  
-  belgium = new Country(belCities, belgiumScene, yellow);
-  levant = new Country(levCities, levantScene, green, blue, pink, cyan);
-  
-  brussels = new City("Brussels", belgiumScene, 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
-  beirut = new City("Beirut", levantScene, 285, 453, womenText, youthText, childrenText, aidText);
-  arsal = new City("Arsal, Bekaa Valley", levantScene, 358, 424, womenText, youthText, childrenText, aidText);
-  damascus = new City("Damascus", levantScene, 343, 484, womenText, youthText, childrenText, aidText);
-  aleppo = new City("Aleppo", levantScene, 407, 235, womenText, aleppoYouthText, childrenText, aidText);
-  kilis = new City("Kilis", levantScene, 406, 190, kilisText, kilisText, kilisText, kilisText);
-  amman = new City("Amman", levantScene, 316, 625, ammanText, ammanText, ammanText, ammanText);
+  brussels = new City("Brussels", 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
+  beirut = new City("Beirut", 285, 453, womenText, youthText, childrenText, aidText);
+  arsal = new City("Arsal, Bekaa Valley", 358, 424, womenText, youthText, childrenText, aidText);
+  damascus = new City("Damascus", 343, 484, womenText, youthText, childrenText, aidText);
+  aleppo = new City("Aleppo", 407, 235, womenText, aleppoYouthText, childrenText, aidText);
+  kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
+  amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
   
   belCities[0] = brussels;
   levCities[0] = beirut;
@@ -112,6 +105,13 @@ void setup() {
   levCities[3] = aleppo;
   levCities[4] = kilis;
   levCities[5] = amman;
+  
+  mainScene = new Scene("main", loadImage("main-map.png"));
+  belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels);
+  levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman);
+  
+  belgium = new Country(belCities, belgiumScene, yellow);
+  levant = new Country(levCities, levantScene, green, blue, pink, cyan);
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), womenText);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), youthText);
@@ -212,10 +212,23 @@ public interface Feature {
 public class Scene {
   private final String name;
   private final PImage image;
+  private final ArrayList<Feature> features = new ArrayList<Feature>();
+  
+  public Scene(String name, PImage image, Feature...features) {
+    this.name = name;
+    this.image = image;
+    for (Feature feature : features) {
+      this.features.add(feature);
+    }
+  }
   
   public Scene(String name, PImage image) {
     this.name = name;
     this.image = image;
+  }
+  
+  public boolean contains(Feature feature) {
+    return features.contains(feature);
   }
   
   public boolean is(Scene other) {
@@ -370,11 +383,9 @@ public class City implements Clickable, Feature {
   private final int x, y;
   private final int d = 50;
   private final Text womenText, youthText, childrenText, aidText;
-  private final Scene location;
   
-  public City(String name, Scene location, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
+  public City(String name, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
     this.name = name;
-    this.location = location;
     this.x = x;
     this.y = y;
     this.womenText = womenText;
@@ -405,7 +416,7 @@ public class City implements Clickable, Feature {
   }
   
   public boolean mouseOver() {
-    return (currentScene.is(location)) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
+    return (currentScene.contains(this)) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
   }
   
   public void display() {
