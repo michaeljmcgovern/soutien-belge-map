@@ -488,10 +488,12 @@ public class Text {
   public boolean isText;
   private final String title;
   private final String[] text;
+  private final int numPages;
   
   public Text(String title, String...text) {
     this.title = title;
     this.text = text;
+    numPages = text.length;
     isText = false;
   }
   
@@ -515,24 +517,16 @@ public class Text {
     
     //body text
     textFont(bodyFont);
-    if (currentPage == 1) {
-      text(text[0], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      nextPB.display();
-      //image(image1, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 2) {
-      text(text[1], xc*1.5, yc*1.5 + 5, xc, yc - 20);
+    display(text[currentPage-1]);
+    if (currentPage > 1) {
       prevPB.display();
-      nextPB.display();
-      //image(image2, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 3) {
-      text(text[2], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      prevPB.display();
-      nextPB.display();
-      //image(image3, xc/2, yc/2, xc, yc);
-    } else if (currentPage == 4) {
-      text(text[3], xc*1.5, yc*1.5 + 5, xc, yc - 20);
-      prevPB.display();
-      //image(image4, xc/2, yc/2, xc, yc);
     }
+    if (currentPage < numPages) {
+      nextPB.display();
+    }
+  }
+  
+  private void display(String text) {
+    text(text, xc*1.5, yc*1.5 + 5, xc, yc - 20);
   }
 }
