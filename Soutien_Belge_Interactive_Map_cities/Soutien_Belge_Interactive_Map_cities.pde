@@ -256,9 +256,6 @@ public class BackButton implements Clickable {
   public void respond() {
     setScene(mainScene);
     isMenuScene = false;
-    for (int i = 0; i < cities.length; i++) {
-      cities[i].isMenu = false;
-    }
     isTextScene = false;
   }
   
@@ -372,7 +369,6 @@ public class Country implements Clickable {
 
 public class City implements Clickable {
   private final String name;
-  public boolean isMenu;
   private final int x, y;
   private final int d = 50;
   private final Text womenText, youthText, childrenText, aidText;
@@ -387,16 +383,10 @@ public class City implements Clickable {
     this.youthText = youthText;
     this.childrenText = childrenText;
     this.aidText = aidText;
-    isMenu = false;  
   }
   
   public void respond() {
-    for (City city : cities) {
-      city.isMenu = false;
-    }
-    
     isMenuScene = true;
-    isMenu = true;
     tintScene();
     image(logo, 900, yc, 400, 400);
     
