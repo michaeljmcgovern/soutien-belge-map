@@ -28,6 +28,7 @@ float themeW = 200;
 float themeH = 100;
 
 Scene mainScene, belgiumScene, levantScene;
+Scene currentScene;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -170,7 +171,8 @@ void setup() {
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
 
-  background(mainMap);
+  currentScene = mainScene;
+  currentScene.display();
 };
 
 
@@ -227,6 +229,10 @@ public class Scene {
   public Scene(PImage image) {
     this.image = image;
   }
+  
+  public void display() {
+    background(image);
+  }
 }
 
 public interface Clickable {
@@ -249,7 +255,8 @@ public class BackButton implements Clickable {
   }
   
   public void respond() {
-    background(mainMap);
+    currentScene = mainScene;
+    currentScene.display();
     isMainScene = true;
     belgium.isScene = false;
     levant.isScene = false;
