@@ -14,7 +14,6 @@ PFont themeFont;
 PFont titleFont;
 PFont bodyFont;
 
-boolean isMainScene = true;
 boolean isMenuScene = false;
 boolean isTextScene = false;
 int currentPage = 1;
@@ -257,7 +256,6 @@ public class BackButton implements Clickable {
   public void respond() {
     currentScene = mainScene;
     currentScene.display();
-    isMainScene = true;
     belgium.isScene = false;
     levant.isScene = false;
     isMenuScene = false;
@@ -279,7 +277,7 @@ public class BackButton implements Clickable {
   }
   
   public void responsive() {
-    if (!isMainScene) {
+    if (currentScene != mainScene) {
       display();
     }
     colorResponsive();
@@ -294,7 +292,7 @@ public class BackButton implements Clickable {
   }
   
   public boolean mouseOver() {
-    return (!isMainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
+    return (currentScene != mainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
   }
 }
 
@@ -361,7 +359,7 @@ public class Country implements Clickable {
   }
  
   public boolean mouseOver() {
-    if (! isMainScene) return false;
+    if (currentScene != mainScene) return false;
     for (color col : colors) {
       if (get(mouseX,mouseY) == col) return true;
     }
@@ -374,7 +372,6 @@ public class Country implements Clickable {
     for (int i = 0; i < cities.length; i++) {
       cities[i].display();
     }
-    isMainScene = false;
     isScene = true;
   }
 }
@@ -410,7 +407,7 @@ public class City implements Clickable {
     tintScene();
     image(logo, 900, yc, 400, 400);
     
-    isMainScene = false;
+    currentScene = null;
     belgium.isScene = false;
     levant.isScene = false;
     
