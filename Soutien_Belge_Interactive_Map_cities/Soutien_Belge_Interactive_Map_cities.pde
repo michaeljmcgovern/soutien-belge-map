@@ -90,9 +90,9 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
-  mainScene = new Scene(loadImage("main-map.png"));
-  belgiumScene = new Scene(loadImage("belgium.png"));
-  levantScene = new Scene(loadImage("middleeast.png"));
+  mainScene = new Scene("main", loadImage("main-map.png"));
+  belgiumScene = new Scene("belgium", loadImage("belgium.png"));
+  levantScene = new Scene("levant", loadImage("middleeast.png"));
   
   belgium = new Country(belCities, belgiumScene, yellow);
   levant = new Country(levCities, levantScene, green, blue, pink, cyan);
@@ -210,10 +210,16 @@ public interface Feature {
 }
 
 public class Scene {
-  private PImage image;
+  private final String name;
+  private final PImage image;
   
-  public Scene(PImage image) {
+  public Scene(String name, PImage image) {
+    this.name = name;
     this.image = image;
+  }
+  
+  public boolean is(Scene other) {
+    return name == other.name;
   }
   
   public void display() {
@@ -258,7 +264,7 @@ public class BackButton implements Clickable {
   }
   
   public void responsive() {
-    if (currentScene != mainScene) {
+    if (!currentScene.is(mainScene)) {
       display();
     }
     colorResponsive();
@@ -273,7 +279,7 @@ public class BackButton implements Clickable {
   }
   
   public boolean mouseOver() {
-    return (currentScene != mainScene) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
+    return (!currentScene.is(mainScene)) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
   }
 }
 
@@ -343,7 +349,7 @@ public class Country implements Clickable {
   }
  
   public boolean mouseOver() {
-    if (currentScene != mainScene) return false;
+    if (!currentScene.is(mainScene)) return false;
     for (color col : colors) {
       if (get(mouseX,mouseY) == col) return true;
     }
@@ -390,16 +396,16 @@ public class City implements Clickable, Feature {
   
   private void tintScene() {
     tint(155);
-    if (currentScene == belgiumScene) {
+    if (currentScene.is(belgiumScene)) {
       belgium.displayScene();
-    } else if (currentScene == levantScene) {
+    } else if (currentScene.is(levantScene)) {
       levant.displayScene();
     }    
     noTint();
   }
   
   public boolean mouseOver() {
-    return (currentScene == location) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
+    return (currentScene.is(location)) && ((mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y) < d*d/4);
   }
   
   public void display() {
