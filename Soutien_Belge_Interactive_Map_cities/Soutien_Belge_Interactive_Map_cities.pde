@@ -205,6 +205,10 @@ void setScene(Scene scene) {
 //////////// CLASSES ////////////
 /////////////////////////////////
 
+public interface Feature {
+  public void display();
+}
+
 public class Scene {
   private PImage image;
   
@@ -355,7 +359,7 @@ public class Country implements Clickable {
 }
 
 
-public class City implements Clickable {
+public class City implements Clickable, Feature {
   private final String name;
   private final int x, y;
   private final int d = 50;
