@@ -205,14 +205,18 @@ public class Scene {
   public Scene(String name, PImage image, Feature...features) {
     this.name = name;
     this.image = image;
-    for (Feature feature : features) {
-      this.features.add(feature);
-    }
+    add(features);
   }
   
   public Scene(String name, PImage image) {
     this.name = name;
     this.image = image;
+  }
+  
+  public void add(Feature...features) {
+    for (Feature feature : features) {
+      this.features.add(feature);
+    }
   }
   
   public void responsive() {
@@ -379,13 +383,16 @@ public class City implements Clickable, Feature {
   
   public void respond() {
     isMenuScene = true;
-    tintScene();
     image(logo, 900, yc, 400, 400);
     
     women.setText(womenText);
     youth.setText(youthText);
     children.setText(childrenText);
     aid.setText(aidText);
+    
+    currentScene.add(women, youth, children, aid);
+    currentScene.display();
+    tintScene();
   }
   
   private void tintScene() {
@@ -412,7 +419,7 @@ public class City implements Clickable, Feature {
 }
 
 
-public class Theme implements Clickable {
+public class Theme implements Clickable, Feature {
   private final String name;
   private boolean exists;
   private float y;
@@ -426,9 +433,8 @@ public class Theme implements Clickable {
     this.text = text;
     exists = false;
   }
-
-  public void setText(Text text) {
-    this.text = text;
+  
+  public void display() {
     if (text.title == "null") {
       fill(180);
       button();
@@ -437,13 +443,31 @@ public class Theme implements Clickable {
       fill(255);
       button();
       exists = true;
-    } 
+    }
+  }
+
+  private void button() {
+    rect(themeX, y, themeW, themeH);
+    fill(0, 0, 0);
+    textFont(themeFont);
+    textAlign(CENTER, CENTER);
+    text(name, themeX, y, themeW, themeH);
+  }
+
+  public void setText(Text text) {
+    this.text = text;
   }
 
   public void responsive() {
     if (mouseOver()) {
       logo();
       cursor(HAND);
+    }
+  }
+  
+  private void logo() {
+    if (!isTextScene) {
+      image(themeLogo, 900, yc, 400, 400);
     }
   }
   
@@ -454,26 +478,13 @@ public class Theme implements Clickable {
   }
   
   public boolean mouseOver() {
-    return (isMenuScene) && (exists) && (mouseWithinThemeArea());
+    return isMenuScene && exists && mouseWithinThemeArea();
   }
   
   private boolean mouseWithinThemeArea() {
     return (mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > y - themeH/2) && (mouseY < y + themeH/2);
   }
   
-  public void button() {
-    rect(themeX, y, themeW, themeH);
-    fill(0, 0, 0);
-    textFont(themeFont);
-    textAlign(CENTER, CENTER);
-    text(name, themeX, y, themeW, themeH);
-  }
-
-  public void logo() {
-    if (!isTextScene) {
-      image(themeLogo, 900, yc, 400, 400);
-    }
-  }
 }
 
 
