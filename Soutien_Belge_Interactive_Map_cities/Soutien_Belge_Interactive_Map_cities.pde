@@ -36,17 +36,6 @@ ChangePageButton nextPB = new ChangePageButton(xc*1.5 + 20, 1);
 Country belgium;
 Country levant;
 
-City brussels;
-City beirut;
-City arsal;
-City damascus;
-City aleppo;
-City kilis;
-City amman;
-
-City[] belCities = new City[1];
-City[] levCities = new City[6];
-
 Theme women;
 Theme youth;
 Theme children;
@@ -90,28 +79,20 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
-  brussels = new City("Brussels", 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
-  beirut = new City("Beirut", 285, 453, womenText, youthText, childrenText, aidText);
-  arsal = new City("Arsal, Bekaa Valley", 358, 424, womenText, youthText, childrenText, aidText);
-  damascus = new City("Damascus", 343, 484, womenText, youthText, childrenText, aidText);
-  aleppo = new City("Aleppo", 407, 235, womenText, aleppoYouthText, childrenText, aidText);
-  kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
-  amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
-  
-  belCities[0] = brussels;
-  levCities[0] = beirut;
-  levCities[1] = arsal;
-  levCities[2] = damascus;
-  levCities[3] = aleppo;
-  levCities[4] = kilis;
-  levCities[5] = amman;
+  City brussels = new City("Brussels", 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
+  City beirut = new City("Beirut", 285, 453, womenText, youthText, childrenText, aidText);
+  City arsal = new City("Arsal, Bekaa Valley", 358, 424, womenText, youthText, childrenText, aidText);
+  City damascus = new City("Damascus", 343, 484, womenText, youthText, childrenText, aidText);
+  City aleppo = new City("Aleppo", 407, 235, womenText, aleppoYouthText, childrenText, aidText);
+  City kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
+  City amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
   
   mainScene = new Scene("main", loadImage("main-map.png"));
   belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels);
   levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman);
   
-  belgium = new Country(belCities, belgiumScene, yellow);
-  levant = new Country(levCities, levantScene, green, blue, pink, cyan);
+  belgium = new Country(belgiumScene, yellow);
+  levant = new Country(levantScene, green, blue, pink, cyan);
   
   women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), womenText);
   youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), youthText);
@@ -237,6 +218,9 @@ public class Scene {
   
   public void display() {
     background(image);
+    for (Feature feature : features) {
+      feature.display();
+    }
   }
 }
 
@@ -347,12 +331,10 @@ public class ChangePageButton implements Clickable {
 
 
 public class Country implements Clickable {
-  private final City[] cities;
   private final Scene scene;
   private final color[] colors;
    
-  public Country(City[] cities, Scene scene, color...colors) {
-    this.cities = cities;
+  public Country(Scene scene, color...colors) {
     this.scene = scene;
     this.colors = colors;
   }
@@ -371,9 +353,6 @@ public class Country implements Clickable {
    
   public void displayScene() {
     setScene(scene);
-    for (int i = 0; i < cities.length; i++) {
-      cities[i].display();
-    }
   }
 }
 
