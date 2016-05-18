@@ -21,9 +21,6 @@ final int width = 1280;
 final int height = 800;
 float xc = width/2;
 float yc = height/2;
-float themeX = 200;
-float themeW = 200;
-float themeH = 100;
 
 Scene mainScene, belgiumScene, levantScene, currentScene;
 
@@ -40,7 +37,6 @@ Theme women;
 Theme youth;
 Theme children;
 Theme aid;
-
 Theme[] themes = new Theme[4];
 
 Text womenText = new Text("Women's Centres", "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
@@ -52,22 +48,19 @@ Text childrenText = new Text("Schools",
   "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", 
   "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
 Text aidText = new Text("Psychological Support Centres", "psych1", "psych2", "psych3", "psych4");
-
 Text brusselsChildrenText = new Text("SB Weekend", "weekend1", "weekend2", "weekend3", "weekend4");
 Text brusselsYouthText = new Text("S'engager Pour La Paix", "splp1", "splp2", "splp3", "splp4");
 Text aleppoYouthText = new Text("Bakery", "bakery1");
 Text kilisText = new Text("Kilis - closed", "closed1");
 Text ammanText = new Text("Amman - TBD", "future1", "future2");
-
 Text collectText = new Text("Collection Campaign", "collect1", "collect2", "collect3", "collect4");
-
 Text nullText = new Text("null");
 
 Text[] texts = new Text[10];
 
 void setup() {
-  size(1280, 800);
-  //fullScreen();
+  //size(1280, 800);
+  fullScreen();
   smooth(8);
   
   logo = new Image(loadImage("sblogo-400.png"));
@@ -436,7 +429,10 @@ public class Image implements Feature {
 public class Theme implements Clickable, Feature {
   private final String name;
   private boolean exists;
+  private final float x = 200;
   private float y;
+  private final float w = 200;
+  private final float h = 100;  
   private final PImage themeLogo;
   private Text text;
   
@@ -461,11 +457,11 @@ public class Theme implements Clickable, Feature {
   }
 
   private void button() {
-    rect(themeX, y, themeW, themeH);
+    rect(x, y, w, h);
     fill(0, 0, 0);
     textFont(themeFont);
     textAlign(CENTER, CENTER);
-    text(name, themeX, y, themeW, themeH);
+    text(name, x, y, w, h);
   }
 
   public void setText(Text text) {
@@ -496,7 +492,7 @@ public class Theme implements Clickable, Feature {
   }
   
   private boolean mouseWithinThemeArea() {
-    return (mouseX > themeX - themeW/2) && (mouseX < themeX + themeW/2) && (mouseY > y - themeH/2) && (mouseY < y + themeH/2);
+    return (mouseX > x - w/2) && (mouseX < x + w/2) && (mouseY > y - h/2) && (mouseY < y + h/2);
   }
   
 }
