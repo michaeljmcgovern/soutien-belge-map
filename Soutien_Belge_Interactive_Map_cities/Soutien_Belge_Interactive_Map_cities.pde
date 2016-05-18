@@ -19,8 +19,8 @@ int currentPage = 1;
 
 final int width = 1280;
 final int height = 800;
-float xc = width/2;
-float yc = height/2;
+final float xc = width/2;
+final float yc = height/2;
 
 Scene mainScene, belgiumScene, levantScene, currentScene;
 
@@ -211,7 +211,13 @@ public class Scene {
       this.features.add(feature);
     }
   }
-  
+
+  public void remove(Feature...features) {
+    for (Feature feature : features) {
+      this.features.remove(feature);
+    }
+  }
+
   public void responsive() {
     for (Feature feature : features) {
       feature.responsive();
@@ -248,6 +254,8 @@ public class BackButton implements Clickable, Feature {
   }
   
   public void respond() {
+    belgiumScene.remove(women, youth, children, aid);
+    levantScene.remove(women, youth, children, aid);
     setScene(mainScene);
     isMenuScene = false;
     isTextScene = false;
