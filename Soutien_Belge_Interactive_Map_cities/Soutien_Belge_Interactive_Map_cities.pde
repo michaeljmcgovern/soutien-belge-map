@@ -22,7 +22,8 @@ final int width = 1280;
 final int height = 800;
 final float xc = width/2;
 final float yc = height/2;
-final float menuH = 100;
+final float pc = width/1280;
+final float menuH = pc*100;
 
 
 MapScene mainScene, belgiumScene, levantScene, collectScene, brusselsScene, beirutScene, arsalScene, damascusScene, aleppoScene, kilisScene, ammanScene, currentScene;
@@ -43,23 +44,17 @@ Theme children;
 Theme aid;
 Theme[] themes = new Theme[4];
 
-Text womenText = new Text("Women's Centres", "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
-  "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
-Text youthText = new Text("Youth Education", "youthed1", "youthed2", "youthed3", "youthed4");
-Text childrenText = new Text("Schools",  
-  "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", 
-  "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", 
-  "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", 
-  "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
-Text aidText = new Text("Psychological Support Centres", "psych1", "psych2", "psych3", "psych4");
-Text brusselsChildrenText = new Text("SB Weekend", "weekend1", "weekend2", "weekend3", "weekend4");
-Text brusselsYouthText = new Text("S'engager Pour La Paix", "splp1", "splp2", "splp3", "splp4");
-Text aleppoYouthText = new Text("Bakery", "bakery1");
-Text kilisText = new Text("Kilis - closed", "closed1");
-Text ammanText = new Text("Amman - TBD", "future1", "future2");
-Text collectText = new Text("Collection Campaign", "collect1", "collect2", "collect3", "collect4");
-Text nullText = new Text("null");
-
+Text womenText;
+Text youthText;
+Text childrenText;
+Text aidText;
+Text brusselsChildrenText;
+Text brusselsYouthText;
+Text aleppoYouthText;
+Text kilisText;
+Text ammanText;
+Text collectText;
+  
 Text[] texts = new Text[10];
 
 void setup() {
@@ -76,18 +71,35 @@ void setup() {
   titleFont = createFont("Helvetica-Bold", 30);
   bodyFont = createFont("Helvetica", 20);
   
-  City brussels = new City("Brussels", 610, 295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
-  City beirut = new City("Beirut", 285, 453, womenText, youthText, childrenText, aidText);
-  City arsal = new City("Arsal, Bekaa Valley", 358, 424, womenText, youthText, childrenText, aidText);
-  City damascus = new City("Damascus", 343, 484, womenText, youthText, childrenText, aidText);
-  City aleppo = new City("Aleppo", 407, 235, womenText, aleppoYouthText, childrenText, aidText);
-  City kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
-  City amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
+  Text womenText = new Text("Women's Centres", loadImage("women-scale.jpg"), "General problems the war causes for women.", "What SB has done in 1 sentence, when, where.", 
+  "Extent of the problem – suggesting what needs we have addressed, and what more needs to be done.", "Details about our programmes.");
+  Text youthText = new Text("Youth Education", loadImage("school-scale.jpg"), "youthed1", "youthed2", "youthed3", "youthed4");
+  Text childrenText = new Text("Schools", loadImage("school-scale.jpg"),
+    "For more than 5 years, a generation of Syrian schoolchildren has been denied access to education. The consequences of such a huge educational deficit are almost unthinkable. Not only is this a personal tragedy in the lives of thousands of young Syrians, but it is also a long-term threat to any vision of a fair, stable, and prosperous Syrian society.", 
+    "Since 2013, SB Overseas has addressed this educational deficit by setting up four new schools: in Beirut and Arsal in Lebanon, and in Damascus and Aleppo in Syria.", 
+    "Demand for education services is very high in these areas. In Lebanon, the government and aid agencies struggle to provide adequate services to the massive influx of refugees in the country. In Syria, many existing schools have been destroyed in since the beginning of the war – their students are forced to look elsewhere for an education.", 
+    "In Syria, around 250 students are enrolled at each school, where they are taught the Syrian curriculum. In Lebanon classes are provided to 150 children at each school. We still see many 8- to 9-year-olds join us who have never spent a day at school before.");
+  Text aidText = new Text("Psychological Support Centres", loadImage("women-psych-scale.jpg"), "psych1", "psych2", "psych3", "psych4");
+  Text brusselsChildrenText = new Text("SB Weekend", loadImage("weekend-scale.jpg"), "weekend1", "weekend2", "weekend3", "weekend4");
+  Text brusselsYouthText = new Text("S'engager pour la paix", loadImage("splp1-scale.jpg"), "splp1", "splp2", "splp3", "splp4");
+  Text aleppoYouthText = new Text("Bakery", loadImage("bakery-scale.jpg"), "bakery1");
+  Text kilisText = new Text("Kilis - closed", loadImage("kilis-scale.jpg"), "closed1");
+  Text ammanText = new Text("Amman - TBD", loadImage("amman-scale.jpg"), "future1", "future2");
+  Text collectText = new Text("Collection Campaign", loadImage("collect-scale.jpg"), "collect1", "collect2", "collect3", "collect4");
+  Text nullText = new Text("null", loadImage("school-scale.jpg"));
+  
+  City brussels = new City("Brussels", pc*610, pc*295, nullText, brusselsYouthText, brusselsChildrenText, nullText);
+  City beirut = new City("Beirut", pc*285, pc*453, womenText, youthText, childrenText, aidText);
+  City arsal = new City("Arsal, Bekaa Valley", pc*358, pc*424, womenText, youthText, childrenText, aidText);
+  City damascus = new City("Damascus", pc*343, pc*484, womenText, youthText, childrenText, aidText);
+  City aleppo = new City("Aleppo", pc*407, pc*235, womenText, aleppoYouthText, childrenText, aidText);
+  City kilis = new City("Kilis", pc*406, pc*190, kilisText, kilisText, kilisText, kilisText);
+  City amman = new City("Amman", pc*316, pc*625, ammanText, ammanText, ammanText, ammanText);
   
   mainScene = new MapScene("main", loadImage("main-map.png"), collectArrow);
   belgiumScene = new MapScene("belgium", loadImage("belgium.png"), brussels, backButton);
   levantScene = new MapScene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
-  //collectScene = new Scene("collect", loadImage("collectimage.png"), loadImage("collectimage.png")
+  collectScene = new MapScene("collect", loadImage("main-map.png"), collectText, backButton);
   //brusselsScene =
   //beirutScene
   //arsalScene
@@ -109,6 +121,7 @@ void setup() {
   themes[2] = children;
   themes[3] = aid;
   
+
   texts[0] = womenText;
   texts[1] = youthText;
   texts[2] = childrenText;
@@ -144,7 +157,8 @@ void setup() {
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   strokeJoin(ROUND);
-
+  strokeCap(SQUARE);
+  
   setScene(mainScene);
 };
 
@@ -252,21 +266,48 @@ public class MapScene implements Scene {
   }
 }
 
+/*
+public class TextScene implements Scene {
+  private final String name;
+  private final ArrayList<Feature> features = new ArrayList<Feature>();
+  //private final int numImages;
+  
+  public TextScene(String name, Feature...features) {
+    this.name = name;
+    for (Feature feature : features) {
+      this.features.add(feature);
+    }
+  }
+
+  public void display(){
+    text(name, xc, yc);
+    for (Feature feature : features) {
+      feature.display();
+    }
+  }
+}
+*/
+
 public class BackButton implements Clickable, Feature {
   private color buttonColor;
   
-  private final int w = 90;
-  private final int h = 50;
-  private final int m = 15;
-  private final int x = w/2 + m;
-  private final int y = h/2 + m;
+  private final float w = pc*90;
+  private final float h = pc*50;
+  private final float m = pc*15;
+  private final float x = w/2 + m;
+  private final float y = h/2 + m;
   
   public BackButton() {
     buttonColor = color(200, 0, 50);
   }
   
   public void respond() {
-    setScene(mainScene);
+    if (!currentScene.is(collectScene) && ((isMenuScene) || (isTextScene))) {
+      setScene(currentScene);
+    } else {
+      setScene(mainScene);
+    }
+    
     isMenuScene = false;
     isTextScene = false;
   }
@@ -299,8 +340,8 @@ public class BackButton implements Clickable, Feature {
 
 public class ChangePageButton implements Clickable {
   private final float x;
-  private final float y = height - menuH - 20;
-  private final float d = 40;
+  private final float y = height - menuH - pc*20;
+  private final float d = pc*40;
   private int notDisplayed;
   private final int changeValue;
 
@@ -371,11 +412,11 @@ public class Country implements Clickable {
 
 public class City implements Clickable, Feature {
   private final String name;
-  private final int x, y;
-  private final int d = 50;
+  private final float x, y;
+  private final float d = pc*50;
   private final Text womenText, youthText, childrenText, aidText;
   
-  public City(String name, int x, int y, Text womenText, Text youthText, Text childrenText, Text aidText) {
+  public City(String name, float x, float y, Text womenText, Text youthText, Text childrenText, Text aidText) {
     this.name = name;
     this.x = x;
     this.y = y;
@@ -400,12 +441,6 @@ public class City implements Clickable, Feature {
     for (Theme theme : themes) {
       theme.display();
     }
-  }
-  
-  private void tintScene() {
-    tint(155);
-    currentScene.display();
-    noTint();
   }
   
   public boolean mouseOver() {
@@ -437,9 +472,13 @@ public class Arrow implements Clickable, Feature {
     }
   }
   
+  public boolean mouseOver() {
+    if ((currentScene.is(mainScene) && (get(mouseX,mouseY) == maroon))) return true;
+    return false;
+  }
+  
   public void respond() {
-    isTextScene = true;
-    collectText.display();
+    setScene(collectScene);
   }
   
   public void display() {
@@ -447,29 +486,28 @@ public class Arrow implements Clickable, Feature {
     stroke(128,0,0);
     strokeWeight(w);
     beginShape();
-    vertex(330, 270);
-    bezierVertex(345, 245, 295, 245, 285, 260);
-    bezierVertex(275, 275, 255, 279, 225, 277);
-    bezierVertex(150, 272, 70, 300, 40, 350);
-    bezierVertex(10, 400, 10, 500, 15, 550);
-    bezierVertex(20, 600, 60, 620, 90, 627);
-    bezierVertex(120, 634, 215, 640, 285, 615);
-    bezierVertex(355, 590, 410, 600, 470, 625);
-    bezierVertex(530, 650, 650, 670, 740, 670);
-    bezierVertex(830, 670, 917, 656, 965, 620);
+    vertex(pc*330, pc*270);
+    bezierVertex(pc*345, pc*245, pc*295, pc*245, pc*285, pc*260);
+    bezierVertex(pc*275, pc*275, pc*255, pc*279, pc*225, pc*277);
+    bezierVertex(pc*150, pc*272, pc*70, pc*300, pc*40, pc*350);
+    bezierVertex(pc*10, pc*400, pc*10, pc*500, pc*15, pc*550);
+    bezierVertex(pc*20, pc*600, pc*60, pc*620, pc*90, pc*627);
+    bezierVertex(pc*120, pc*634, pc*215, pc*640, pc*285, pc*615);
+    bezierVertex(pc*355, pc*590, pc*410, pc*600, pc*470, pc*625);
+    bezierVertex(pc*530, pc*650, pc*650, pc*670, pc*740, pc*670);
+    bezierVertex(pc*830, pc*670, pc*917, pc*656, pc*965, pc*620);
     endShape();
     beginShape();
-    vertex(740, 670);
-    bezierVertex(820, 660, 920, 590, 930, 550);
-    bezierVertex(940, 510, 968, 510, 980, 525);
-    bezierVertex(984, 530, 985, 540, 985, 550);
+    vertex(pc*740, pc*670);
+    bezierVertex(pc*820, pc*660, pc*920, pc*590, pc*930, pc*550);
+    bezierVertex(pc*940, pc*510, pc*968, pc*510, pc*980, pc*525);
+    bezierVertex(pc*984, pc*530, pc*985, pc*540, pc*985, pc*550);
     endShape();
 
     noStroke();
-    fill(150,0,0);
-    triangle(985, 560, 995, 540, 975, 540);
-    triangle(973, 614, 963, 634, 951, 618);
-    
+    fill(128,0,0);
+    triangle(pc*985, pc*560, pc*995, pc*540, pc*975, pc*540);
+    triangle(pc*973, pc*614, pc*963, pc*634, pc*951, pc*618);
     /*
     fill(0, 0, 255);
     noStroke();
@@ -531,11 +569,6 @@ public class Arrow implements Clickable, Feature {
     ellipse(985, 540, 5, 5);
     */
   }
-  
-  public boolean mouseOver() {
-    if ((currentScene.is(mainScene) && (get(mouseX,mouseY) == maroon))) return true;
-    return false;
-  }
 }
 
 
@@ -549,7 +582,7 @@ public class Image implements Feature {
   }
   
   public void display() {
-    image(image, xc, yc, 400, 400);
+    image(image, xc, yc, pc*400, pc*400);
   }
   
   public void responsive() {}
@@ -608,11 +641,15 @@ public class Theme implements Clickable, Feature {
   
   private void logo() {
     if (!isTextScene) {
-      image(themeLogo, xc, yc, 400, 400);
+      image(themeLogo, xc, yc, pc*400, pc*400);
     }
   }
   
   public void respond() {
+      tintScene();
+      for (Theme theme : themes) {
+        theme.display();
+      }
       currentPage = 1;
       text.setToFirstPage();
       text.display();
@@ -629,15 +666,17 @@ public class Theme implements Clickable, Feature {
 }
 
 
-public class Text {
+public class Text implements Feature {
   public boolean isText;
   private final String title;
+  private final PImage image;
   private final String[] pages;
   private final int numPages;
   private int page;
   
-  public Text(String title, String...pages) {
+  public Text(String title, PImage image, String...pages) {
     this.title = title;
+    this.image = image;
     this.pages = pages;
     numPages = pages.length;
     page = 0;
@@ -663,10 +702,18 @@ public class Text {
       text.isText = false;
     }
     isText = true;
-        
+    
+    
+    //image
+    image(image, xc*1.5, yc*0.5);
+    
     //textbox
     fill(255,255,255);
-    rect(xc*1.5, yc*1.5 - menuH/2, xc, yc-menuH);    
+    if (currentScene.is(collectScene)) {
+      rect(xc*1.5, yc*1.5, xc, yc);
+    } else {
+      rect(xc*1.5, yc*1.5 - menuH/2, xc, yc-menuH);
+    }
     
     //title
     fill(0, 0, 0);
@@ -676,7 +723,7 @@ public class Text {
     
     //body text
     textFont(bodyFont);
-    display(pages[page]);
+    bodyText(pages[page]);
     nextPB.setLimit(numPages);
     if (page > 0) {
       prevPB.display();
@@ -686,7 +733,15 @@ public class Text {
     }
   }
   
-  private void display(String text) {
+  public void responsive() {}
+  
+  private void bodyText(String text) {
     text(text, xc*1.5, yc*1.5 - menuH/2 + 5, xc, yc - menuH - 15);
   }
+}
+
+void tintScene() {
+  tint(155);
+  currentScene.display();
+  noTint();
 }
