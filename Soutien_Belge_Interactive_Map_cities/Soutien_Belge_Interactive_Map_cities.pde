@@ -3,6 +3,7 @@ final color pink = color(195, 64, 145);
 final color blue = color(65, 109, 174);
 final color green = color(158, 195, 77);
 final color cyan = color(77, 181, 195);
+final color maroon = color(128, 0, 0);
 
 Image logo;
 PImage logoInner;
@@ -32,6 +33,7 @@ ChangePageButton nextPB = new ChangePageButton(xc*1.5 + 20, 1);
 
 Country belgium;
 Country levant;
+Arrow collectArrow = new Arrow();
 
 Theme women;
 Theme youth;
@@ -80,7 +82,7 @@ void setup() {
   City kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
   City amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
   
-  mainScene = new Scene("main", loadImage("main-map.png"));
+  mainScene = new Scene("main", loadImage("main-map.png"), collectArrow);
   belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels, backButton);
   levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
   
@@ -111,6 +113,7 @@ void setup() {
   clickables.add(backButton);
   clickables.add(prevPB);
   clickables.add(nextPB);
+  clickables.add(collectArrow);
   clickables.add(belgium);
   clickables.add(levant);
   clickables.add(brussels);
@@ -130,6 +133,7 @@ void setup() {
   rectMode(CENTER);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
+  strokeJoin(ROUND);
 
   setScene(mainScene);
 };
@@ -212,12 +216,6 @@ public class Scene {
     }
   }
 
-  public void remove(Feature...features) {
-    for (Feature feature : features) {
-      this.features.remove(feature);
-    }
-  }
-
   public void responsive() {
     for (Feature feature : features) {
       feature.responsive();
@@ -233,7 +231,7 @@ public class Scene {
   }
   
   public void display() {
-    background(image);
+    image(image, xc, yc);
     for (Feature feature : features) {
       feature.display();
     }
@@ -247,15 +245,13 @@ public class BackButton implements Clickable, Feature {
   private final int h = 50;
   private final int m = 15;
   private final int x = w/2 + m;
-  private final int y = height - h/2 - m;
+  private final int y = h/2 + m;
   
   public BackButton() {
     buttonColor = color(200, 0, 50);
   }
   
   public void respond() {
-    belgiumScene.remove(women, youth, children, aid);
-    levantScene.remove(women, youth, children, aid);
     setScene(mainScene);
     isMenuScene = false;
     isTextScene = false;
@@ -282,7 +278,7 @@ public class BackButton implements Clickable, Feature {
   }
   
   public boolean mouseOver() {
-    return (!currentScene.is(mainScene)) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY >= height - h - m) && (mouseY <= height - m);
+    return (!currentScene.is(mainScene)) && (mouseX >= m) && (mouseX <= m + w) &&  (mouseY <= h + m) && (mouseY >= m);
   }
 }
 
@@ -346,7 +342,7 @@ public class Country implements Clickable {
   }
   
   public void respond() {
-    displayScene();
+    setScene(scene);
   }
  
   public boolean mouseOver() {
@@ -355,10 +351,6 @@ public class Country implements Clickable {
       if (get(mouseX,mouseY) == col) return true;
     }
     return false;
-  }
-   
-  public void displayScene() {
-    setScene(scene);
   }
 }
 
@@ -390,18 +382,15 @@ public class City implements Clickable, Feature {
     children.setText(childrenText);
     aid.setText(aidText);
     
-    currentScene.add(women, youth, children, aid);
-    currentScene.display();
     tintScene();
+    for (Theme theme : themes) {
+      theme.display();
+    }
   }
   
   private void tintScene() {
     tint(155);
-    if (currentScene.is(belgiumScene)) {
-      belgium.displayScene();
-    } else if (currentScene.is(levantScene)) {
-      levant.displayScene();
-    }    
+    currentScene.display();
     noTint();
   }
   
@@ -418,6 +407,125 @@ public class City implements Clickable, Feature {
   }
 }
 
+
+public class Arrow implements Clickable, Feature {
+  private int w = 5;
+  
+  public Arrow() {}
+
+  public void responsive() {
+    if (mouseOver()) {
+      w = 7;
+      display();
+    } else {
+      w = 5;
+      mainScene.display();
+    }
+  }
+  
+  public void respond() {
+    isTextScene = true;
+    collectText.display();
+  }
+  
+  public void display() {
+    noFill();
+    stroke(128,0,0);
+    strokeWeight(w);
+    beginShape();
+    vertex(330, 270);
+    bezierVertex(345, 245, 295, 245, 285, 260);
+    bezierVertex(275, 275, 255, 279, 225, 277);
+    bezierVertex(150, 272, 70, 300, 40, 350);
+    bezierVertex(10, 400, 10, 500, 15, 550);
+    bezierVertex(20, 600, 60, 620, 90, 627);
+    bezierVertex(120, 634, 215, 640, 285, 615);
+    bezierVertex(355, 590, 410, 600, 470, 625);
+    bezierVertex(530, 650, 650, 670, 740, 670);
+    bezierVertex(830, 670, 917, 656, 965, 620);
+    endShape();
+    beginShape();
+    vertex(740, 670);
+    bezierVertex(820, 660, 920, 590, 930, 550);
+    bezierVertex(940, 510, 968, 510, 980, 525);
+    bezierVertex(984, 530, 985, 540, 985, 550);
+    endShape();
+
+    noStroke();
+    fill(150,0,0);
+    triangle(985, 560, 995, 540, 975, 540);
+    triangle(973, 614, 963, 634, 951, 618);
+    
+    /*
+    fill(0, 0, 255);
+    noStroke();
+    ellipse(330, 270, 5, 5);
+    //ellipse(330, 260, 5, 5);
+    //ellipse(310, 250, 5, 5);
+    ellipse(285, 260, 5, 5);
+    //ellipse(260, 275, 5, 5);
+    ellipse(225, 277, 5, 5);
+    ellipse(40, 350, 5, 5);
+    ellipse(15, 550, 5, 5);
+    ellipse(90, 627, 5, 5);
+    ellipse(285, 615, 5, 5);
+    //ellipse(410, 600, 5, 5);
+    ellipse(470, 625, 5, 5);
+    //ellipse(530, 650, 5, 5);
+    ellipse(740, 670, 5, 5);
+    ellipse(965, 620, 5, 5);
+    //ellipse(905, 585, 5, 5);
+    ellipse(930, 550, 5, 5);
+    ellipse(980, 525, 5, 5);
+    ellipse(985, 550, 5, 5);
+    
+    fill(255,255,0);
+    ellipse(345, 245, 5, 5);
+    ellipse(295, 245, 5, 5);
+    fill(0, 155, 0);
+    ellipse(275, 275, 5, 5);
+    ellipse(255, 279, 5, 5);
+    fill(255,255,0);
+    ellipse(150, 272, 5, 5);
+    ellipse(70, 300, 5, 5);
+    fill(0,155,0);
+    ellipse(10, 400, 5, 5);
+    ellipse(10, 500, 5, 5);
+    fill(255,255,0);
+    ellipse(20, 600, 5, 5);
+    ellipse(60, 620, 5, 5);
+    fill(0,155,0);
+    ellipse(120, 634, 5, 5);
+    ellipse(215, 640, 5, 5);
+    fill(255,255,0);
+    ellipse(355, 590, 5, 5);
+    ellipse(410, 600, 5, 5);
+    fill(0,155,0);
+    ellipse(530, 650, 5, 5);
+    ellipse(650, 670, 5, 5);
+    fill(255,255,0);
+    ellipse(830, 670, 5, 5);
+    ellipse(917, 656, 5, 5);
+    fill(0,155,0);
+    ellipse(820, 660, 5, 5);
+    ellipse(920, 590, 5, 5);
+    fill(255,255,0);
+    ellipse(940, 510, 5, 5);
+    ellipse(968, 510, 5, 5);
+    fill(0,155,0);
+    ellipse(984, 530, 5, 5);
+    ellipse(985, 540, 5, 5);
+    */
+  }
+  
+  public boolean mouseOver() {
+    if ((currentScene.is(mainScene) && (get(mouseX,mouseY) == maroon))) return true;
+    return false;
+  }
+}
+
+
+
 public class Image implements Feature {
   
   private final PImage image;
@@ -432,6 +540,9 @@ public class Image implements Feature {
   
   public void responsive() {}
 }
+
+
+
 
 
 public class Theme implements Clickable, Feature {
