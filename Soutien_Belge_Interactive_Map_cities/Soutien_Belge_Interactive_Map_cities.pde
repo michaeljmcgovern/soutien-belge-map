@@ -25,7 +25,7 @@ final float yc = height/2;
 final float menuH = 100;
 
 
-Scene mainScene, belgiumScene, levantScene, collectScene, brusselsScene, beirutScene, arsalScene, damascusScene, aleppoScene, kilisScene, ammanScene, currentScene;
+MapScene mainScene, belgiumScene, levantScene, collectScene, brusselsScene, beirutScene, arsalScene, damascusScene, aleppoScene, kilisScene, ammanScene, currentScene;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -84,9 +84,9 @@ void setup() {
   City kilis = new City("Kilis", 406, 190, kilisText, kilisText, kilisText, kilisText);
   City amman = new City("Amman", 316, 625, ammanText, ammanText, ammanText, ammanText);
   
-  mainScene = new Scene("main", loadImage("main-map.png"), collectArrow);
-  belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels, backButton);
-  levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
+  mainScene = new MapScene("main", loadImage("main-map.png"), collectArrow);
+  belgiumScene = new MapScene("belgium", loadImage("belgium.png"), brussels, backButton);
+  levantScene = new MapScene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
   //collectScene = new Scene("collect", loadImage("collectimage.png"), loadImage("collectimage.png")
   //brusselsScene =
   //beirutScene
@@ -184,7 +184,7 @@ void mouseReleased() {
   }
 }
 
-void setScene(Scene scene) {
+void setScene(MapScene scene) {
   currentScene = scene;
   currentScene.display();
 }
@@ -203,19 +203,23 @@ public interface Clickable {
   public void respond();
 }
 
+public interface Scene {
+  public void display();
+}
 
-public class Scene {
+
+public class MapScene implements Scene {
   private final String name;
   private final PImage image;
   private final ArrayList<Feature> features = new ArrayList<Feature>();
   
-  public Scene(String name, PImage image, Feature...features) {
+  public MapScene(String name, PImage image, Feature...features) {
     this.name = name;
     this.image = image;
     add(features);
   }
   
-  public Scene(String name, PImage image) {
+  public MapScene(String name, PImage image) {
     this.name = name;
     this.image = image;
   }
@@ -236,7 +240,7 @@ public class Scene {
     return features.contains(feature);
   }
   
-  public boolean is(Scene other) {
+  public boolean is(MapScene other) {
     return name == other.name;
   }
   
@@ -343,10 +347,10 @@ public class ChangePageButton implements Clickable {
 
 
 public class Country implements Clickable {
-  private final Scene scene;
+  private final MapScene scene;
   private final color[] colors;
    
-  public Country(Scene scene, color...colors) {
+  public Country(MapScene scene, color...colors) {
     this.scene = scene;
     this.colors = colors;
   }
