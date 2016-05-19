@@ -22,8 +22,10 @@ final int width = 1280;
 final int height = 800;
 final float xc = width/2;
 final float yc = height/2;
+final float menuH = 100;
 
-Scene mainScene, belgiumScene, levantScene, currentScene;
+
+Scene mainScene, belgiumScene, levantScene, collectScene, brusselsScene, beirutScene, arsalScene, damascusScene, aleppoScene, kilisScene, ammanScene, currentScene;
 
 ArrayList<Clickable> clickables = new ArrayList<Clickable>();
 
@@ -85,14 +87,22 @@ void setup() {
   mainScene = new Scene("main", loadImage("main-map.png"), collectArrow);
   belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels, backButton);
   levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
+  //collectScene = new Scene("collect", loadImage("collectimage.png"), loadImage("collectimage.png")
+  //brusselsScene =
+  //beirutScene
+  //arsalScene
+  //damascusScene
+  //aleppoScene
+  //kilisScene
+  //ammanScene
   
   belgium = new Country(belgiumScene, yellow);
   levant = new Country(levantScene, green, blue, pink, cyan);
   
-  women = new Theme("Women", yc - 150, loadImage("sblogo-yellow.png"), womenText);
-  youth = new Theme("Youth", yc - 50, loadImage("sblogo-green.png"), youthText);
-  children = new Theme("Children", yc + 50, loadImage("sblogo-blue.png"), childrenText);
-  aid = new Theme("Aid", yc + 150, loadImage("sblogo-pink.png"), aidText);
+  women = new Theme("Women", xc/4, loadImage("sblogo-yellow.png"), womenText);
+  youth = new Theme("Youth", 3*xc/4, loadImage("sblogo-green.png"), youthText);
+  children = new Theme("Children", 5*xc/4, loadImage("sblogo-blue.png"), childrenText);
+  aid = new Theme("Aid", 7*xc/4, loadImage("sblogo-pink.png"), aidText);
   
   themes[0] = women;
   themes[1] = youth;
@@ -285,7 +295,7 @@ public class BackButton implements Clickable, Feature {
 
 public class ChangePageButton implements Clickable {
   private final float x;
-  private final float y = height - 20;
+  private final float y = height - menuH - 20;
   private final float d = 40;
   private int notDisplayed;
   private final int changeValue;
@@ -535,7 +545,7 @@ public class Image implements Feature {
   }
   
   public void display() {
-    image(image, 900, yc, 400, 400);
+    image(image, xc, yc, 400, 400);
   }
   
   public void responsive() {}
@@ -548,16 +558,14 @@ public class Image implements Feature {
 public class Theme implements Clickable, Feature {
   private final String name;
   private boolean exists;
-  private final float x = 200;
-  private float y;
-  private final float w = 200;
-  private final float h = 100;  
+  private final float w = width/4, h = menuH, y = height - h/2;  
+  private final float x;
   private final PImage themeLogo;
   private Text text;
   
-  public Theme(String name, float y, PImage themeLogo, Text text) {
+  public Theme(String name, float x, PImage themeLogo, Text text) {
     this.name = name;
-    this.y = y;
+    this.x = x;
     this.themeLogo = themeLogo;
     this.text = text;
     exists = false;
@@ -596,7 +604,7 @@ public class Theme implements Clickable, Feature {
   
   private void logo() {
     if (!isTextScene) {
-      image(themeLogo, 900, yc, 400, 400);
+      image(themeLogo, xc, yc, 400, 400);
     }
   }
   
@@ -654,7 +662,7 @@ public class Text {
         
     //textbox
     fill(255,255,255);
-    rect(xc*1.5, yc*1.5, xc, yc);    
+    rect(xc*1.5, yc*1.5 - menuH/2, xc, yc-menuH);    
     
     //title
     fill(0, 0, 0);
@@ -675,6 +683,6 @@ public class Text {
   }
   
   private void display(String text) {
-    text(text, xc*1.5, yc*1.5 + 5, xc, yc - 20);
+    text(text, xc*1.5, yc*1.5 - menuH/2 + 5, xc, yc - menuH - 15);
   }
 }
