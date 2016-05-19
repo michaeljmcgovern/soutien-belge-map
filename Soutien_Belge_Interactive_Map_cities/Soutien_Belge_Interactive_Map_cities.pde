@@ -87,8 +87,8 @@ void setup() {
   mainScene = new Scene("main", loadImage("main-map.png"), collectArrow);
   belgiumScene = new Scene("belgium", loadImage("belgium.png"), brussels, backButton);
   levantScene = new Scene("levant", loadImage("middleeast.png"), beirut, arsal, damascus, aleppo, kilis, amman, backButton);
-  //collectScene = new Scene("collect", loadImage("collectimage.png"), loadImage("collectimage.png")
-  //brusselsScene =
+  //collectScene = new Scene("collect", loadImage("collectimage.png"), loadImage("collectimage1.png"), loadImage("collectimage2.png"), loadImage("collectimage3.png"));
+  //brusselsScene = 
   //beirutScene
   //arsalScene
   //damascusScene
@@ -204,22 +204,23 @@ public interface Clickable {
 }
 
 
+
+
 public class Scene {
   private final String name;
   private final PImage image;
   private final ArrayList<Feature> features = new ArrayList<Feature>();
   
-  public Scene(String name, PImage image, Feature...features) {
-    this.name = name;
-    this.image = image;
-    add(features);
-  }
-  
   public Scene(String name, PImage image) {
     this.name = name;
     this.image = image;
   }
-  
+
+  public Scene(String name, Feature...features) {
+    this.name = name;
+    add(features);
+  }
+    
   public void add(Feature...features) {
     for (Feature feature : features) {
       this.features.add(feature);
@@ -247,6 +248,26 @@ public class Scene {
     }
   }
 }
+
+
+
+public class CountryScene extends Scene {  
+  
+  CountryScene(String name, Feature...features) {
+    super(name, features);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 public class BackButton implements Clickable, Feature {
   private color buttonColor;
